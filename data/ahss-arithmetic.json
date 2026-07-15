@@ -1,0 +1,513 @@
+{
+  "sourcePdf": "handwritten-ahss-arithmetic",
+  "count": 24,
+  "questions": [
+    {
+      "externalId": "ahss-arith-001",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Whole number operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 342 + 176?",
+      "choices": [
+        { "id": "A", "text": "508" },
+        { "id": "B", "text": "518" },
+        { "id": "C", "text": "528" },
+        { "id": "D", "text": "1,112" }
+      ],
+      "correctChoice": "B",
+      "explanation": "Add the ones: 2 + 6 = 8. Add the tens: 4 + 7 = 11, write 1 and carry 1. Add the hundreds with the carry: 3 + 1 + 1 = 5. The sum is 518.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-002",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Whole number operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 1,205 − 748?",
+      "choices": [
+        { "id": "A", "text": "457" },
+        { "id": "B", "text": "463" },
+        { "id": "C", "text": "543" },
+        { "id": "D", "text": "1,953" }
+      ],
+      "correctChoice": "A",
+      "explanation": "Line up the numbers and subtract with borrowing. 1,205 − 748 = 457. Check: 457 + 748 = 1,205.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-003",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Whole number operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 45 × 8?",
+      "choices": [
+        { "id": "A", "text": "320" },
+        { "id": "B", "text": "340" },
+        { "id": "C", "text": "360" },
+        { "id": "D", "text": "405" }
+      ],
+      "correctChoice": "C",
+      "explanation": "45 × 8 = (40 × 8) + (5 × 8) = 320 + 40 = 360.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-004",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Whole number operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "What is 936 ÷ 8?",
+      "choices": [
+        { "id": "A", "text": "107" },
+        { "id": "B", "text": "117" },
+        { "id": "C", "text": "127" },
+        { "id": "D", "text": "137" }
+      ],
+      "correctChoice": "B",
+      "explanation": "8 goes into 9 once (remainder 1). Bring down the 3 to get 13; 8 goes into 13 once (remainder 5). Bring down the 6 to get 56; 8 goes into 56 seven times exactly. Quotient: 117.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-005",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Whole number operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "Which of the following whole numbers is divisible by 3?",
+      "choices": [
+        { "id": "A", "text": "121" },
+        { "id": "B", "text": "205" },
+        { "id": "C", "text": "348" },
+        { "id": "D", "text": "511" }
+      ],
+      "correctChoice": "C",
+      "explanation": "A whole number is divisible by 3 if the sum of its digits is divisible by 3. For 348: 3 + 4 + 8 = 15, which is divisible by 3. Sums for the others are 4, 7, and 7 — none divisible by 3.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-006",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Whole number operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "What is the value of 24 × 25?",
+      "choices": [
+        { "id": "A", "text": "500" },
+        { "id": "B", "text": "525" },
+        { "id": "C", "text": "575" },
+        { "id": "D", "text": "600" }
+      ],
+      "correctChoice": "D",
+      "explanation": "24 × 25 = 24 × (100 ÷ 4) = 2,400 ÷ 4 = 600. You can also compute 24 × 25 = (20 × 25) + (4 × 25) = 500 + 100 = 600.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+
+    {
+      "externalId": "ahss-arith-007",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Decimal operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 0.75 + 0.5?",
+      "choices": [
+        { "id": "A", "text": "0.125" },
+        { "id": "B", "text": "1.25" },
+        { "id": "C", "text": "12.5" },
+        { "id": "D", "text": "1.55" }
+      ],
+      "correctChoice": "B",
+      "explanation": "Align the decimals: 0.75 + 0.50 = 1.25.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-008",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Decimal operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 2.4 − 0.85?",
+      "choices": [
+        { "id": "A", "text": "0.55" },
+        { "id": "B", "text": "1.55" },
+        { "id": "C", "text": "1.65" },
+        { "id": "D", "text": "2.15" }
+      ],
+      "correctChoice": "B",
+      "explanation": "Write 2.4 as 2.40 to match decimal places. Then 2.40 − 0.85 = 1.55.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-009",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Decimal operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 0.6 × 0.5?",
+      "choices": [
+        { "id": "A", "text": "0.03" },
+        { "id": "B", "text": "0.11" },
+        { "id": "C", "text": "0.3" },
+        { "id": "D", "text": "3.0" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Multiply as whole numbers: 6 × 5 = 30. Both factors have one decimal place, so the product has two decimal places: 0.30 = 0.3.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-010",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Decimal operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "What is 4.5 ÷ 0.9?",
+      "choices": [
+        { "id": "A", "text": "4.5" },
+        { "id": "B", "text": "5" },
+        { "id": "C", "text": "50" },
+        { "id": "D", "text": "0.5" }
+      ],
+      "correctChoice": "B",
+      "explanation": "Multiply both by 10 to remove the decimal in the divisor: 4.5 ÷ 0.9 = 45 ÷ 9 = 5.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-011",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Decimal operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "A shirt costs $19.99. With 8% sales tax, what is the total price to the nearest cent?",
+      "choices": [
+        { "id": "A", "text": "$21.20" },
+        { "id": "B", "text": "$21.59" },
+        { "id": "C", "text": "$21.90" },
+        { "id": "D", "text": "$22.20" }
+      ],
+      "correctChoice": "B",
+      "explanation": "Total = 19.99 × 1.08 = 21.5892, which rounds to $21.59.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-012",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Decimal operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "What is 0.125 expressed as a fraction in lowest terms?",
+      "choices": [
+        { "id": "A", "text": "1/5" },
+        { "id": "B", "text": "1/8" },
+        { "id": "C", "text": "3/8" },
+        { "id": "D", "text": "1/16" }
+      ],
+      "correctChoice": "B",
+      "explanation": "0.125 = 125/1000. Divide numerator and denominator by 125 to get 1/8.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+
+    {
+      "externalId": "ahss-arith-013",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Fraction operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 1/2 + 1/3?",
+      "choices": [
+        { "id": "A", "text": "2/5" },
+        { "id": "B", "text": "1/6" },
+        { "id": "C", "text": "5/6" },
+        { "id": "D", "text": "5/3" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Convert to a common denominator of 6: 1/2 = 3/6 and 1/3 = 2/6. Then 3/6 + 2/6 = 5/6.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-014",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Fraction operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "What is 3/4 − 1/6?",
+      "choices": [
+        { "id": "A", "text": "1/2" },
+        { "id": "B", "text": "2/10" },
+        { "id": "C", "text": "7/12" },
+        { "id": "D", "text": "1/3" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Use a common denominator of 12: 3/4 = 9/12 and 1/6 = 2/12. Then 9/12 − 2/12 = 7/12.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-015",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Fraction operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 2/3 × 3/4?",
+      "choices": [
+        { "id": "A", "text": "6/7" },
+        { "id": "B", "text": "5/12" },
+        { "id": "C", "text": "1/2" },
+        { "id": "D", "text": "1/4" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Multiply straight across: (2 × 3) / (3 × 4) = 6/12 = 1/2.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-016",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Fraction operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "What is 4/5 ÷ 2/3?",
+      "choices": [
+        { "id": "A", "text": "8/15" },
+        { "id": "B", "text": "2/3" },
+        { "id": "C", "text": "6/5" },
+        { "id": "D", "text": "12/15" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Dividing by a fraction is multiplying by its reciprocal: 4/5 ÷ 2/3 = 4/5 × 3/2 = 12/10 = 6/5.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-017",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Fraction operations",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "Ali ate 2/5 of a pizza and Sara ate 1/4 of the same pizza. What fraction of the pizza did they eat combined?",
+      "choices": [
+        { "id": "A", "text": "3/9" },
+        { "id": "B", "text": "1/5" },
+        { "id": "C", "text": "13/20" },
+        { "id": "D", "text": "2/9" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Common denominator is 20. 2/5 = 8/20 and 1/4 = 5/20. Together: 8/20 + 5/20 = 13/20.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-018",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Fraction operations",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "Simplify 18/24 to its lowest terms.",
+      "choices": [
+        { "id": "A", "text": "3/4" },
+        { "id": "B", "text": "2/3" },
+        { "id": "C", "text": "6/8" },
+        { "id": "D", "text": "9/12" }
+      ],
+      "correctChoice": "A",
+      "explanation": "The greatest common divisor of 18 and 24 is 6. Dividing both by 6 gives 3/4. Choices C and D are equivalent to 3/4 but not in lowest terms.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+
+    {
+      "externalId": "ahss-arith-019",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Number comparison & equivalents",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "Which is larger, 0.3 or 1/4?",
+      "choices": [
+        { "id": "A", "text": "0.3" },
+        { "id": "B", "text": "1/4" },
+        { "id": "C", "text": "They are equal" },
+        { "id": "D", "text": "It cannot be determined" }
+      ],
+      "correctChoice": "A",
+      "explanation": "Convert 1/4 to a decimal: 1/4 = 0.25. Since 0.30 > 0.25, 0.3 is larger.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-020",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Number comparison & equivalents",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "Which list orders 0.6, 3/5, 2/3, and 0.65 from smallest to largest?",
+      "choices": [
+        { "id": "A", "text": "0.6 = 3/5, 0.65, 2/3" },
+        { "id": "B", "text": "3/5, 0.6, 0.65, 2/3" },
+        { "id": "C", "text": "0.6, 3/5, 2/3, 0.65" },
+        { "id": "D", "text": "0.65, 2/3, 0.6, 3/5" }
+      ],
+      "correctChoice": "A",
+      "explanation": "Convert each to decimals: 3/5 = 0.60, 2/3 ≈ 0.667. So 0.6 = 3/5 < 0.65 < 2/3.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-021",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Number comparison & equivalents",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What percentage is equivalent to 3/4?",
+      "choices": [
+        { "id": "A", "text": "34%" },
+        { "id": "B", "text": "43%" },
+        { "id": "C", "text": "75%" },
+        { "id": "D", "text": "80%" }
+      ],
+      "correctChoice": "C",
+      "explanation": "3/4 = 0.75, and 0.75 × 100 = 75%.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-022",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Number comparison & equivalents",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 4,378 rounded to the nearest hundred?",
+      "choices": [
+        { "id": "A", "text": "4,300" },
+        { "id": "B", "text": "4,380" },
+        { "id": "C", "text": "4,400" },
+        { "id": "D", "text": "4,000" }
+      ],
+      "correctChoice": "C",
+      "explanation": "Look at the tens digit, which is 7. Since 7 ≥ 5, round up. 4,378 rounds to 4,400.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-023",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Number comparison & equivalents",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "Which value is the best estimate of 297 × 41?",
+      "choices": [
+        { "id": "A", "text": "8,000" },
+        { "id": "B", "text": "12,000" },
+        { "id": "C", "text": "16,000" },
+        { "id": "D", "text": "20,000" }
+      ],
+      "correctChoice": "B",
+      "explanation": "Round each factor: 297 ≈ 300 and 41 ≈ 40. Then 300 × 40 = 12,000. The exact answer is 12,177, so 12,000 is the closest estimate.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    },
+    {
+      "externalId": "ahss-arith-024",
+      "sectionKey": "MATH",
+      "schoolSlug": "ahss",
+      "questionType": "MCQ",
+      "domain": "Arithmetic",
+      "skill": "Number comparison & equivalents",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What is 40% of 250?",
+      "choices": [
+        { "id": "A", "text": "40" },
+        { "id": "B", "text": "60" },
+        { "id": "C", "text": "100" },
+        { "id": "D", "text": "125" }
+      ],
+      "correctChoice": "C",
+      "explanation": "40% of 250 = 0.40 × 250 = 100. Alternatively, 10% of 250 is 25, so 40% is 4 × 25 = 100.",
+      "stemImageUrl": null,
+      "sourcePage": 0
+    }
+  ]
+}

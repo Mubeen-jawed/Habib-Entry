@@ -1,0 +1,216 @@
+// Habib Entry — Prisma schema
+// SQLite for dev; switch provider to "postgresql" for prod and re-run prisma migrate.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------- Auth.js (NextAuth) models ----------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  passwordHash  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[]
+  sessions Session[]
+  attempts Attempt[]
+  essays   Essay[]
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------- Test-prep content ----------
+
+// SectionKind enum-ish via string. SQLite doesn't support enums natively before Prisma 7,
+// so we keep it as string with known values: "MATH", "READING", "WRITING".
+model Section {
+  id          String  @id @default(cuid())
+  key         String  @unique // "MATH" | "READING" | "WRITING"
+  name        String
+  description String?
+  order       Int     @default(0)
+
+  topics    Topic[]
+  questions Question[]
+}
+
+model Topic {
+  id        String @id @default(cuid())
+  sectionId String
+  name      String
+  order     Int    @default(0)
+
+  section   Section    @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  questions Question[]
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  sectionId     String
+  topicId       String?
+  externalId    String?  @unique // source-provided ID (e.g. College Board question ID) for idempotent re-import
+  // Optional school restriction: null = available to any school, "dsse" or "ahss"
+  // = only available when practicing under that school's context. Used to keep
+  // DSSE (Advanced Math) and AHSS (Arithmetic) question pools separate.
+  schoolSlug    String?
+  domain        String?  // e.g. "Information and Ideas"
+  skill         String?  // e.g. "Inferences", "Command of Evidence"
+  // For reading, an optional passage the question is attached to.
+  passage       String?
+  stem          String
+  // Question format: "MCQ" (A/B/C/D) or "SPR" (Student-Produced Response, numeric).
+  questionType  String   @default("MCQ")
+  // Choices stored as JSON: [{ id: "A", text: "...", imageUrl?: "..." }, ...]
+  // For math MCQs the choice content is a rendered image (imageUrl) rather than text.
+  // Empty array [] for SPR questions.
+  choicesJson   String
+  // For MCQ: "A" | "B" | "C" | "D". For SPR: the numeric/text answer (e.g. "403").
+  correctChoice String
+  explanation   String?
+  difficulty    Int      @default(2) // 1..5
+  // Optional image accompanying the stem/passage (rendered chart, diagram, figure).
+  stemImageUrl  String?
+  // Optional image for the rationale/explanation (used for math where the rationale
+  // contains equations that can't be reliably extracted as text).
+  explanationImageUrl String?
+  createdAt     DateTime @default(now())
+
+  section         Section           @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  topic           Topic?            @relation(fields: [topicId], references: [id], onDelete: SetNull)
+  mockTestItems   MockTestQuestion[]
+  answers         Answer[]
+}
+
+model MockTest {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  // Total time in seconds. We keep per-section timing on MockTestSection.
+  createdAt   DateTime @default(now())
+
+  sections MockTestSection[]
+  items    MockTestQuestion[]
+  attempts Attempt[]
+}
+
+model MockTestSection {
+  id             String @id @default(cuid())
+  mockTestId     String
+  sectionKey     String // "MATH" | "READING" | "WRITING"
+  order          Int    @default(0)
+  timeSeconds    Int    // per-section timer
+
+  mockTest MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+
+  @@unique([mockTestId, sectionKey])
+}
+
+model MockTestQuestion {
+  id         String @id @default(cuid())
+  mockTestId String
+  questionId String
+  sectionKey String // duplicated for query convenience
+  order      Int    @default(0)
+
+  mockTest MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([mockTestId, questionId])
+}
+
+// ---------- Attempts ----------
+
+model Attempt {
+  id          String   @id @default(cuid())
+  userId      String
+  // For practice-mode attempts, mockTestId is null and sectionKey is set.
+  mockTestId  String?
+  sectionKey  String? // for practice-mode
+  mode        String // "PRACTICE" | "MOCK"
+  startedAt   DateTime @default(now())
+  submittedAt DateTime?
+  score       Int?     // total correct
+  totalQuestions Int?
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mockTest MockTest? @relation(fields: [mockTestId], references: [id], onDelete: SetNull)
+  answers  Answer[]
+}
+
+model Answer {
+  id         String   @id @default(cuid())
+  attemptId  String
+  questionId String
+  chosen     String? // "A" | "B" | "C" | "D" | null (skipped)
+  correct    Boolean
+  timeMs     Int      @default(0)
+  answeredAt DateTime @default(now())
+
+  attempt  Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
+}
+
+// ---------- Essays ----------
+
+model Essay {
+  id            String   @id @default(cuid())
+  userId        String
+  prompt        String
+  text          String
+  wordCount     Int      @default(0)
+  readingScore  Int?
+  analysisScore Int?
+  writingScore  Int?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, updatedAt])
+}

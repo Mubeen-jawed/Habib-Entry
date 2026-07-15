@@ -1,0 +1,1512 @@
+{
+  "sourcePdf": "maths-50.pdf",
+  "count": 50,
+  "questions": [
+    {
+      "externalId": "ac472881",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "In the given equation, and are constants, and . If the equation has infinitely many solutions, what is the value of ?",
+      "choices": [],
+      "correctChoice": "403",
+      "stemImageUrl": "/questions/sat/math/ac472881-stem.png",
+      "explanationImageUrl": "/questions/sat/math/ac472881-rationale.png",
+      "sourcePage": 1
+    },
+    {
+      "externalId": "3f5a3602",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "What system of linear equations is represented by the lines shown?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3f5a3602-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3f5a3602-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3f5a3602-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3f5a3602-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/3f5a3602-stem.png",
+      "explanationImageUrl": "/questions/sat/math/3f5a3602-rationale.png",
+      "sourcePage": 2
+    },
+    {
+      "externalId": "3d1070c9",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The function is defined by . What is the value of when ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3d1070c9-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3d1070c9-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3d1070c9-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3d1070c9-D.png"
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/3d1070c9-stem.png",
+      "explanationImageUrl": "/questions/sat/math/3d1070c9-rationale.png",
+      "sourcePage": 4
+    },
+    {
+      "externalId": "002dba45",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "Line is defined by . Line is perpendicular to line in the xy-plane. What is the slope of line ?",
+      "choices": [],
+      "correctChoice": ".1764, .1765, 3/17",
+      "stemImageUrl": "/questions/sat/math/002dba45-stem.png",
+      "explanationImageUrl": "/questions/sat/math/002dba45-rationale.png",
+      "sourcePage": 5
+    },
+    {
+      "externalId": "edc1b7b7",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "The solution to the given system of equations is . What is the value of ?",
+      "choices": [],
+      "correctChoice": "3",
+      "stemImageUrl": "/questions/sat/math/edc1b7b7-stem.png",
+      "explanationImageUrl": "/questions/sat/math/edc1b7b7-rationale.png",
+      "sourcePage": 6
+    },
+    {
+      "externalId": "f224df07",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "A cargo helicopter delivers only 100-pound packages and 120-pound packages. For each delivery trip, the helicopter must carry at least 10 packages, and the total weight of the packages can be at most 1,100 pounds. What is the maximum number of 120-pound packages that the helicopter can carry per trip?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": null
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/f224df07-stem.png",
+      "explanationImageUrl": "/questions/sat/math/f224df07-rationale.png",
+      "sourcePage": 7
+    },
+    {
+      "externalId": "fa80893a",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "If , what is the value of ?",
+      "choices": [],
+      "correctChoice": "17",
+      "stemImageUrl": "/questions/sat/math/fa80893a-stem.png",
+      "explanationImageUrl": "/questions/sat/math/fa80893a-rationale.png",
+      "sourcePage": 8
+    },
+    {
+      "externalId": "bd9eb2b5",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The function is defined by . For what value of does ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/bd9eb2b5-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/bd9eb2b5-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/bd9eb2b5-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/bd9eb2b5-D.png"
+        }
+      ],
+      "correctChoice": "B",
+      "stemImageUrl": "/questions/sat/math/bd9eb2b5-stem.png",
+      "explanationImageUrl": "/questions/sat/math/bd9eb2b5-rationale.png",
+      "sourcePage": 9
+    },
+    {
+      "externalId": "1480dd5c",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "For the linear function , is a constant and . What is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1480dd5c-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1480dd5c-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1480dd5c-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1480dd5c-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/1480dd5c-stem.png",
+      "explanationImageUrl": "/questions/sat/math/1480dd5c-rationale.png",
+      "sourcePage": 10
+    },
+    {
+      "externalId": "3008cfc3",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "The table gives the coordinates of two points on a line in the xy-plane. The y-intercept of the line is , where and are constants. What is the value of ?",
+      "choices": [],
+      "correctChoice": "33",
+      "stemImageUrl": "/questions/sat/math/3008cfc3-stem.png",
+      "explanationImageUrl": "/questions/sat/math/3008cfc3-rationale.png",
+      "sourcePage": 11
+    },
+    {
+      "externalId": "0d6ab461",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "Gabriella deposits in a savings account at the end of each week. At the beginning of the week of a year there was in that savings account. How much money, in dollars, will be in the account at the end of the week of that year?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0d6ab461-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0d6ab461-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0d6ab461-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0d6ab461-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/0d6ab461-stem.png",
+      "explanationImageUrl": "/questions/sat/math/0d6ab461-rationale.png",
+      "sourcePage": 12
+    },
+    {
+      "externalId": "4becad44",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "One of the two equations in a system of linear equations is given. The system has no solution. Which equation could be the second equation in this system?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/4becad44-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/4becad44-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/4becad44-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/4becad44-D.png"
+        }
+      ],
+      "correctChoice": "B",
+      "stemImageUrl": "/questions/sat/math/4becad44-stem.png",
+      "explanationImageUrl": "/questions/sat/math/4becad44-rationale.png",
+      "sourcePage": 13
+    },
+    {
+      "externalId": "d1b66ae6",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "If satisfies the system of equations above, what is the value of y ? Rationale The correct answer is . One method for solving the system of equations for y is to add corresponding sides of the two equations. Adding the left-hand sides gives , or 4y. Adding the right-hand sides yields . It follows that . Finally, dividing both sides of by 4 yields or . Note that 3/2 and 1.5 are examples of ways to enter a correct answer.",
+      "choices": [],
+      "correctChoice": "",
+      "stemImageUrl": "/questions/sat/math/d1b66ae6-stem.png",
+      "explanationImageUrl": "/questions/sat/math/d1b66ae6-rationale.png",
+      "sourcePage": 14
+    },
+    {
+      "externalId": "cb8f449f",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "The system of equations above has solution (x, y). What is the value of x ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/cb8f449f-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": null
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/cb8f449f-stem.png",
+      "explanationImageUrl": "/questions/sat/math/cb8f449f-rationale.png",
+      "sourcePage": 15
+    },
+    {
+      "externalId": "3409707e",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The solution to the given system of equations is . What is the value of ?",
+      "choices": [],
+      "correctChoice": "30",
+      "stemImageUrl": "/questions/sat/math/3409707e-stem.png",
+      "explanationImageUrl": "/questions/sat/math/3409707e-rationale.png",
+      "sourcePage": 16
+    },
+    {
+      "externalId": "520c8177",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "A veterinarian recommends that each day a certain rabbit should eat calories per pound of the rabbit’s weight, plus an additional calories. Which equation represents this situation, where is the total number of calories the veterinarian recommends the rabbit should eat each day if the rabbit’s weight is pounds?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/520c8177-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/520c8177-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/520c8177-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/520c8177-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/520c8177-stem.png",
+      "explanationImageUrl": "/questions/sat/math/520c8177-rationale.png",
+      "sourcePage": 17
+    },
+    {
+      "externalId": "88e13c8c",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The total cost , in dollars, to lease a car for months from a particular car dealership is given by , where is the monthly payment, in dollars. What is the total cost to lease a car when the monthly payment is ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/88e13c8c-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/88e13c8c-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/88e13c8c-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/88e13c8c-D.png"
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/88e13c8c-stem.png",
+      "explanationImageUrl": "/questions/sat/math/88e13c8c-rationale.png",
+      "sourcePage": 18
+    },
+    {
+      "externalId": "744ee7d7",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "(cid:0)15 (cid:0)10 (cid:0)5 5 10 15 x 5 10 15 20 25 30 35 40 45 50 55 60 y O The shaded region shown in the graph represents all the solutions to which inequality?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/744ee7d7-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/744ee7d7-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/744ee7d7-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/744ee7d7-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/744ee7d7-stem.png",
+      "explanationImageUrl": "/questions/sat/math/744ee7d7-rationale.png",
+      "sourcePage": 19
+    },
+    {
+      "externalId": "3cdbf026",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "The graph of the equation is a line in the xy-plane, where a and k are constants. If the line contains the points and , what is the value of k ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3cdbf026-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3cdbf026-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": null
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/3cdbf026-stem.png",
+      "explanationImageUrl": "/questions/sat/math/3cdbf026-rationale.png",
+      "sourcePage": 20
+    },
+    {
+      "externalId": "00723d16",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "Line is defined by . Line is perpendicular to line in the xy-plane. What is the slope of line ?",
+      "choices": [],
+      "correctChoice": "0.25, 1/4",
+      "stemImageUrl": "/questions/sat/math/00723d16-stem.png",
+      "explanationImageUrl": "/questions/sat/math/00723d16-rationale.png",
+      "sourcePage": 21
+    },
+    {
+      "externalId": "ff501705",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "In the given system of equations, is a constant. If the system has no solution, what is the value of ?",
+      "choices": [],
+      "correctChoice": "6",
+      "stemImageUrl": "/questions/sat/math/ff501705-stem.png",
+      "explanationImageUrl": "/questions/sat/math/ff501705-rationale.png",
+      "sourcePage": 22
+    },
+    {
+      "externalId": "8c5e6702",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "A window repair specialist charges for the first two hours of repair plus an hourly fee for each additional hour. The total cost for hours of repair is . Which function gives the total cost, in dollars, for hours of repair, where ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/8c5e6702-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/8c5e6702-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/8c5e6702-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/8c5e6702-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/8c5e6702-stem.png",
+      "explanationImageUrl": "/questions/sat/math/8c5e6702-rationale.png",
+      "sourcePage": 23
+    },
+    {
+      "externalId": "2937ef4f",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "Hector used a tool called an auger to remove corn from a storage bin at a constant rate. The bin contained 24,000 bushels of corn when Hector began to use the auger. After 5 hours of using the auger, 19,350 bushels of corn remained in the bin. If the auger continues to remove corn at this rate, what is the total number of hours Hector will have been using the auger when 12,840 bushels of corn remain in the bin?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": null
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/2937ef4f-stem.png",
+      "explanationImageUrl": "/questions/sat/math/2937ef4f-rationale.png",
+      "sourcePage": 24
+    },
+    {
+      "externalId": "548a4929",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "The function is defined by . The graph of in the xy-plane has an x-intercept at and a y-intercept at , where and are constants. What is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/548a4929-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/548a4929-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/548a4929-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/548a4929-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/548a4929-stem.png",
+      "explanationImageUrl": "/questions/sat/math/548a4929-rationale.png",
+      "sourcePage": 25
+    },
+    {
+      "externalId": "0adbe034",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "If , what is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0adbe034-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0adbe034-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0adbe034-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/0adbe034-D.png"
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/0adbe034-stem.png",
+      "explanationImageUrl": "/questions/sat/math/0adbe034-rationale.png",
+      "sourcePage": 26
+    },
+    {
+      "externalId": "9bbce683",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "For line , the table shows three values of and their corresponding values of . Line is the result of translating line down units in the xy- plane. What is the x-intercept of line ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9bbce683-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9bbce683-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9bbce683-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9bbce683-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/9bbce683-stem.png",
+      "explanationImageUrl": "/questions/sat/math/9bbce683-rationale.png",
+      "sourcePage": 27
+    },
+    {
+      "externalId": "2b15d65f",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "An economist modeled the demand Q for a certain product as a linear function of the selling price P. The demand was 20,000 units when the selling price was $40 per unit, and the demand was 15,000 units when the selling price was $60 per unit. Based on the model, what is the demand, in units, when the selling price is $55 per unit?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": null
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/2b15d65f-stem.png",
+      "explanationImageUrl": "/questions/sat/math/2b15d65f-rationale.png",
+      "sourcePage": 28
+    },
+    {
+      "externalId": "e25f0807",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "The table shows two values of and their corresponding values of . The graph of the linear equation representing this relationship passes through the point . What is the value of ?",
+      "choices": [],
+      "correctChoice": "16.25, 65/4",
+      "stemImageUrl": "/questions/sat/math/e25f0807-stem.png",
+      "explanationImageUrl": "/questions/sat/math/e25f0807-rationale.png",
+      "sourcePage": 29
+    },
+    {
+      "externalId": "686b7244",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "A certain apprentice has enrolled in hours of training courses. The equation represents this situation, where is the number of on-site training courses and is the number of online training courses this apprentice has enrolled in. How many more hours does each online training course take than each on-site training course?",
+      "choices": [],
+      "correctChoice": "5",
+      "stemImageUrl": "/questions/sat/math/686b7244-stem.png",
+      "explanationImageUrl": "/questions/sat/math/686b7244-rationale.png",
+      "sourcePage": 30
+    },
+    {
+      "externalId": "b86123af",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "Hiro and Sofia purchased shirts and pants from a store. The price of each shirt purchased was the same and the price of each pair of pants purchased was the same. Hiro purchased 4 shirts and 2 pairs of pants for $86, and Sofia purchased 3 shirts and 5 pairs of pants for $166. Which of the following systems of linear equations represents the situation, if x represents the price, in dollars, of each shirt and y represents the price, in dollars, of each pair of pants?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b86123af-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b86123af-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b86123af-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b86123af-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/b86123af-stem.png",
+      "explanationImageUrl": "/questions/sat/math/b86123af-rationale.png",
+      "sourcePage": 31
+    },
+    {
+      "externalId": "3a3b95df",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The equation shown gives the estimated amount of diesel , in gallons, that remains in the gas tank of a truck after being driven miles, where . What is the estimated amount of diesel, in gallons, that remains in the gas tank of the truck when ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3a3b95df-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3a3b95df-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3a3b95df-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/3a3b95df-D.png"
+        }
+      ],
+      "correctChoice": "B",
+      "stemImageUrl": "/questions/sat/math/3a3b95df-stem.png",
+      "explanationImageUrl": "/questions/sat/math/3a3b95df-rationale.png",
+      "sourcePage": 32
+    },
+    {
+      "externalId": "1b1deebe",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "In the given system of equations, and are constants. The graphs of these equations in the xy-plane intersect at the point . What is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1b1deebe-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1b1deebe-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1b1deebe-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1b1deebe-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/1b1deebe-stem.png",
+      "explanationImageUrl": "/questions/sat/math/1b1deebe-rationale.png",
+      "sourcePage": 33
+    },
+    {
+      "externalId": "187f74bc",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "(cid:0)8 (cid:0)6 (cid:0)4 (cid:0)2 2 4 6 8 x (cid:0)10 (cid:0)8 (cid:0)6 (cid:0)4 (cid:0)2 2 y O The shaded region shown represents the solutions to the inequality , where is a constant. What is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/187f74bc-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/187f74bc-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/187f74bc-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/187f74bc-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/187f74bc-stem.png",
+      "explanationImageUrl": "/questions/sat/math/187f74bc-rationale.png",
+      "sourcePage": 34
+    },
+    {
+      "externalId": "ee846db7",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "A store sells two different-sized containers of a certain Greek yogurt. The store’s sales of this Greek yogurt totaled dollars last month. The equation represents this situation, where is the number of smaller containers sold and is the number of larger containers sold. According to the equation, which of the following represents the price, in dollars, of each smaller container?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/ee846db7-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/ee846db7-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/ee846db7-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/ee846db7-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/ee846db7-stem.png",
+      "explanationImageUrl": "/questions/sat/math/ee846db7-rationale.png",
+      "sourcePage": 35
+    },
+    {
+      "externalId": "baca4a4c",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "Which equation has the same solution as the given equation?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/baca4a4c-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/baca4a4c-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/baca4a4c-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/baca4a4c-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/baca4a4c-stem.png",
+      "explanationImageUrl": "/questions/sat/math/baca4a4c-rationale.png",
+      "sourcePage": 36
+    },
+    {
+      "externalId": "5b8a8475",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "Line is defined by . Line is perpendicular to line in the xy-plane. What is the slope of line ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/5b8a8475-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/5b8a8475-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/5b8a8475-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/5b8a8475-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/5b8a8475-stem.png",
+      "explanationImageUrl": "/questions/sat/math/5b8a8475-rationale.png",
+      "sourcePage": 37
+    },
+    {
+      "externalId": "cfe67646",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear inequalities in one or two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The point in the xy-plane is a solution to which of the following systems of inequalities?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/cfe67646-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/cfe67646-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/cfe67646-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/cfe67646-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/cfe67646-stem.png",
+      "explanationImageUrl": "/questions/sat/math/cfe67646-rationale.png",
+      "sourcePage": 38
+    },
+    {
+      "externalId": "608eeb6e",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The solution to the given system of equations is . What is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/608eeb6e-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/608eeb6e-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/608eeb6e-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/608eeb6e-D.png"
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/608eeb6e-stem.png",
+      "explanationImageUrl": "/questions/sat/math/608eeb6e-rationale.png",
+      "sourcePage": 39
+    },
+    {
+      "externalId": "be9cb6a2",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "The cost of renting a backhoe for up to days is for the first day and for each additional day. Which of the following equations gives the cost , in dollars, of renting the backhoe for days, where is a positive integer and ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/be9cb6a2-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/be9cb6a2-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/be9cb6a2-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/be9cb6a2-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/be9cb6a2-stem.png",
+      "explanationImageUrl": "/questions/sat/math/be9cb6a2-rationale.png",
+      "sourcePage": 40
+    },
+    {
+      "externalId": "097e10f5",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What value of satisfies the equation ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/097e10f5-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/097e10f5-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/097e10f5-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/097e10f5-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/097e10f5-stem.png",
+      "explanationImageUrl": "/questions/sat/math/097e10f5-rationale.png",
+      "sourcePage": 41
+    },
+    {
+      "externalId": "1a1a95de",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "A certain open star cluster contains M-type stars and K-type stars. The estimated total mass of M-type and K-type stars in this open star cluster is . The graph shown models the possible combinations of the number of M-type stars, , and K-type stars, , that could be in this open star cluster if all the M-type stars have the same estimated mass and all the K-type stars have the same estimated mass. Based on the graph, which of the following is closest to the estimated mass, in quettagrams, of each M-type star in this cluster?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1a1a95de-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1a1a95de-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1a1a95de-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/1a1a95de-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/1a1a95de-stem.png",
+      "explanationImageUrl": "/questions/sat/math/1a1a95de-rationale.png",
+      "sourcePage": 42
+    },
+    {
+      "externalId": "84664a7c",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The front of a roller-coaster car is at the bottom of a hill and is 15 feet above the ground. If the front of the roller-coaster car rises at a constant rate of 8 feet per second, which of the following equations gives the height h, in feet, of the front of the roller-coaster car s seconds after it starts up the hill?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/84664a7c-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/84664a7c-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/84664a7c-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/84664a7c-D.png"
+        }
+      ],
+      "correctChoice": "A",
+      "stemImageUrl": "/questions/sat/math/84664a7c-stem.png",
+      "explanationImageUrl": "/questions/sat/math/84664a7c-rationale.png",
+      "sourcePage": 44
+    },
+    {
+      "externalId": "e62cfe5f",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear functions",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "According to a model, the head width, in millimeters, of a worker bumblebee can be estimated by adding 0.6 to four times the body weight of the bee, in grams. According to the model, what would be the head width, in millimeters, of a worker bumblebee that has a body weight of 0.5 grams? Rationale The correct answer is 2.6. According to the model, the head width, in millimeters, of a worker bumblebee can be estimated by adding 0.6 to 4 times the body weight, in grams, of the bee. Let x represent the body weight, in grams, of a worker bumblebee and let y represent the head width, in millimeters. Translating the verbal description of the model into an equation yields . Substituting 0.5 grams for x in this equation yields , or . Therefore, a worker bumblebee with a body weight of 0.5 grams has an estimated head width of 2.6 millimeters. Note that 2.6 and 13/5 are examples of ways to enter a correct answer.",
+      "choices": [],
+      "correctChoice": "",
+      "stemImageUrl": "/questions/sat/math/e62cfe5f-stem.png",
+      "explanationImageUrl": "/questions/sat/math/e62cfe5f-rationale.png",
+      "sourcePage": 45
+    },
+    {
+      "externalId": "b0fc3166",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Systems of two linear equations in two variables",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "The graph of a system of linear equations is shown. What is the solution to the system?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b0fc3166-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b0fc3166-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b0fc3166-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/b0fc3166-D.png"
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/b0fc3166-stem.png",
+      "explanationImageUrl": "/questions/sat/math/b0fc3166-rationale.png",
+      "sourcePage": 46
+    },
+    {
+      "externalId": "9b886541",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "If , what is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9b886541-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9b886541-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9b886541-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/9b886541-D.png"
+        }
+      ],
+      "correctChoice": "D",
+      "stemImageUrl": "/questions/sat/math/9b886541-stem.png",
+      "explanationImageUrl": "/questions/sat/math/9b886541-rationale.png",
+      "sourcePage": 47
+    },
+    {
+      "externalId": "465c73ad",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "What value of is the solution to the given equation?",
+      "choices": [],
+      "correctChoice": "8.6, 43/5",
+      "stemImageUrl": "/questions/sat/math/465c73ad-stem.png",
+      "explanationImageUrl": "/questions/sat/math/465c73ad-rationale.png",
+      "sourcePage": 48
+    },
+    {
+      "externalId": "db422e7f",
+      "sectionKey": "MATH",
+      "questionType": "SPR",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Hard",
+      "difficultyInt": 5,
+      "stem": "Line is defined by . Line is perpendicular to line in the xy-plane. What is the slope of line ?",
+      "choices": [],
+      "correctChoice": ".5, 1/2",
+      "stemImageUrl": "/questions/sat/math/db422e7f-stem.png",
+      "explanationImageUrl": "/questions/sat/math/db422e7f-rationale.png",
+      "sourcePage": 49
+    },
+    {
+      "externalId": "590f2187",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in one variable",
+      "difficulty": "Easy",
+      "difficultyInt": 1,
+      "stem": "If , what is the value of ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/590f2187-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/590f2187-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/590f2187-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/590f2187-D.png"
+        }
+      ],
+      "correctChoice": "B",
+      "stemImageUrl": "/questions/sat/math/590f2187-stem.png",
+      "explanationImageUrl": "/questions/sat/math/590f2187-rationale.png",
+      "sourcePage": 50
+    },
+    {
+      "externalId": "01682aa5",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "Line is defined by . Line is perpendicular to line in the xy-plane. What is the slope of line ?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": "/questions/sat/math/01682aa5-A.png"
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": "/questions/sat/math/01682aa5-B.png"
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": "/questions/sat/math/01682aa5-C.png"
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": "/questions/sat/math/01682aa5-D.png"
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/01682aa5-stem.png",
+      "explanationImageUrl": "/questions/sat/math/01682aa5-rationale.png",
+      "sourcePage": 51
+    },
+    {
+      "externalId": "9b0a4eae",
+      "sectionKey": "MATH",
+      "questionType": "MCQ",
+      "domain": "Algebra",
+      "skill": "Linear equations in two variables",
+      "difficulty": "Medium",
+      "difficultyInt": 3,
+      "stem": "The graph in the xy-plane models the possible combinations of length , , and width , in meters, for a rectangle with a perimeter of . Which statement is the best interpretation of the point in this context?",
+      "choices": [
+        {
+          "id": "A",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "B",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "C",
+          "text": "",
+          "imageUrl": null
+        },
+        {
+          "id": "D",
+          "text": "",
+          "imageUrl": null
+        }
+      ],
+      "correctChoice": "C",
+      "stemImageUrl": "/questions/sat/math/9b0a4eae-stem.png",
+      "explanationImageUrl": "/questions/sat/math/9b0a4eae-rationale.png",
+      "sourcePage": 52
+    }
+  ]
+}
