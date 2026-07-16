@@ -3,7 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { parseChoices, checkSprAnswer } from "@/lib/sections";
+import { parseChoices, checkSprAnswer, type SectionKey } from "@/lib/sections";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -24,10 +24,12 @@ type Q = {
 
 export function PracticeRunner({
   attemptId,
+  sectionKey,
   sectionName,
   questions,
 }: {
   attemptId: string;
+  sectionKey: SectionKey;
   sectionName: string;
   questions: Q[];
 }) {
@@ -101,7 +103,12 @@ export function PracticeRunner({
             <img
               src={q.stemImageUrl}
               alt="Figure for the question"
-              className="rounded-md border bg-white max-h-[520px] w-auto self-center mb-3"
+              className={cn(
+                "rounded-md border bg-white self-center mb-3",
+                sectionKey === "MATH"
+                  ? "w-full max-h-none"
+                  : "max-h-[520px] w-auto",
+              )}
             />
           )}
           {q.passage && (
@@ -109,7 +116,9 @@ export function PracticeRunner({
               {q.passage}
             </div>
           )}
-          {q.stem && <div className="text-base font-medium mt-2">{q.stem}</div>}
+          {q.stem && !(sectionKey === "MATH" && q.stemImageUrl) && (
+            <div className="text-base font-medium mt-2">{q.stem}</div>
+          )}
         </CardHeader>
         <CardContent className="space-y-2">
           {isSpr ? (
@@ -166,7 +175,12 @@ export function PracticeRunner({
                     <img
                       src={c.imageUrl}
                       alt={`Choice ${c.id}`}
-                      className="flex-1 max-h-32 w-auto bg-white"
+                      className={cn(
+                        "bg-white",
+                        sectionKey === "MATH"
+                          ? "flex-1 max-h-64 w-auto"
+                          : "flex-1 max-h-32 w-auto",
+                      )}
                     />
                   ) : (
                     <span className="flex-1 min-w-0">{c.text}</span>
@@ -177,7 +191,7 @@ export function PracticeRunner({
           )}
 
           {revealed && q.explanationImageUrl && (
-            <div className="rounded-md border-l-4 border-brand bg-muted/40 p-3 mt-3">
+            <div className="rounded-md bg-muted/40 p-3 mt-3">
               <div className="font-semibold mb-2 text-sm">Explanation</div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -188,7 +202,7 @@ export function PracticeRunner({
             </div>
           )}
           {revealed && !q.explanationImageUrl && q.explanation && (
-            <div className="rounded-md border-l-4 border-brand bg-muted/40 p-3 text-sm mt-3">
+            <div className="rounded-md bg-muted/40 p-3 text-sm mt-3">
               <div className="font-semibold mb-1">Explanation</div>
               <div className="whitespace-pre-line">{q.explanation}</div>
             </div>

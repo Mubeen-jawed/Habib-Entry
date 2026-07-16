@@ -126,11 +126,12 @@ model Question {
 }
 
 model MockTest {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  // Total time in seconds. We keep per-section timing on MockTestSection.
-  createdAt   DateTime @default(now())
+  id               String   @id @default(cuid())
+  title            String
+  description      String?
+  // Total time in seconds for the whole mock (all sections + essay).
+  totalTimeSeconds Int      @default(12600)
+  createdAt        DateTime @default(now())
 
   sections MockTestSection[]
   items    MockTestQuestion[]
@@ -175,6 +176,9 @@ model Attempt {
   submittedAt DateTime?
   score       Int?     // total correct
   totalQuestions Int?
+  // Mock-only: essay prompt shown to user and their written response.
+  essayPrompt String?
+  essayText   String?
 
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   mockTest MockTest? @relation(fields: [mockTestId], references: [id], onDelete: SetNull)

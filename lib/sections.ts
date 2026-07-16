@@ -32,6 +32,21 @@ export function parseChoices(choicesJson: string): Choice[] {
 }
 
 /**
+ * True if the question can actually be shown to a student. MCQs with any
+ * choice that has neither text nor an image can't be answered, so we skip
+ * them at the practice level.
+ */
+export function isRenderableQuestion(q: {
+  questionType: string;
+  choicesJson: string;
+}): boolean {
+  if (q.questionType !== "MCQ") return true;
+  const choices = parseChoices(q.choicesJson);
+  if (choices.length !== 4) return false;
+  return choices.every((c) => (c.text ?? "").trim() !== "" || Boolean(c.imageUrl));
+}
+
+/**
  * Normalize an SPR (Student-Produced Response) answer for comparison.
  * The College Board bank stores answers like "3/2" or ".1764, .1765, 3/17"
  * (any of the listed forms is correct).

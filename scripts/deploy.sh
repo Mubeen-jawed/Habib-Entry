@@ -154,8 +154,20 @@ pnpm prisma db push --skip-generate
 log "Generating Prisma client"
 pnpm prisma generate
 
-log "Seeding database (idempotent)"
+log "Seeding base sections + sample mock scaffold (idempotent)"
 pnpm db:seed || warn "seed step reported an error — continuing"
+
+log "Seeding SAT question banks (Math / Reading / Writing)"
+for f in data/sat/maths.json data/sat/reading.json data/sat/writing.json; do
+  if [ -f "$f" ]; then
+    pnpm exec tsx prisma/seed-sat.ts "$f" || warn "SAT seed for $f reported an error — continuing"
+  else
+    warn "missing $f — skipping"
+  fi
+done
+
+log "Rebuilding sample mock with 25 questions/section (renderable MCQs only)"
+pnpm exec tsx scripts/rebuild-sample-mock.ts || warn "rebuild-sample-mock reported an error — continuing"
 
 log "Building Next.js"
 pnpm build

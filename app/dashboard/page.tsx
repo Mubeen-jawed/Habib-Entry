@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { BookOpenText, Calculator, ClipboardList, FileText, Pencil, Timer } from "lucide-react";
+import { isRenderableQuestion } from "@/lib/sections";
 
 const SECTION_META: Record<string, { name: string; icon: React.ComponentType<{ className?: string }>; slug: string }> = {
   MATH: { name: "Math", icon: Calculator, slug: "math" },
@@ -20,10 +21,7 @@ export default async function DashboardPage() {
   const userId = session!.user.id;
 
   const [sections, mockTests, recentAttempts, savedEssays] = await Promise.all([
-    db.section.findMany({
-      orderBy: { order: "asc" },
-      include: { _count: { select: { questions: true } } },
-    }),
+    db.section.findMany({ orderBy: { order: "asc" } }),
     db.mockTest.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
     db.attempt.findMany({
       where: { userId, submittedAt: { not: null } },
@@ -38,6 +36,17 @@ export default async function DashboardPage() {
       select: { id: true, prompt: true, wordCount: true, updatedAt: true },
     }),
   ]);
+
+  // Count only renderable MCQ questions — same filter that Practice and
+  // Test all use, so numbers here match what the user actually sees.
+  const renderableCounts: Record<string, number> = {};
+  for (const s of sections) {
+    const qs = await db.question.findMany({
+      where: { sectionId: s.id, questionType: "MCQ" },
+      select: { questionType: true, choicesJson: true },
+    });
+    renderableCounts[s.key] = qs.filter(isRenderableQuestion).length;
+  }
 
   // per-section attempted counts (unique questions attempted)
   const answered = await db.answer.findMany({
@@ -66,7 +75,7 @@ export default async function DashboardPage() {
           {sections.map((s) => {
             const meta = SECTION_META[s.key];
             const Icon = meta?.icon ?? ClipboardList;
-            const total = s._count.questions;
+            const total = renderableCounts[s.key] ?? 0;
             const done = attemptedBySection.get(s.key)?.size ?? 0;
             const pct = total > 0 ? Math.round((done / total) * 100) : 0;
             return (
@@ -90,11 +99,18 @@ export default async function DashboardPage() {
                     </div>
                     <Progress value={pct} />
                   </div>
-                  <Button asChild variant="brand" className="w-full">
-                    <Link href={`/practice/${meta?.slug ?? s.key.toLowerCase()}`}>
-                      Practice {meta?.name ?? s.name}
-                    </Link>
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button asChild variant="brand" className="flex-1">
+                      <Link href={`/practice/${meta?.slug ?? s.key.toLowerCase()}`}>
+                        Practice {meta?.name ?? s.name}
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" className="flex-1">
+                      <Link href={`/testing/${meta?.slug ?? s.key.toLowerCase()}`}>
+                        Test all
+                      </Link>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             );
@@ -110,7 +126,7 @@ export default async function DashboardPage() {
                 </div>
                 <div>
                   <CardTitle>Timed mock tests</CardTitle>
-                  <CardDescription>Full-length, section-timed simulations.</CardDescription>
+                  <CardDescription>3.5-hour simulation: 25 questions each in Math, Reading, and Writing, plus a timed Essay.</CardDescription>
                 </div>
               </div>
             </CardHeader>

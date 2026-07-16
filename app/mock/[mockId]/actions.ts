@@ -29,6 +29,29 @@ export async function saveMockAnswer({
   });
 }
 
+export async function saveMockEssay({
+  attemptId,
+  prompt,
+  text,
+}: {
+  attemptId: string;
+  prompt: string;
+  text: string;
+}) {
+  const session = await auth();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const attempt = await db.attempt.findUnique({ where: { id: attemptId } });
+  if (!attempt || attempt.userId !== session.user.id) throw new Error("Not your attempt");
+  if (attempt.mode !== "MOCK") throw new Error("Wrong attempt mode");
+  if (attempt.submittedAt) throw new Error("Attempt already submitted");
+
+  await db.attempt.update({
+    where: { id: attemptId },
+    data: { essayPrompt: prompt, essayText: text },
+  });
+}
+
 export async function submitMockAttempt({ attemptId }: { attemptId: string }) {
   const session = await auth();
   if (!session?.user?.id) throw new Error("Unauthorized");

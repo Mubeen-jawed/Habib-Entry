@@ -224,42 +224,44 @@ async function seedQuestions(sectionKey: string, items: SeedQuestion[]) {
   }
 }
 
+import { isRenderableQuestion } from "../lib/sections";
+
+const MOCK_QUESTIONS_PER_SECTION = 25;
+
 async function seedMock() {
   const all = await db.question.findMany({ orderBy: { createdAt: "asc" } });
-  const bySection = {
-    MATH: all.filter((q) => q.sectionId && all.some((s) => s.id === q.id)),
-  };
-  // Group by section key via join
   const sections = await db.section.findMany();
   const byKey = Object.fromEntries(sections.map((s) => [s.key, s]));
 
   const mock = await db.mockTest.create({
     data: {
       title: "Sample Full-Length Mock #1",
-      description: "A short practice mock covering Math, Reading, and Writing.",
+      description: `Full mock: ${MOCK_QUESTIONS_PER_SECTION} Math + ${MOCK_QUESTIONS_PER_SECTION} Reading + ${MOCK_QUESTIONS_PER_SECTION} Writing + Essay, 3.5 hours total.`,
     },
   });
 
-  const timing: Record<string, number> = {
-    MATH: 15 * 60,
-    READING: 12 * 60,
-    WRITING: 10 * 60,
-  };
-
-  let orderCounter = 0;
+  let sectionOrder = 0;
   for (const key of ["MATH", "READING", "WRITING"]) {
     const sectionId = byKey[key].id;
     await db.mockTestSection.create({
       data: {
         mockTestId: mock.id,
         sectionKey: key,
-        order: orderCounter,
-        timeSeconds: timing[key],
+        order: sectionOrder++,
+        timeSeconds: 0, // legacy field; global mock timer is used instead
       },
     });
-    const qs = all.filter((q) => q.sectionId === sectionId);
+    const pool = all
+      .filter((q) => q.sectionId === sectionId && q.questionType === "MCQ")
+      .filter((q) =>
+        isRenderableQuestion({
+          questionType: q.questionType,
+          choicesJson: q.choicesJson,
+        }),
+      )
+      .slice(0, MOCK_QUESTIONS_PER_SECTION);
     let qOrder = 0;
-    for (const q of qs) {
+    for (const q of pool) {
       await db.mockTestQuestion.create({
         data: {
           mockTestId: mock.id,
@@ -269,11 +271,7 @@ async function seedMock() {
         },
       });
     }
-    orderCounter++;
   }
-
-  // silence unused variable
-  void bySection;
 }
 
 async function main() {

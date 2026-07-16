@@ -43,15 +43,6 @@ export default async function EssayPage({
       <SiteHeader />
       <main className="flex-1 mx-auto max-w-3xl px-4 py-8">
         <BackButton className="mb-6" />
-        <div className="mb-6">
-          <div className="text-xs uppercase tracking-wide text-muted-foreground">
-            Practice
-          </div>
-          <h1 className="text-2xl font-semibold">Essay writing</h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Generate a prompt, then write a five-paragraph response of ~350–500 words.
-          </p>
-        </div>
         <EssayWriter
           isSignedIn={Boolean(userId)}
           initialPreviewId={initialPreviewId}

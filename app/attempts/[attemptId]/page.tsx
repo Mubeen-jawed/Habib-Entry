@@ -97,6 +97,26 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
           </CardContent>
         </Card>
 
+        {attempt.essayPrompt && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Essay</CardTitle>
+              <CardDescription>{attempt.essayPrompt}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {attempt.essayText ? (
+                <div className="rounded-md border bg-background p-4 text-sm leading-relaxed font-serif whitespace-pre-wrap">
+                  {attempt.essayText}
+                </div>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  No essay response was recorded for this attempt.
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
         <div className="space-y-3">
           <h2 className="text-lg font-semibold">Question-by-question review</h2>
           <p className="text-sm text-muted-foreground">
@@ -191,7 +211,7 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
                     })
                   )}
                   {a.question.explanationImageUrl && (
-                    <div className="rounded-md border-l-4 border-brand bg-muted/40 p-3">
+                    <div className="rounded-md bg-muted/40 p-3">
                       <div className="font-semibold mb-2 text-sm">Explanation</div>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
@@ -202,7 +222,7 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
                     </div>
                   )}
                   {!a.question.explanationImageUrl && a.question.explanation && (
-                    <div className="rounded-md border-l-4 border-brand bg-muted/40 p-3 text-sm whitespace-pre-line">
+                    <div className="rounded-md bg-muted/40 p-3 text-sm whitespace-pre-line">
                       <div className="font-semibold mb-1">Explanation</div>
                       <div>{a.question.explanation}</div>
                     </div>

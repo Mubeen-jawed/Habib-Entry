@@ -1,7 +1,7 @@
 import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { SECTION_BY_SLUG, SECTION_NAMES } from "@/lib/sections";
+import { SECTION_BY_SLUG, SECTION_NAMES, isRenderableQuestion } from "@/lib/sections";
 import { PracticeRunner } from "./PracticeRunner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -46,23 +46,29 @@ export default async function PracticePage({
     })
   ).map((r) => r.questionId);
 
-  let questions = await db.question.findMany({
-    where: {
-      sectionId: section.id,
-      id: { notIn: answeredIds },
-      ...schoolFilter,
-    },
-    orderBy: { difficulty: "asc" },
-    take: 10,
-  });
+  let questions = (
+    await db.question.findMany({
+      where: {
+        sectionId: section.id,
+        id: { notIn: answeredIds },
+        ...schoolFilter,
+      },
+      orderBy: { difficulty: "asc" },
+    })
+  )
+    .filter(isRenderableQuestion)
+    .slice(0, 10);
 
   // If everything has been answered, cycle back through all.
   if (questions.length === 0) {
-    questions = await db.question.findMany({
-      where: { sectionId: section.id, ...schoolFilter },
-      orderBy: { difficulty: "asc" },
-      take: 10,
-    });
+    questions = (
+      await db.question.findMany({
+        where: { sectionId: section.id, ...schoolFilter },
+        orderBy: { difficulty: "asc" },
+      })
+    )
+      .filter(isRenderableQuestion)
+      .slice(0, 10);
   }
 
   if (questions.length === 0) {
@@ -98,6 +104,7 @@ export default async function PracticePage({
       <main className="flex-1 mx-auto max-w-5xl px-4 py-8">
         <PracticeRunner
           attemptId={attempt.id}
+          sectionKey={sectionKey}
           sectionName={SECTION_NAMES[sectionKey]}
           questions={questions.map((q) => ({
             id: q.id,

@@ -75,6 +75,7 @@ class Choice:
 class MathQuestion:
     externalId: str
     sectionKey: str
+    schoolSlug: str | None  # "dsse" | "ahss" | None (available to all schools)
     questionType: str  # "MCQ" | "SPR"
     domain: str | None
     skill: str | None
@@ -219,7 +220,13 @@ def _crop_band(
 # ---------- extraction ----------
 
 
-def extract(pdf_path: Path, out_path: Path, images_dir: Path) -> list[MathQuestion]:
+def extract(
+    pdf_path: Path,
+    out_path: Path,
+    images_dir: Path,
+    school_slug: str | None = None,
+    image_url_prefix: str = "/questions/sat/math",
+) -> list[MathQuestion]:
     images_dir.mkdir(parents=True, exist_ok=True)
     out_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -281,7 +288,7 @@ def extract(pdf_path: Path, out_path: Path, images_dir: Path) -> list[MathQuesti
                 if stem_bottom - stem_top > 20:
                     stem_png = images_dir / f"{ext_id}-stem.png"
                     _crop_band(doc, question_mark.page, stem_top, stem_bottom, stem_png)
-                    stem_image_url = f"/questions/sat/math/{ext_id}-stem.png"
+                    stem_image_url = f"{image_url_prefix}/{ext_id}-stem.png"
 
             # --- crop each MCQ choice image ---
             choices: list[Choice] = []
@@ -310,7 +317,7 @@ def extract(pdf_path: Path, out_path: Path, images_dir: Path) -> list[MathQuesti
                         choice_png = images_dir / f"{ext_id}-{L}.png"
                         _crop_band(doc, mark.page, top, bottom, choice_png)
                         choices.append(
-                            Choice(id=L, text="", imageUrl=f"/questions/sat/math/{ext_id}-{L}.png")
+                            Choice(id=L, text="", imageUrl=f"{image_url_prefix}/{ext_id}-{L}.png")
                         )
                     else:
                         choices.append(Choice(id=L, text="", imageUrl=None))
@@ -335,7 +342,7 @@ def extract(pdf_path: Path, out_path: Path, images_dir: Path) -> list[MathQuesti
                 if r_bottom - r_top > 20:
                     rationale_png = images_dir / f"{ext_id}-rationale.png"
                     _crop_band(doc, rationale_mark.page, r_top, r_bottom, rationale_png)
-                    explanation_image_url = f"/questions/sat/math/{ext_id}-rationale.png"
+                    explanation_image_url = f"{image_url_prefix}/{ext_id}-rationale.png"
 
             # Correct choice: letter for MCQ, numeric string for SPR.
             correct_choice = correct_raw or ""
@@ -344,6 +351,7 @@ def extract(pdf_path: Path, out_path: Path, images_dir: Path) -> list[MathQuesti
                 MathQuestion(
                     externalId=ext_id,
                     sectionKey="MATH",
+                    schoolSlug=school_slug,
                     questionType=question_type,
                     domain=domain,
                     skill=skill,
@@ -402,13 +410,21 @@ def main() -> int:
     ap.add_argument("--pdf", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--images-dir", type=Path, default=Path("public/questions/sat/math"))
+    ap.add_argument("--image-url-prefix", type=str, default="/questions/sat/math")
+    ap.add_argument("--school-slug", type=str, default=None, help="dsse | ahss | (unset)")
     args = ap.parse_args()
 
     if not args.pdf.exists():
         print(f"error: PDF not found at {args.pdf}", file=sys.stderr)
         return 1
 
-    questions = extract(args.pdf, args.out, args.images_dir)
+    questions = extract(
+        args.pdf,
+        args.out,
+        args.images_dir,
+        school_slug=args.school_slug,
+        image_url_prefix=args.image_url_prefix,
+    )
 
     from collections import Counter
     n_mcq = sum(1 for q in questions if q.questionType == "MCQ")
