@@ -23,7 +23,7 @@ export function BackButton({
         }
       }}
       className={cn(
-        "inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors",
+        "inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mt-12 md:mt-0",
         className
       )}
     >

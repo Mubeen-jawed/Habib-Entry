@@ -402,7 +402,7 @@ export function EssayWriter({
         </div>
       </div>
       <Card>
-        <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0">
+        <CardHeader className="flex flex-col-reverse gap-3 md:flex-row md:items-start md:justify-between md:gap-4 space-y-0">
           <div>
             <div className="text-xs uppercase tracking-wide text-muted-foreground">
               Prompt
@@ -411,7 +411,7 @@ export function EssayWriter({
               {prompt}
             </CardTitle>
           </div>
-          <div className="flex flex-col items-end gap-2 shrink-0">
+          <div className="flex flex-row-reverse items-center justify-between gap-2 md:flex-col md:justify-normal md:items-end md:gap-2 shrink-0">
             <Button
               variant="outline"
               size="sm"

@@ -232,7 +232,8 @@ export function DashboardSidebar({
         <div
           className={cn(
             "flex items-center h-16 px-3 border-b border-border/70",
-            isCollapsed ? "justify-center" : "justify-between"
+            isCollapsed ? "justify-center" : "justify-between",
+            mobileOpen && "flex-row-reverse"
           )}
         >
           {!isCollapsed && <BrandMark size="sm" />}
