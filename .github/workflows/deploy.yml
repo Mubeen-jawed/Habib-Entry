@@ -33,6 +33,17 @@ jobs:
             pnpm install --frozen-lockfile
             pnpm prisma db push --skip-generate
             pnpm prisma generate
+            for f in \
+              data/sat/maths.json \
+              data/sat/maths-p2to5.json \
+              data/sat/reading.json \
+              data/sat/reading-p2to5.json \
+              data/sat/writing.json \
+              data/sat/writing-p2to5.json \
+              data/ahss-arithmetic.json; do
+              [ -f "$f" ] && pnpm exec tsx prisma/seed-sat.ts "$f"
+            done
+            pnpm exec node scripts/reset-reading-writing-schoolslug.mjs
             pnpm build
             pm2 restart habib-entry --update-env
             pm2 save

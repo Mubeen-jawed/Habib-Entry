@@ -144,9 +144,11 @@ export function DashboardSidebar({
   const hash = useHash();
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileMounted, setMobileMounted] = useState(false);
   const [hydrated, setHydrated] = useState(false);
 
-  const isCollapsed = mobileOpen ? false : collapsed;
+  const mobileClosing = mobileMounted && !mobileOpen;
+  const isCollapsed = mobileMounted ? false : collapsed;
   const closeMobile = () => setMobileOpen(false);
 
   const dashboardActiveHref = getSectionActiveHref(
@@ -196,13 +198,23 @@ export function DashboardSidebar({
   }, [pathname, search, hash]);
 
   useEffect(() => {
-    if (!mobileOpen) return;
+    if (mobileOpen) {
+      setMobileMounted(true);
+      return;
+    }
+    if (!mobileMounted) return;
+    const t = setTimeout(() => setMobileMounted(false), 220);
+    return () => clearTimeout(t);
+  }, [mobileOpen, mobileMounted]);
+
+  useEffect(() => {
+    if (!mobileMounted) return;
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = prev;
     };
-  }, [mobileOpen]);
+  }, [mobileMounted]);
 
   const firstName = user.name?.split(" ")[0] ?? "You";
 
@@ -214,7 +226,7 @@ export function DashboardSidebar({
         aria-label="Open menu"
         className={cn(
           "fixed top-3 left-3 z-40 p-2 rounded-md bg-card border border-border/70 shadow-sm text-foreground/80 hover:bg-brand-soft hover:text-brand-ink md:hidden",
-          mobileOpen && "hidden"
+          mobileMounted && "hidden"
         )}
       >
         <Menu className="w-5 h-5" />
@@ -222,8 +234,13 @@ export function DashboardSidebar({
       <aside
         className={cn(
           "flex-col border-r border-border/70",
-          mobileOpen
-            ? "fixed inset-0 z-50 w-full h-dvh bg-card flex pb-[env(safe-area-inset-bottom)] animate-slide-in-from-top"
+          mobileMounted
+            ? cn(
+                "fixed inset-0 z-50 w-full h-dvh bg-card flex pb-[env(safe-area-inset-bottom)]",
+                mobileClosing
+                  ? "animate-slide-out-to-left"
+                  : "animate-slide-in-from-left"
+              )
             : "hidden",
           "md:sticky md:top-0 md:self-start md:h-screen md:shrink-0 md:flex md:inset-auto md:z-auto md:bg-card/40 md:backdrop-blur md:transition-[width] md:duration-200",
           isCollapsed ? "md:w-16" : "md:w-64"
@@ -232,30 +249,41 @@ export function DashboardSidebar({
         <div
           className={cn(
             "flex items-center h-16 px-3 border-b border-border/70",
-            isCollapsed ? "justify-center" : "justify-between",
-            mobileOpen && "flex-row-reverse"
+            isCollapsed ? "justify-center" : "justify-between"
           )}
         >
-          {!isCollapsed && <BrandMark size="sm" />}
+          {!isCollapsed &&
+            (mobileMounted ? (
+              <button
+                type="button"
+                onClick={closeMobile}
+                aria-label="Close menu"
+                className="rounded-md -m-1 p-1 hover:bg-brand-soft transition-colors"
+              >
+                <BrandMark size="sm" linked={false} />
+              </button>
+            ) : (
+              <BrandMark size="sm" />
+            ))}
           <button
             type="button"
             onClick={() => {
-              if (mobileOpen) setMobileOpen(false);
+              if (mobileMounted) setMobileOpen(false);
               else setCollapsed((v) => !v);
             }}
             aria-label={
-              mobileOpen
+              mobileMounted
                 ? "Close menu"
                 : isCollapsed
                 ? "Expand sidebar"
                 : "Collapse sidebar"
             }
             title={
-              mobileOpen ? "Close" : isCollapsed ? "Expand" : "Collapse"
+              mobileMounted ? "Close" : isCollapsed ? "Expand" : "Collapse"
             }
             className="p-1.5 rounded-md text-muted-foreground hover:bg-brand-soft hover:text-brand-ink transition-colors"
           >
-            {mobileOpen ? (
+            {mobileMounted ? (
               <X className="w-5 h-5" />
             ) : isCollapsed ? (
               <ChevronsRight className="w-4 h-4" />

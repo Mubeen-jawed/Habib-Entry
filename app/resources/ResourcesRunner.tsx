@@ -1,16 +1,28 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { BookMarked, ClipboardList, Lightbulb, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import {
+  BookMarked,
+  ClipboardList,
+  Download,
+  GraduationCap,
+  Lightbulb,
+  X,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   PromptsGuideBody,
   PromptsGuideFooterActions,
   RubricGuideContent,
   TipsGuideContent,
+  downloadPromptsPdf,
+  downloadRubricPdf,
+  downloadTipsPdf,
 } from "@/app/essay/guides";
 import { ESSAY_PROMPTS } from "@/app/essay/prompts";
+import { downloadScholarshipsPdf } from "@/app/grades/download";
 
 type Guide = "tips" | "rubric" | "prompts";
 
@@ -19,6 +31,7 @@ const GUIDES: Array<{
   title: string;
   description: string;
   icon: React.ComponentType<{ className?: string }>;
+  download: () => void;
 }> = [
   {
     key: "tips",
@@ -26,6 +39,7 @@ const GUIDES: Array<{
     description:
       "A five-paragraph outline you can use as a scaffold for any prompt.",
     icon: Lightbulb,
+    download: downloadTipsPdf,
   },
   {
     key: "rubric",
@@ -33,12 +47,14 @@ const GUIDES: Array<{
     description:
       "SAT-style rubric covering thesis, organization, structure, language, mechanics, and support.",
     icon: ClipboardList,
+    download: downloadRubricPdf,
   },
   {
     key: "prompts",
     title: "Essay topics",
     description: `Prompt bank of ${ESSAY_PROMPTS.length} essay questions with a printable PDF option.`,
     icon: BookMarked,
+    download: downloadPromptsPdf,
   },
 ];
 
@@ -67,30 +83,25 @@ export function ResourcesRunner() {
   return (
     <>
       <div className="grid gap-4 sm:grid-cols-2">
-        {GUIDES.map(({ key, title, description, icon: Icon }) => (
-          <Card key={key} className="flex flex-col">
-            <CardHeader>
-              <CardTitle className="text-base flex items-center gap-2">
-                <Icon className="w-4 h-4 text-brand" />
-                {title}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col justify-between gap-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {description}
-              </p>
-              <div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setOpenGuide(key)}
-                >
-                  View
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        {GUIDES.map(({ key, title, description, icon: Icon, download }) => (
+          <ResourceCard
+            key={key}
+            title={title}
+            description={description}
+            icon={Icon}
+            onOpen={() => setOpenGuide(key)}
+            downloadFn={download}
+            downloadLabel={`Download ${title} as PDF`}
+          />
         ))}
+        <ResourceCard
+          title="Scholarships"
+          description="Habib University merit- and need-based scholarship programs with grade requirements for national and international boards."
+          icon={GraduationCap}
+          href="/grades"
+          downloadFn={downloadScholarshipsPdf}
+          downloadLabel="Download scholarships as PDF"
+        />
       </div>
 
       <dialog
@@ -192,5 +203,83 @@ export function ResourcesRunner() {
         </div>
       </dialog>
     </>
+  );
+}
+
+function DownloadIconButton({
+  onClick,
+  label,
+}: {
+  onClick: () => void;
+  label: string;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
+      aria-label={label}
+      title={label}
+      className="inline-flex items-center justify-center h-8 w-8 rounded-md text-muted-foreground hover:bg-brand-soft hover:text-brand-ink transition-colors"
+    >
+      <Download className="w-4 h-4" />
+    </button>
+  );
+}
+
+function ResourceCard({
+  title,
+  description,
+  icon: Icon,
+  onOpen,
+  href,
+  downloadFn,
+  downloadLabel,
+}: {
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+  onOpen?: () => void;
+  href?: string;
+  downloadFn: () => void;
+  downloadLabel: string;
+}) {
+  const router = useRouter();
+  const handleActivate = () => {
+    if (href) router.push(href);
+    else onOpen?.();
+  };
+  const commonClass =
+    "flex flex-col cursor-pointer transition-colors hover:border-brand/40 hover:bg-brand-soft/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  return (
+    <Card
+      role="button"
+      tabIndex={0}
+      onClick={handleActivate}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleActivate();
+        }
+      }}
+      className={cn(commonClass)}
+    >
+      <CardHeader>
+        <CardTitle className="text-base flex items-center gap-2">
+          <Icon className="w-4 h-4 text-brand" />
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="flex-1 flex flex-col justify-between gap-4">
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+        <div className="flex items-center justify-end">
+          <DownloadIconButton onClick={downloadFn} label={downloadLabel} />
+        </div>
+      </CardContent>
+    </Card>
   );
 }
