@@ -223,7 +223,7 @@ export function DashboardSidebar({
         className={cn(
           "flex-col border-r border-border/70",
           mobileOpen
-            ? "fixed inset-0 z-50 w-full h-screen bg-card flex"
+            ? "fixed inset-0 z-50 w-full h-dvh bg-card flex pb-[env(safe-area-inset-bottom)]"
             : "hidden",
           "md:sticky md:top-0 md:self-start md:h-screen md:shrink-0 md:flex md:inset-auto md:z-auto md:bg-card/40 md:backdrop-blur md:transition-[width] md:duration-200",
           isCollapsed ? "md:w-16" : "md:w-64"
