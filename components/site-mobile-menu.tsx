@@ -45,7 +45,7 @@ export function SiteMobileMenu({
         <Menu className="w-5 h-5" />
       </button>
       {open && (
-        <div className="fixed inset-0 z-50 bg-background flex flex-col md:hidden h-dvh">
+        <div className="fixed inset-0 z-50 bg-background flex flex-col md:hidden h-dvh animate-slide-in-from-top">
           <div className="flex items-center justify-between h-16 px-6 border-b border-border/70">
             <BrandMark size="sm" />
             <button

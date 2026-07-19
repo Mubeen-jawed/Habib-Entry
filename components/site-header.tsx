@@ -29,6 +29,17 @@ export async function SiteHeader() {
         <BrandMark size="sm" />
         <SiteNav items={navItems} />
         <div className="flex items-center gap-2">
+          <div className="md:hidden">
+            {session?.user ? (
+              <Button variant="brand" size="sm" asChild>
+                <Link href="/dashboard">Dashboard</Link>
+              </Button>
+            ) : (
+              <Button variant="brand" size="sm" asChild>
+                <Link href="/register">Get started</Link>
+              </Button>
+            )}
+          </div>
           <div className="hidden md:flex items-center gap-2">
             {session?.user ? (
               <Button variant="ghost" size="sm" asChild>

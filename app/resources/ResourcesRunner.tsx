@@ -99,7 +99,7 @@ export function ResourcesRunner() {
         onClick={(e) => {
           if (e.target === e.currentTarget) close();
         }}
-        className="m-auto w-full max-w-lg rounded-lg p-0 backdrop:bg-foreground/40"
+        className="m-auto w-[calc(100%-1.5rem)] max-w-lg rounded-lg p-0 backdrop:bg-foreground/40"
       >
         <div className="flex flex-col max-h-[85vh]">
           <div className="flex items-start justify-between gap-4 border-b p-5">
@@ -128,7 +128,7 @@ export function ResourcesRunner() {
         onClick={(e) => {
           if (e.target === e.currentTarget) close();
         }}
-        className="m-auto w-full max-w-3xl rounded-lg p-0 backdrop:bg-foreground/40"
+        className="m-auto w-[calc(100%-1.5rem)] max-w-3xl rounded-lg p-0 backdrop:bg-foreground/40"
       >
         <div className="flex flex-col max-h-[85vh]">
           <div className="flex items-start justify-between gap-4 border-b p-5">
@@ -159,7 +159,7 @@ export function ResourcesRunner() {
         onClick={(e) => {
           if (e.target === e.currentTarget) close();
         }}
-        className="m-auto w-full max-w-2xl rounded-lg p-0 backdrop:bg-foreground/40"
+        className="m-auto w-[calc(100%-1.5rem)] max-w-2xl rounded-lg p-0 backdrop:bg-foreground/40"
       >
         <div className="flex flex-col max-h-[85vh]">
           <div className="flex items-start justify-between gap-4 border-b p-5">
