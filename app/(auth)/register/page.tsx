@@ -34,9 +34,7 @@ export default async function RegisterPage({ searchParams }: { searchParams: Sea
       data: { name: name || null, email, passwordHash },
     });
 
-    // The user has no school yet; middleware will route them to
-    // /select-school after they land on /dashboard.
-    await signIn("credentials", { email, password, redirectTo: "/dashboard" });
+    await signIn("credentials", { email, password, redirectTo: "/select-school" });
   }
 
   return (

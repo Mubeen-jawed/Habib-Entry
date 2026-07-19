@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
@@ -156,7 +157,12 @@ function PenDoodleIcon({ className }: { className?: string }) {
 
 export default async function DashboardPage() {
   const session = await auth();
-  const userId = session!.user.id;
+  if (!session?.user?.id) {
+    // Middleware should have caught this, but if the JWT can't be read here
+    // (e.g. after a bad env change) don't blow up the render — send to login.
+    redirect("/login");
+  }
+  const userId = session.user.id;
   const isAdmin = await isEffectiveAdmin();
   // Read the persisted school from DB so we always show the latest choice
   // even if the JWT hasn't refreshed yet.

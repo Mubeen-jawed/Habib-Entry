@@ -1,15 +1,13 @@
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
-// Section practice, mock tests, essay writer, and attempt review are open to
-// any signed-in user. Bulk testing tools and interview scheduling stay
-// admin-only for now.
+// Section practice, mock tests, essay writer, attempt review, and interview
+// booking are open to any signed-in user. Bulk testing tools stay admin-only.
 const ADMIN_ONLY_PREFIXES = [
   "/testing",
-  "/interview",
 ];
 
-const USER_PROTECTED_PREFIXES = ["/practice", "/attempts", "/mock", "/essay"];
+const USER_PROTECTED_PREFIXES = ["/practice", "/attempts", "/mock", "/essay", "/interview"];
 
 const PROTECTED_PREFIXES = [
   "/dashboard",

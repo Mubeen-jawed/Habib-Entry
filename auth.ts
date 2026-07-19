@@ -86,8 +86,16 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
     async jwt({ token, user, trigger }) {
       if (user) token.id = user.id;
 
-      // Refresh role + school from DB on sign-in and periodically (session update).
-      if (token.id && (user || trigger === "update" || !token.role)) {
+      // Refresh role + school from DB on sign-in, on session update, when role
+      // is missing, or whenever a non-admin still lacks a schoolSlug — that
+      // last case ensures the token can't get stuck stale after a user picks
+      // their school (unstable_update in a server-action → redirect is flaky).
+      const needsSchoolRefresh =
+        !token.schoolSlug && token.role && token.role !== "ADMIN";
+      if (
+        token.id &&
+        (user || trigger === "update" || !token.role || needsSchoolRefresh)
+      ) {
         const dbUser = await db.user.findUnique({
           where: { id: token.id as string },
           select: { role: true, schoolSlug: true },

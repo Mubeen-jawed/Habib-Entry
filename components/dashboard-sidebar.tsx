@@ -14,11 +14,13 @@ import {
   FileText,
   Home,
   LogOut,
+  Menu,
   MessageSquare,
   Pencil,
   Settings,
   Sparkles,
   Timer,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BrandMark } from "@/components/brand-mark";
@@ -141,7 +143,11 @@ export function DashboardSidebar({
   const search = searchParams?.toString() ?? "";
   const hash = useHash();
   const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+
+  const isCollapsed = mobileOpen ? false : collapsed;
+  const closeMobile = () => setMobileOpen(false);
 
   const dashboardActiveHref = getSectionActiveHref(
     [DASHBOARD_ITEM],
@@ -185,98 +191,148 @@ export function DashboardSidebar({
     localStorage.setItem(STORAGE_KEY, collapsed ? "1" : "0");
   }, [collapsed, hydrated]);
 
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname, search, hash]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
   const firstName = user.name?.split(" ")[0] ?? "You";
 
   return (
-    <aside
-      className={cn(
-        "sticky top-0 self-start h-screen shrink-0 border-r border-border/70 bg-card/40 backdrop-blur flex flex-col transition-[width] duration-200",
-        collapsed ? "w-16" : "w-64"
-      )}
-    >
-      <div
+    <>
+      <button
+        type="button"
+        onClick={() => setMobileOpen(true)}
+        aria-label="Open menu"
         className={cn(
-          "flex items-center h-16 px-3 border-b border-border/70",
-          collapsed ? "justify-center" : "justify-between"
+          "fixed top-3 left-3 z-40 p-2 rounded-md bg-card border border-border/70 shadow-sm text-foreground/80 hover:bg-brand-soft hover:text-brand-ink md:hidden",
+          mobileOpen && "hidden"
         )}
       >
-        {!collapsed && <BrandMark size="sm" />}
-        <button
-          type="button"
-          onClick={() => setCollapsed((v) => !v)}
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          title={collapsed ? "Expand" : "Collapse"}
-          className="p-1.5 rounded-md text-muted-foreground hover:bg-brand-soft hover:text-brand-ink transition-colors"
-        >
-          {collapsed ? (
-            <ChevronsRight className="w-4 h-4" />
-          ) : (
-            <ChevronsLeft className="w-4 h-4" />
+        <Menu className="w-5 h-5" />
+      </button>
+      <aside
+        className={cn(
+          "flex-col border-r border-border/70",
+          mobileOpen
+            ? "fixed inset-0 z-50 w-full h-screen bg-card flex"
+            : "hidden",
+          "md:sticky md:top-0 md:self-start md:h-screen md:shrink-0 md:flex md:inset-auto md:z-auto md:bg-card/40 md:backdrop-blur md:transition-[width] md:duration-200",
+          isCollapsed ? "md:w-16" : "md:w-64"
+        )}
+      >
+        <div
+          className={cn(
+            "flex items-center h-16 px-3 border-b border-border/70",
+            isCollapsed ? "justify-center" : "justify-between"
           )}
-        </button>
-      </div>
+        >
+          {!isCollapsed && <BrandMark size="sm" />}
+          <button
+            type="button"
+            onClick={() => {
+              if (mobileOpen) setMobileOpen(false);
+              else setCollapsed((v) => !v);
+            }}
+            aria-label={
+              mobileOpen
+                ? "Close menu"
+                : isCollapsed
+                ? "Expand sidebar"
+                : "Collapse sidebar"
+            }
+            title={
+              mobileOpen ? "Close" : isCollapsed ? "Expand" : "Collapse"
+            }
+            className="p-1.5 rounded-md text-muted-foreground hover:bg-brand-soft hover:text-brand-ink transition-colors"
+          >
+            {mobileOpen ? (
+              <X className="w-5 h-5" />
+            ) : isCollapsed ? (
+              <ChevronsRight className="w-4 h-4" />
+            ) : (
+              <ChevronsLeft className="w-4 h-4" />
+            )}
+          </button>
+        </div>
 
-      <nav className="flex-1 overflow-y-auto py-3 space-y-4">
-        <ul className="space-y-0.5 px-2">
-          <SidebarLink
-            item={DASHBOARD_ITEM}
-            active={dashboardActiveHref === DASHBOARD_ITEM.href}
-            collapsed={collapsed}
+        <nav className="flex-1 overflow-y-auto py-3 space-y-4">
+          <ul className="space-y-0.5 px-2">
+            <SidebarLink
+              item={DASHBOARD_ITEM}
+              active={dashboardActiveHref === DASHBOARD_ITEM.href}
+              collapsed={isCollapsed}
+              onNavigate={closeMobile}
+            />
+          </ul>
+          <SidebarSection
+            heading="Practice"
+            items={PRACTICE_ITEMS}
+            activeHref={practiceActiveHref}
+            collapsed={isCollapsed}
+            collapsible
+            storageKey="dashboard-sidebar-section-practice"
+            onNavigate={closeMobile}
           />
-        </ul>
-        <SidebarSection
-          heading="Practice"
-          items={PRACTICE_ITEMS}
-          activeHref={practiceActiveHref}
-          collapsed={collapsed}
-          collapsible
-          storageKey="dashboard-sidebar-section-practice"
-        />
-        <SidebarSection
-          heading="Essay"
-          items={ESSAY_ITEMS}
-          activeHref={essayActiveHref}
-          collapsed={collapsed}
-          collapsible
-          storageKey="dashboard-sidebar-section-essay"
-          defaultCollapsed
-        />
-        <SidebarSection
-          heading="Interview"
-          items={INTERVIEW_ITEMS}
-          activeHref={interviewActiveHref}
-          collapsed={collapsed}
-          collapsible
-          storageKey="dashboard-sidebar-section-interview"
-          defaultCollapsed
-        />
-        <SidebarSection
-          heading="Meta-curricular"
-          items={META_ITEMS}
-          activeHref={null}
-          collapsed={collapsed}
-          collapsible
-          storageKey="dashboard-sidebar-section-meta"
-          defaultCollapsed
-          emptyMessage="Coming soon"
-          emptyIcon={Sparkles}
-        />
-        <ul className="space-y-0.5 px-2">
-          <SidebarLink
-            item={RESOURCES_ITEM}
-            active={resourcesActiveHref === RESOURCES_ITEM.href}
-            collapsed={collapsed}
+          <SidebarSection
+            heading="Essay"
+            items={ESSAY_ITEMS}
+            activeHref={essayActiveHref}
+            collapsed={isCollapsed}
+            collapsible
+            storageKey="dashboard-sidebar-section-essay"
+            defaultCollapsed
+            onNavigate={closeMobile}
           />
-        </ul>
-      </nav>
+          <SidebarSection
+            heading="Interview"
+            items={INTERVIEW_ITEMS}
+            activeHref={interviewActiveHref}
+            collapsed={isCollapsed}
+            collapsible
+            storageKey="dashboard-sidebar-section-interview"
+            defaultCollapsed
+            onNavigate={closeMobile}
+          />
+          <SidebarSection
+            heading="Meta-curricular"
+            items={META_ITEMS}
+            activeHref={null}
+            collapsed={isCollapsed}
+            collapsible
+            storageKey="dashboard-sidebar-section-meta"
+            defaultCollapsed
+            emptyMessage="Coming soon"
+            emptyIcon={Sparkles}
+            onNavigate={closeMobile}
+          />
+          <ul className="space-y-0.5 px-2">
+            <SidebarLink
+              item={RESOURCES_ITEM}
+              active={resourcesActiveHref === RESOURCES_ITEM.href}
+              collapsed={isCollapsed}
+              onNavigate={closeMobile}
+            />
+          </ul>
+        </nav>
 
-      <ProfileMenu
-        user={user}
-        firstName={firstName}
-        collapsed={collapsed}
-        signOutAction={signOutAction}
-      />
-    </aside>
+        <ProfileMenu
+          user={user}
+          firstName={firstName}
+          collapsed={isCollapsed}
+          signOutAction={signOutAction}
+          onNavigate={closeMobile}
+        />
+      </aside>
+    </>
   );
 }
 
@@ -285,11 +341,13 @@ function ProfileMenu({
   firstName,
   collapsed,
   signOutAction,
+  onNavigate,
 }: {
   user: { name: string | null; email: string | null };
   firstName: string;
   collapsed: boolean;
   signOutAction: () => Promise<void>;
+  onNavigate?: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -328,7 +386,10 @@ function ProfileMenu({
           <Link
             href="/settings"
             role="menuitem"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              setOpen(false);
+              onNavigate?.();
+            }}
             className="flex items-center gap-2 px-3 py-2 text-sm text-foreground/80 hover:bg-brand-soft hover:text-brand-ink"
           >
             <Settings className="w-4 h-4 shrink-0" />
@@ -390,16 +451,19 @@ function SidebarLink({
   item,
   active,
   collapsed,
+  onNavigate,
 }: {
   item: NavItem;
   active: boolean;
   collapsed: boolean;
+  onNavigate?: () => void;
 }) {
   const Icon = item.icon;
   return (
     <li>
       <Link
         href={item.href}
+        onClick={onNavigate}
         title={collapsed ? item.label : undefined}
         aria-current={active ? "page" : undefined}
         className={cn(
@@ -427,6 +491,7 @@ function SidebarSection({
   storageKey,
   emptyMessage,
   emptyIcon,
+  onNavigate,
 }: {
   heading: string;
   items: NavItem[];
@@ -437,6 +502,7 @@ function SidebarSection({
   storageKey?: string;
   emptyMessage?: string;
   emptyIcon?: React.ComponentType<{ className?: string }>;
+  onNavigate?: () => void;
 }) {
   const [sectionCollapsed, setSectionCollapsed] = useState(defaultCollapsed);
 
@@ -489,6 +555,7 @@ function SidebarSection({
               item={item}
               active={item.href === activeHref}
               collapsed={collapsed}
+              onNavigate={onNavigate}
             />
           ))}
         </ul>
