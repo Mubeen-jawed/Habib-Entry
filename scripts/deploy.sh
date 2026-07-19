@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Habib Entry — VPS deploy bootstrap.
+# Habib Entry, VPS deploy bootstrap.
 #
 # Target: Ubuntu / Debian, PostgreSQL, pnpm, PM2, nginx on port 3005.
 # Run this ON the VPS, from the project root (or with APP_DIR set):
@@ -43,7 +43,7 @@ env_set() {
 
 require_sudo() {
   if ! sudo -n true 2>/dev/null; then
-    log "sudo access required — you'll be prompted"
+    log "sudo access required, you'll be prompted"
     sudo -v
   fi
 }
@@ -155,19 +155,19 @@ log "Generating Prisma client"
 pnpm prisma generate
 
 log "Seeding base sections + sample mock scaffold (idempotent)"
-pnpm db:seed || warn "seed step reported an error — continuing"
+pnpm db:seed || warn "seed step reported an error, continuing"
 
 log "Seeding SAT question banks (Math / Reading / Writing)"
 for f in data/sat/maths.json data/sat/reading.json data/sat/writing.json; do
   if [ -f "$f" ]; then
-    pnpm exec tsx prisma/seed-sat.ts "$f" || warn "SAT seed for $f reported an error — continuing"
+    pnpm exec tsx prisma/seed-sat.ts "$f" || warn "SAT seed for $f reported an error, continuing"
   else
-    warn "missing $f — skipping"
+    warn "missing $f, skipping"
   fi
 done
 
 log "Rebuilding sample mock with 25 questions/section (renderable MCQs only)"
-pnpm exec tsx scripts/rebuild-sample-mock.ts || warn "rebuild-sample-mock reported an error — continuing"
+pnpm exec tsx scripts/rebuild-sample-mock.ts || warn "rebuild-sample-mock reported an error, continuing"
 
 log "Building Next.js"
 pnpm build

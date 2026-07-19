@@ -2,9 +2,10 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { SECTION_BY_SLUG, SECTION_NAMES, isRenderableQuestion } from "@/lib/sections";
+import { SCHOOLS, type SchoolSlug } from "@/lib/schools";
+import { pickMockCounts } from "@/lib/mock-counts";
 import { PracticeRunner } from "./PracticeRunner";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 
 type Params = Promise<{ section: string }>;
 type SearchParams = Promise<{ school?: string }>;
@@ -32,11 +33,17 @@ export default async function PracticePage({
   // Filter by school pool: questions tagged for this school + questions
   // available to all schools (schoolSlug=null). If no school param, no filter.
   const activeSchool = school && KNOWN_SCHOOLS.has(school) ? school : null;
+  const activeSchoolMeta = activeSchool
+    ? SCHOOLS[activeSchool as SchoolSlug]
+    : null;
   const schoolFilter = activeSchool
     ? { OR: [{ schoolSlug: null }, { schoolSlug: activeSchool }] }
     : {};
 
-  // Pick up to 10 questions the user hasn't answered yet in a practice attempt.
+  // Pick 20 or 25 questions per section attempt (Math: 20 or 25;
+  // Reading/Writing: one gets 20 and the other 25).
+  const targetCount = pickMockCounts()[sectionKey];
+
   const answeredIds = (
     await db.answer.findMany({
       where: {
@@ -57,7 +64,7 @@ export default async function PracticePage({
     })
   )
     .filter(isRenderableQuestion)
-    .slice(0, 10);
+    .slice(0, targetCount);
 
   // If everything has been answered, cycle back through all.
   if (questions.length === 0) {
@@ -68,23 +75,22 @@ export default async function PracticePage({
       })
     )
       .filter(isRenderableQuestion)
-      .slice(0, 10);
+      .slice(0, targetCount);
   }
 
   if (questions.length === 0) {
     return (
-      <>
-        <SiteHeader />
-        <main className="flex-1 mx-auto max-w-5xl px-4 py-20 text-center">
+      <AppShell>
+        <div className="mx-auto max-w-5xl px-4 py-20 text-center">
           <h1 className="text-2xl font-semibold">
-            No questions in {SECTION_NAMES[sectionKey]} yet.
+            No questions in {SECTION_NAMES[sectionKey]}
+            {activeSchoolMeta ? ` for ${activeSchoolMeta.code}` : ""} yet.
           </h1>
           <p className="text-muted-foreground mt-2">
             Add content via the seed script or admin import.
           </p>
-        </main>
-        <SiteFooter />
-      </>
+        </div>
+      </AppShell>
     );
   }
 
@@ -99,13 +105,14 @@ export default async function PracticePage({
   });
 
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-5xl px-4 py-8">
+    <AppShell>
+      <div className="mx-auto max-w-[1600px] px-4 py-8">
         <PracticeRunner
           attemptId={attempt.id}
           sectionKey={sectionKey}
           sectionName={SECTION_NAMES[sectionKey]}
+          schoolCode={activeSchoolMeta?.code ?? null}
+          schoolName={activeSchoolMeta?.name ?? null}
           questions={questions.map((q) => ({
             id: q.id,
             stem: q.stem,
@@ -118,8 +125,7 @@ export default async function PracticePage({
             explanation: q.explanation,
           }))}
         />
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

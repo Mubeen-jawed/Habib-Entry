@@ -1,12 +1,11 @@
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Users } from "lucide-react";
 import { InterviewForm } from "./InterviewForm";
 
-export const metadata = { title: "Mock interview — HabibEntry" };
+export const metadata = { title: "Mock interview, HabibEntry" };
 
 const INTERVIEWERS = [
   { name: "Hashir", dept: "CE" },
@@ -37,9 +36,8 @@ const GUIDELINES = [
 
 export default function InterviewPage() {
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-3xl px-4 py-8">
+    <AppShell>
+      <div className="mx-auto max-w-3xl px-4 py-8">
         <BackButton className="mb-6" />
         <div className="mb-8">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -114,8 +112,7 @@ export default function InterviewPage() {
         </div>
 
         <InterviewForm />
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

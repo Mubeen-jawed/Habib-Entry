@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,9 +18,8 @@ export default async function AttemptsPage() {
   });
 
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-4xl px-4 py-10 space-y-6">
+    <AppShell>
+      <div className="mx-auto max-w-4xl px-4 py-10 space-y-6">
         <div>
           <h1 className="text-3xl font-semibold tracking-tight">Your attempts</h1>
           <p className="text-muted-foreground">Practice sessions and full mocks.</p>
@@ -91,8 +89,7 @@ export default async function AttemptsPage() {
             })}
           </div>
         )}
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

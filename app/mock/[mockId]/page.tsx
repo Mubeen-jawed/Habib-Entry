@@ -5,8 +5,7 @@ import { db } from "@/lib/db";
 import { parseChoices, SECTION_NAMES, SectionKey, isRenderableQuestion } from "@/lib/sections";
 import { ESSAY_PROMPTS } from "@/app/essay/prompts";
 import { MockRunner } from "./MockRunner";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { Button } from "@/components/ui/button";
 
 const DEFAULT_TOTAL_TIME_SECONDS = 3.5 * 60 * 60;
@@ -77,16 +76,14 @@ export default async function MockPage({ params }: { params: Params }) {
 
   if (mock.items.length === 0) {
     return (
-      <>
-        <SiteHeader />
-        <main className="flex-1 mx-auto max-w-5xl px-4 py-20 text-center">
+      <AppShell>
+        <div className="mx-auto max-w-5xl px-4 py-20 text-center">
           <h1 className="text-2xl font-semibold">This mock has no questions yet.</h1>
           <Button asChild variant="brand" className="mt-4">
             <Link href="/dashboard">Back to dashboard</Link>
           </Button>
-        </main>
-        <SiteFooter />
-      </>
+        </div>
+      </AppShell>
     );
   }
 
@@ -113,16 +110,15 @@ export default async function MockPage({ params }: { params: Params }) {
       correctChoice: it.question.correctChoice,
     }));
 
-  // Elapsed seconds since the attempt started — used to resume the global timer.
+  // Elapsed seconds since the attempt started, used to resume the global timer.
   const elapsedSeconds = Math.floor(
     (Date.now() - attempt.startedAt.getTime()) / 1000,
   );
   const remainingSeconds = Math.max(0, totalTimeSeconds - elapsedSeconds);
 
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-5xl px-4 py-8">
+    <AppShell>
+      <div className="mx-auto max-w-[1600px] px-4 py-8">
         <MockRunner
           attemptId={attempt.id}
           sections={sectionMeta}
@@ -132,8 +128,7 @@ export default async function MockPage({ params }: { params: Params }) {
           initialEssayText={attempt.essayText ?? ""}
           remainingSeconds={remainingSeconds}
         />
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

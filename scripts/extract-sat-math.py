@@ -15,10 +15,10 @@ correctChoice letter or numeric answer). Choice text is left empty; the image
 carries the content.
 
 Input:  data/sat/maths-50.pdf
-Output: data/sat/maths.json                       — question metadata + image paths
-        public/questions/sat/math/<id>-stem.png   — stem + any figure
-        public/questions/sat/math/<id>-<A|B|C|D>.png — choice images (MCQ)
-        public/questions/sat/math/<id>-rationale.png — rationale image
+Output: data/sat/maths.json                      , question metadata + image paths
+        public/questions/sat/math/<id>-stem.png  , stem + any figure
+        public/questions/sat/math/<id>-<A|B|C|D>.png, choice images (MCQ)
+        public/questions/sat/math/<id>-rationale.png, rationale image
 """
 
 from __future__ import annotations
@@ -46,11 +46,17 @@ DIFFICULTY_WORDS = ("Easy", "Medium", "Hard")
 
 QUESTION_ID_RE = re.compile(r"^Question ID:\s*([0-9a-f]{6,})\s*$", re.MULTILINE)
 CORRECT_ANSWER_RE = re.compile(r"Correct Answer:\s*(.+?)(?:\n|$)")
+# Fallback for SPR questions where the College Board export omits the
+# "Correct Answer:" line and the answer only appears in the rationale prose.
+RATIONALE_ANSWER_RE = re.compile(r"The correct answer is\s+([0-9./\-]+)")
 CHOICE_LETTERS = ["A", "B", "C", "D"]
 # A "landmark" text-line is one whose stripped content equals a fixed keyword.
 LANDMARK_KEYWORDS = {"Question", "Answer", "Rationale", "A.", "B.", "C.", "D."}
+# Some choices render as text on the same line as the letter, e.g. "A. 3.5".
+# Detect these as A./B./C./D. landmarks and capture the trailing text.
+CHOICE_TEXT_LINE_RE = re.compile(r"^([A-D])\.\s+(.+)$")
 
-# Horizontal crop bounds — leave small margins.
+# Horizontal crop bounds, leave small margins.
 CROP_X0 = 18.0
 CROP_X1 = 594.0
 # Two separate paddings:
@@ -81,7 +87,7 @@ class MathQuestion:
     skill: str | None
     difficulty: str | None
     difficultyInt: int
-    stem: str  # best-effort text (equations missing) — image is authoritative
+    stem: str  # best-effort text (equations missing), image is authoritative
     choices: list[Choice]
     correctChoice: str  # "A|B|C|D" for MCQ, numeric string for SPR
     stemImageUrl: str | None
@@ -171,6 +177,7 @@ class Landmark:
     page: int  # 0-based
     top: float  # y-position (from top)
     bottom: float
+    inline_text: str = ""  # for A./B./C./D. landmarks: text after the letter
 
 
 def _find_landmarks(pdf: pdfplumber.PDF, start_page: int, end_page: int) -> list[Landmark]:
@@ -195,6 +202,12 @@ def _find_landmarks(pdf: pdfplumber.PDF, start_page: int, end_page: int) -> list
                 landmarks.append(Landmark(text, pi, top, bottom))
             elif text.startswith("Correct Answer:"):
                 landmarks.append(Landmark("Correct Answer:", pi, top, bottom))
+            else:
+                m = CHOICE_TEXT_LINE_RE.match(text)
+                if m:
+                    landmarks.append(
+                        Landmark(f"{m.group(1)}.", pi, top, bottom, inline_text=m.group(2).strip())
+                    )
     return landmarks
 
 
@@ -207,7 +220,7 @@ def _crop_band(
     y0: float,
     y1: float,
     out_path: Path,
-    dpi: int = 200,
+    dpi: int = 300,
 ) -> None:
     page = doc.load_page(page_index)
     zoom = dpi / 72
@@ -263,6 +276,12 @@ def extract(
                 if m:
                     correct_raw = _clean(m.group(1))
                     break
+            if correct_raw is None:
+                for line in block_lines:
+                    m = RATIONALE_ANSWER_RE.search(line)
+                    if m:
+                        correct_raw = m.group(1).rstrip(".")
+                        break
             question_type = "MCQ" if correct_raw in CHOICE_LETTERS else "SPR"
 
             # Best-effort stem text (missing equations).
@@ -317,10 +336,14 @@ def extract(
                         choice_png = images_dir / f"{ext_id}-{L}.png"
                         _crop_band(doc, mark.page, top, bottom, choice_png)
                         choices.append(
-                            Choice(id=L, text="", imageUrl=f"{image_url_prefix}/{ext_id}-{L}.png")
+                            Choice(
+                                id=L,
+                                text=mark.inline_text,
+                                imageUrl=f"{image_url_prefix}/{ext_id}-{L}.png",
+                            )
                         )
                     else:
-                        choices.append(Choice(id=L, text="", imageUrl=None))
+                        choices.append(Choice(id=L, text=mark.inline_text, imageUrl=None))
 
             # --- crop rationale image (first page of rationale only for MVP) ---
             rationale_mark = _first_landmark(landmarks, "Rationale")

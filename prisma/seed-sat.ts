@@ -34,8 +34,8 @@ type SatFile = {
 
 const SECTION_META: Record<string, { name: string; order: number }> = {
   MATH: { name: "Math", order: 0 },
-  READING: { name: "English — Reading", order: 1 },
-  WRITING: { name: "English — Writing", order: 2 },
+  READING: { name: "English, Reading", order: 1 },
+  WRITING: { name: "English, Writing", order: 2 },
 };
 
 async function ensureSection(key: string) {

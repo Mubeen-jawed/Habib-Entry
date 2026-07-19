@@ -1,10 +1,9 @@
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, GraduationCap } from "lucide-react";
 
-export const metadata = { title: "Grades & scholarships — HabibEntry" };
+export const metadata = { title: "Grades & scholarships, HabibEntry" };
 
 type Requirement = string | { akueb: string; otherBoards: string };
 
@@ -78,9 +77,8 @@ const NATIONAL_BOARD: Scholarship[] = [
 
 export default function GradesPage() {
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-3xl px-4 py-8">
+    <AppShell>
+      <div className="mx-auto max-w-3xl px-4 py-8">
         <BackButton className="mb-6" />
         <div className="mb-8">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -107,9 +105,8 @@ export default function GradesPage() {
           description="For applicants sitting Matric, FSc, or equivalent national boards."
           scholarships={NATIONAL_BOARD}
         />
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }
 

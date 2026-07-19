@@ -15,8 +15,8 @@ export const SLUG_BY_SECTION: Record<SectionKey, string> = {
 
 export const SECTION_NAMES: Record<SectionKey, string> = {
   MATH: "Math",
-  READING: "English — Reading",
-  WRITING: "English — Writing",
+  READING: "English, Reading",
+  WRITING: "English, Writing",
 };
 
 export type Choice = { id: string; text: string; imageUrl?: string | null };

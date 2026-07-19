@@ -139,7 +139,7 @@ export function MockRunner({
         try {
           await saveMockEssay({ attemptId, prompt: essayPrompt, text: essayText });
         } catch {
-          /* ignore — still submit */
+          /* ignore, still submit */
         }
       }
       await submitMockAttempt({ attemptId });
@@ -191,7 +191,7 @@ export function MockRunner({
       {nearEnd && !submittingRef.current && (
         <div className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
           Less than {Math.ceil(remaining / 60)} minute
-          {Math.ceil(remaining / 60) === 1 ? "" : "s"} left — the mock will
+          {Math.ceil(remaining / 60) === 1 ? "" : "s"} left, the mock will
           auto-submit when the timer hits zero.
         </div>
       )}
@@ -233,10 +233,10 @@ export function MockRunner({
                 src={currentQ.stemImageUrl}
                 alt="Figure for the question"
                 className={cn(
-                  "rounded-md border bg-white self-center mb-3",
+                  "bg-white self-center mb-3",
                   currentQ.sectionKey === "MATH"
                     ? "w-full max-h-none"
-                    : "max-h-[520px] w-auto",
+                    : "max-h-[780px] w-auto",
                 )}
               />
             )}
@@ -269,7 +269,12 @@ export function MockRunner({
                     <img
                       src={c.imageUrl}
                       alt={`Choice ${c.id}`}
-                      className="flex-1 max-h-32 w-auto bg-white"
+                      className={cn(
+                        "flex-1 w-auto bg-white",
+                        currentQ.sectionKey === "MATH"
+                          ? "max-h-[36rem]"
+                          : "max-h-[18rem]",
+                      )}
                     />
                   ) : (
                     <span className="flex-1 min-w-0">{c.text}</span>

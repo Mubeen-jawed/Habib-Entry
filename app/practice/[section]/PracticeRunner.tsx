@@ -26,11 +26,15 @@ export function PracticeRunner({
   attemptId,
   sectionKey,
   sectionName,
+  schoolCode,
+  schoolName,
   questions,
 }: {
   attemptId: string;
   sectionKey: SectionKey;
   sectionName: string;
+  schoolCode?: string | null;
+  schoolName?: string | null;
   questions: Q[];
 }) {
   const router = useRouter();
@@ -86,10 +90,21 @@ export function PracticeRunner({
         <div>
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
             Practice · {sectionName}
+            {schoolCode && (
+              <>
+                {" · "}
+                <span title={schoolName ?? undefined}>{schoolCode}</span>
+              </>
+            )}
           </div>
           <h1 className="text-xl font-semibold">
             Question {idx + 1} <span className="text-muted-foreground">of {questions.length}</span>
           </h1>
+          {schoolName && (
+            <div className="text-xs text-muted-foreground mt-0.5">
+              Practicing for {schoolName}
+            </div>
+          )}
         </div>
         <div className="text-sm text-muted-foreground">
           Correct so far: <span className="font-medium text-foreground">{correctSoFar}</span>
@@ -104,10 +119,10 @@ export function PracticeRunner({
               src={q.stemImageUrl}
               alt="Figure for the question"
               className={cn(
-                "rounded-md border bg-white self-center mb-3",
+                "bg-white self-center mb-3",
                 sectionKey === "MATH"
                   ? "w-full max-h-none"
-                  : "max-h-[520px] w-auto",
+                  : "max-h-[780px] w-auto",
               )}
             />
           )}
@@ -178,8 +193,8 @@ export function PracticeRunner({
                       className={cn(
                         "bg-white",
                         sectionKey === "MATH"
-                          ? "flex-1 max-h-64 w-auto"
-                          : "flex-1 max-h-32 w-auto",
+                          ? "flex-1 max-h-[36rem] w-auto"
+                          : "flex-1 max-h-[18rem] w-auto",
                       )}
                     />
                   ) : (
@@ -197,7 +212,7 @@ export function PracticeRunner({
               <img
                 src={q.explanationImageUrl}
                 alt="Explanation"
-                className="w-full h-auto bg-white rounded"
+                className="w-full h-auto bg-white"
               />
             </div>
           )}

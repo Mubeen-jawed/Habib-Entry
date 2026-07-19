@@ -95,13 +95,13 @@ const READING: SeedQuestion[] = [
     ],
     correct: "B",
     explanation:
-      "The passage focuses on how the printing press transformed knowledge distribution — not on mechanics, methods, or an argument against hand-copying.",
+      "The passage focuses on how the printing press transformed knowledge distribution, not on mechanics, methods, or an argument against hand-copying.",
     difficulty: 2,
   },
   {
     topic: "Inference",
     passage:
-      "Coral reefs are among the most biodiverse ecosystems on Earth. Even a small change in ocean temperature can stress the corals, causing them to expel the algae living inside them and turn white — a process called bleaching. Repeated bleaching events can kill entire reefs.",
+      "Coral reefs are among the most biodiverse ecosystems on Earth. Even a small change in ocean temperature can stress the corals, causing them to expel the algae living inside them and turn white, a process called bleaching. Repeated bleaching events can kill entire reefs.",
     stem: "It can be inferred from the passage that:",
     choices: [
       { id: "A", text: "coral reefs are unaffected by temperature." },
@@ -117,7 +117,7 @@ const READING: SeedQuestion[] = [
   {
     topic: "Vocabulary in Context",
     passage:
-      "The engineer's design was elegant — no wasted parts, no redundant lines. Every component served a purpose, and the whole assembly could be understood at a glance.",
+      "The engineer's design was elegant, no wasted parts, no redundant lines. Every component served a purpose, and the whole assembly could be understood at a glance.",
     stem: "In the context above, 'elegant' most nearly means:",
     choices: [
       { id: "A", text: "expensive" },
@@ -225,23 +225,23 @@ async function seedQuestions(sectionKey: string, items: SeedQuestion[]) {
 }
 
 import { isRenderableQuestion } from "../lib/sections";
-
-const MOCK_QUESTIONS_PER_SECTION = 25;
+import { describeMockCounts, pickMockCounts } from "../lib/mock-counts";
 
 async function seedMock() {
   const all = await db.question.findMany({ orderBy: { createdAt: "asc" } });
   const sections = await db.section.findMany();
   const byKey = Object.fromEntries(sections.map((s) => [s.key, s]));
+  const counts = pickMockCounts();
 
   const mock = await db.mockTest.create({
     data: {
       title: "Sample Full-Length Mock #1",
-      description: `Full mock: ${MOCK_QUESTIONS_PER_SECTION} Math + ${MOCK_QUESTIONS_PER_SECTION} Reading + ${MOCK_QUESTIONS_PER_SECTION} Writing + Essay, 3.5 hours total.`,
+      description: describeMockCounts(counts),
     },
   });
 
   let sectionOrder = 0;
-  for (const key of ["MATH", "READING", "WRITING"]) {
+  for (const key of ["MATH", "READING", "WRITING"] as const) {
     const sectionId = byKey[key].id;
     await db.mockTestSection.create({
       data: {
@@ -259,7 +259,7 @@ async function seedMock() {
           choicesJson: q.choicesJson,
         }),
       )
-      .slice(0, MOCK_QUESTIONS_PER_SECTION);
+      .slice(0, counts[key]);
     let qOrder = 0;
     for (const q of pool) {
       await db.mockTestQuestion.create({
@@ -277,8 +277,8 @@ async function seedMock() {
 async function main() {
   console.log("Seeding sections...");
   await upsertSection("MATH", "Math", 0);
-  await upsertSection("READING", "English — Reading", 1);
-  await upsertSection("WRITING", "English — Writing", 2);
+  await upsertSection("READING", "English, Reading", 1);
+  await upsertSection("WRITING", "English, Writing", 2);
 
   const existing = await db.question.count();
   if (existing > 0) {

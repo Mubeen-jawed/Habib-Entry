@@ -103,7 +103,7 @@
         { "id": "D", "text": "511" }
       ],
       "correctChoice": "C",
-      "explanation": "A whole number is divisible by 3 if the sum of its digits is divisible by 3. For 348: 3 + 4 + 8 = 15, which is divisible by 3. Sums for the others are 4, 7, and 7 — none divisible by 3.",
+      "explanation": "A whole number is divisible by 3 if the sum of its digits is divisible by 3. For 348: 3 + 4 + 8 = 15, which is divisible by 3. Sums for the others are 4, 7, and 7, none divisible by 3.",
       "stemImageUrl": null,
       "sourcePage": 0
     },

@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { db } from "@/lib/db";
 import {
@@ -45,17 +44,15 @@ export default async function TestingSectionPage({
     }));
 
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-3xl px-4 py-8">
+    <AppShell>
+      <div className="mx-auto max-w-[1600px] px-4 py-8">
         <BackButton className="mb-6" />
         <BrowseRunner
           sectionKey={sectionKey}
           sectionName={SECTION_NAMES[sectionKey]}
           questions={questions}
         />
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

@@ -5,6 +5,7 @@
     {
       "externalId": "ac472881",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -15,12 +16,12 @@
       "correctChoice": "403",
       "stemImageUrl": "/questions/sat/math/ac472881-stem.png",
       "explanationImageUrl": "/questions/sat/math/ac472881-rationale.png",
-      "sourcePage": 1,
-      "schoolSlug": null
+      "sourcePage": 1
     },
     {
       "externalId": "3f5a3602",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -52,12 +53,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/3f5a3602-stem.png",
       "explanationImageUrl": "/questions/sat/math/3f5a3602-rationale.png",
-      "sourcePage": 2,
-      "schoolSlug": null
+      "sourcePage": 2
     },
     {
       "externalId": "3d1070c9",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -89,12 +90,12 @@
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/3d1070c9-stem.png",
       "explanationImageUrl": "/questions/sat/math/3d1070c9-rationale.png",
-      "sourcePage": 4,
-      "schoolSlug": null
+      "sourcePage": 4
     },
     {
       "externalId": "002dba45",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -105,12 +106,12 @@
       "correctChoice": ".1764, .1765, 3/17",
       "stemImageUrl": "/questions/sat/math/002dba45-stem.png",
       "explanationImageUrl": "/questions/sat/math/002dba45-rationale.png",
-      "sourcePage": 5,
-      "schoolSlug": null
+      "sourcePage": 5
     },
     {
       "externalId": "edc1b7b7",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -121,12 +122,12 @@
       "correctChoice": "3",
       "stemImageUrl": "/questions/sat/math/edc1b7b7-stem.png",
       "explanationImageUrl": "/questions/sat/math/edc1b7b7-rationale.png",
-      "sourcePage": 6,
-      "schoolSlug": null
+      "sourcePage": 6
     },
     {
       "externalId": "f224df07",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear inequalities in one or two variables",
@@ -136,34 +137,34 @@
       "choices": [
         {
           "id": "A",
-          "text": "",
-          "imageUrl": null
+          "text": "2",
+          "imageUrl": "/questions/sat/math/f224df07-A.png"
         },
         {
           "id": "B",
-          "text": "",
-          "imageUrl": null
+          "text": "4",
+          "imageUrl": "/questions/sat/math/f224df07-B.png"
         },
         {
           "id": "C",
-          "text": "",
-          "imageUrl": null
+          "text": "5",
+          "imageUrl": "/questions/sat/math/f224df07-C.png"
         },
         {
           "id": "D",
-          "text": "",
-          "imageUrl": null
+          "text": "6",
+          "imageUrl": "/questions/sat/math/f224df07-D.png"
         }
       ],
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/f224df07-stem.png",
       "explanationImageUrl": "/questions/sat/math/f224df07-rationale.png",
-      "sourcePage": 7,
-      "schoolSlug": null
+      "sourcePage": 7
     },
     {
       "externalId": "fa80893a",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -174,12 +175,12 @@
       "correctChoice": "17",
       "stemImageUrl": "/questions/sat/math/fa80893a-stem.png",
       "explanationImageUrl": "/questions/sat/math/fa80893a-rationale.png",
-      "sourcePage": 8,
-      "schoolSlug": null
+      "sourcePage": 8
     },
     {
       "externalId": "bd9eb2b5",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -211,12 +212,12 @@
       "correctChoice": "B",
       "stemImageUrl": "/questions/sat/math/bd9eb2b5-stem.png",
       "explanationImageUrl": "/questions/sat/math/bd9eb2b5-rationale.png",
-      "sourcePage": 9,
-      "schoolSlug": null
+      "sourcePage": 9
     },
     {
       "externalId": "1480dd5c",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -248,12 +249,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/1480dd5c-stem.png",
       "explanationImageUrl": "/questions/sat/math/1480dd5c-rationale.png",
-      "sourcePage": 10,
-      "schoolSlug": null
+      "sourcePage": 10
     },
     {
       "externalId": "3008cfc3",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -264,12 +265,12 @@
       "correctChoice": "33",
       "stemImageUrl": "/questions/sat/math/3008cfc3-stem.png",
       "explanationImageUrl": "/questions/sat/math/3008cfc3-rationale.png",
-      "sourcePage": 11,
-      "schoolSlug": null
+      "sourcePage": 11
     },
     {
       "externalId": "0d6ab461",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -301,12 +302,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/0d6ab461-stem.png",
       "explanationImageUrl": "/questions/sat/math/0d6ab461-rationale.png",
-      "sourcePage": 12,
-      "schoolSlug": null
+      "sourcePage": 12
     },
     {
       "externalId": "4becad44",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -338,12 +339,12 @@
       "correctChoice": "B",
       "stemImageUrl": "/questions/sat/math/4becad44-stem.png",
       "explanationImageUrl": "/questions/sat/math/4becad44-rationale.png",
-      "sourcePage": 13,
-      "schoolSlug": null
+      "sourcePage": 13
     },
     {
       "externalId": "d1b66ae6",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -354,12 +355,12 @@
       "correctChoice": "",
       "stemImageUrl": "/questions/sat/math/d1b66ae6-stem.png",
       "explanationImageUrl": "/questions/sat/math/d1b66ae6-rationale.png",
-      "sourcePage": 14,
-      "schoolSlug": null
+      "sourcePage": 14
     },
     {
       "externalId": "cb8f449f",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -369,8 +370,8 @@
       "choices": [
         {
           "id": "A",
-          "text": "",
-          "imageUrl": null
+          "text": "3",
+          "imageUrl": "/questions/sat/math/cb8f449f-A.png"
         },
         {
           "id": "B",
@@ -379,24 +380,24 @@
         },
         {
           "id": "C",
-          "text": "",
-          "imageUrl": null
+          "text": "4",
+          "imageUrl": "/questions/sat/math/cb8f449f-C.png"
         },
         {
           "id": "D",
-          "text": "",
-          "imageUrl": null
+          "text": "6",
+          "imageUrl": "/questions/sat/math/cb8f449f-D.png"
         }
       ],
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/cb8f449f-stem.png",
       "explanationImageUrl": "/questions/sat/math/cb8f449f-rationale.png",
-      "sourcePage": 15,
-      "schoolSlug": null
+      "sourcePage": 15
     },
     {
       "externalId": "3409707e",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -407,12 +408,12 @@
       "correctChoice": "30",
       "stemImageUrl": "/questions/sat/math/3409707e-stem.png",
       "explanationImageUrl": "/questions/sat/math/3409707e-rationale.png",
-      "sourcePage": 16,
-      "schoolSlug": null
+      "sourcePage": 16
     },
     {
       "externalId": "520c8177",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -444,12 +445,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/520c8177-stem.png",
       "explanationImageUrl": "/questions/sat/math/520c8177-rationale.png",
-      "sourcePage": 17,
-      "schoolSlug": null
+      "sourcePage": 17
     },
     {
       "externalId": "88e13c8c",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -481,18 +482,18 @@
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/88e13c8c-stem.png",
       "explanationImageUrl": "/questions/sat/math/88e13c8c-rationale.png",
-      "sourcePage": 18,
-      "schoolSlug": null
+      "sourcePage": 18
     },
     {
       "externalId": "744ee7d7",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear inequalities in one or two variables",
       "difficulty": "Easy",
       "difficultyInt": 1,
-      "stem": "(cid:0)15 (cid:0)10 (cid:0)5 5 10 15 x 5 10 15 20 25 30 35 40 45 50 55 60 y O The shaded region shown in the graph represents all the solutions to which inequality?",
+      "stem": "The shaded region shown in the graph represents all the solutions to which inequality?",
       "choices": [
         {
           "id": "A",
@@ -518,12 +519,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/744ee7d7-stem.png",
       "explanationImageUrl": "/questions/sat/math/744ee7d7-rationale.png",
-      "sourcePage": 19,
-      "schoolSlug": null
+      "sourcePage": 19
     },
     {
       "externalId": "3cdbf026",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -543,24 +544,24 @@
         },
         {
           "id": "C",
-          "text": "",
-          "imageUrl": null
+          "text": "2",
+          "imageUrl": "/questions/sat/math/3cdbf026-C.png"
         },
         {
           "id": "D",
-          "text": "",
-          "imageUrl": null
+          "text": "3",
+          "imageUrl": "/questions/sat/math/3cdbf026-D.png"
         }
       ],
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/3cdbf026-stem.png",
       "explanationImageUrl": "/questions/sat/math/3cdbf026-rationale.png",
-      "sourcePage": 20,
-      "schoolSlug": null
+      "sourcePage": 20
     },
     {
       "externalId": "00723d16",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -571,12 +572,12 @@
       "correctChoice": "0.25, 1/4",
       "stemImageUrl": "/questions/sat/math/00723d16-stem.png",
       "explanationImageUrl": "/questions/sat/math/00723d16-rationale.png",
-      "sourcePage": 21,
-      "schoolSlug": null
+      "sourcePage": 21
     },
     {
       "externalId": "ff501705",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -587,12 +588,12 @@
       "correctChoice": "6",
       "stemImageUrl": "/questions/sat/math/ff501705-stem.png",
       "explanationImageUrl": "/questions/sat/math/ff501705-rationale.png",
-      "sourcePage": 22,
-      "schoolSlug": null
+      "sourcePage": 22
     },
     {
       "externalId": "8c5e6702",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -624,12 +625,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/8c5e6702-stem.png",
       "explanationImageUrl": "/questions/sat/math/8c5e6702-rationale.png",
-      "sourcePage": 23,
-      "schoolSlug": null
+      "sourcePage": 23
     },
     {
       "externalId": "2937ef4f",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -639,34 +640,34 @@
       "choices": [
         {
           "id": "A",
-          "text": "",
-          "imageUrl": null
+          "text": "3",
+          "imageUrl": "/questions/sat/math/2937ef4f-A.png"
         },
         {
           "id": "B",
-          "text": "",
-          "imageUrl": null
+          "text": "7",
+          "imageUrl": "/questions/sat/math/2937ef4f-B.png"
         },
         {
           "id": "C",
-          "text": "",
-          "imageUrl": null
+          "text": "8",
+          "imageUrl": "/questions/sat/math/2937ef4f-C.png"
         },
         {
           "id": "D",
-          "text": "",
-          "imageUrl": null
+          "text": "12",
+          "imageUrl": "/questions/sat/math/2937ef4f-D.png"
         }
       ],
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/2937ef4f-stem.png",
       "explanationImageUrl": "/questions/sat/math/2937ef4f-rationale.png",
-      "sourcePage": 24,
-      "schoolSlug": null
+      "sourcePage": 24
     },
     {
       "externalId": "548a4929",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -698,12 +699,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/548a4929-stem.png",
       "explanationImageUrl": "/questions/sat/math/548a4929-rationale.png",
-      "sourcePage": 25,
-      "schoolSlug": null
+      "sourcePage": 25
     },
     {
       "externalId": "0adbe034",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -735,12 +736,12 @@
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/0adbe034-stem.png",
       "explanationImageUrl": "/questions/sat/math/0adbe034-rationale.png",
-      "sourcePage": 26,
-      "schoolSlug": null
+      "sourcePage": 26
     },
     {
       "externalId": "9bbce683",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -772,12 +773,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/9bbce683-stem.png",
       "explanationImageUrl": "/questions/sat/math/9bbce683-rationale.png",
-      "sourcePage": 27,
-      "schoolSlug": null
+      "sourcePage": 27
     },
     {
       "externalId": "2b15d65f",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -787,34 +788,34 @@
       "choices": [
         {
           "id": "A",
-          "text": "",
-          "imageUrl": null
+          "text": "16,250",
+          "imageUrl": "/questions/sat/math/2b15d65f-A.png"
         },
         {
           "id": "B",
-          "text": "",
-          "imageUrl": null
+          "text": "16,500",
+          "imageUrl": "/questions/sat/math/2b15d65f-B.png"
         },
         {
           "id": "C",
-          "text": "",
-          "imageUrl": null
+          "text": "16,750",
+          "imageUrl": "/questions/sat/math/2b15d65f-C.png"
         },
         {
           "id": "D",
-          "text": "",
-          "imageUrl": null
+          "text": "17,500",
+          "imageUrl": "/questions/sat/math/2b15d65f-D.png"
         }
       ],
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/2b15d65f-stem.png",
       "explanationImageUrl": "/questions/sat/math/2b15d65f-rationale.png",
-      "sourcePage": 28,
-      "schoolSlug": null
+      "sourcePage": 28
     },
     {
       "externalId": "e25f0807",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -825,12 +826,12 @@
       "correctChoice": "16.25, 65/4",
       "stemImageUrl": "/questions/sat/math/e25f0807-stem.png",
       "explanationImageUrl": "/questions/sat/math/e25f0807-rationale.png",
-      "sourcePage": 29,
-      "schoolSlug": null
+      "sourcePage": 29
     },
     {
       "externalId": "686b7244",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -841,12 +842,12 @@
       "correctChoice": "5",
       "stemImageUrl": "/questions/sat/math/686b7244-stem.png",
       "explanationImageUrl": "/questions/sat/math/686b7244-rationale.png",
-      "sourcePage": 30,
-      "schoolSlug": null
+      "sourcePage": 30
     },
     {
       "externalId": "b86123af",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -878,12 +879,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/b86123af-stem.png",
       "explanationImageUrl": "/questions/sat/math/b86123af-rationale.png",
-      "sourcePage": 31,
-      "schoolSlug": null
+      "sourcePage": 31
     },
     {
       "externalId": "3a3b95df",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -915,12 +916,12 @@
       "correctChoice": "B",
       "stemImageUrl": "/questions/sat/math/3a3b95df-stem.png",
       "explanationImageUrl": "/questions/sat/math/3a3b95df-rationale.png",
-      "sourcePage": 32,
-      "schoolSlug": null
+      "sourcePage": 32
     },
     {
       "externalId": "1b1deebe",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -952,18 +953,18 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/1b1deebe-stem.png",
       "explanationImageUrl": "/questions/sat/math/1b1deebe-rationale.png",
-      "sourcePage": 33,
-      "schoolSlug": null
+      "sourcePage": 33
     },
     {
       "externalId": "187f74bc",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear inequalities in one or two variables",
       "difficulty": "Hard",
       "difficultyInt": 5,
-      "stem": "(cid:0)8 (cid:0)6 (cid:0)4 (cid:0)2 2 4 6 8 x (cid:0)10 (cid:0)8 (cid:0)6 (cid:0)4 (cid:0)2 2 y O The shaded region shown represents the solutions to the inequality , where is a constant. What is the value of ?",
+      "stem": "The shaded region shown represents the solutions to the inequality , where is a constant. What is the value of ?",
       "choices": [
         {
           "id": "A",
@@ -989,12 +990,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/187f74bc-stem.png",
       "explanationImageUrl": "/questions/sat/math/187f74bc-rationale.png",
-      "sourcePage": 34,
-      "schoolSlug": null
+      "sourcePage": 34
     },
     {
       "externalId": "ee846db7",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -1026,12 +1027,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/ee846db7-stem.png",
       "explanationImageUrl": "/questions/sat/math/ee846db7-rationale.png",
-      "sourcePage": 35,
-      "schoolSlug": null
+      "sourcePage": 35
     },
     {
       "externalId": "baca4a4c",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -1063,12 +1064,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/baca4a4c-stem.png",
       "explanationImageUrl": "/questions/sat/math/baca4a4c-rationale.png",
-      "sourcePage": 36,
-      "schoolSlug": null
+      "sourcePage": 36
     },
     {
       "externalId": "5b8a8475",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -1100,12 +1101,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/5b8a8475-stem.png",
       "explanationImageUrl": "/questions/sat/math/5b8a8475-rationale.png",
-      "sourcePage": 37,
-      "schoolSlug": null
+      "sourcePage": 37
     },
     {
       "externalId": "cfe67646",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear inequalities in one or two variables",
@@ -1137,12 +1138,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/cfe67646-stem.png",
       "explanationImageUrl": "/questions/sat/math/cfe67646-rationale.png",
-      "sourcePage": 38,
-      "schoolSlug": null
+      "sourcePage": 38
     },
     {
       "externalId": "608eeb6e",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -1174,12 +1175,12 @@
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/608eeb6e-stem.png",
       "explanationImageUrl": "/questions/sat/math/608eeb6e-rationale.png",
-      "sourcePage": 39,
-      "schoolSlug": null
+      "sourcePage": 39
     },
     {
       "externalId": "be9cb6a2",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -1211,12 +1212,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/be9cb6a2-stem.png",
       "explanationImageUrl": "/questions/sat/math/be9cb6a2-rationale.png",
-      "sourcePage": 40,
-      "schoolSlug": null
+      "sourcePage": 40
     },
     {
       "externalId": "097e10f5",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -1248,12 +1249,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/097e10f5-stem.png",
       "explanationImageUrl": "/questions/sat/math/097e10f5-rationale.png",
-      "sourcePage": 41,
-      "schoolSlug": null
+      "sourcePage": 41
     },
     {
       "externalId": "1a1a95de",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -1285,12 +1286,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/1a1a95de-stem.png",
       "explanationImageUrl": "/questions/sat/math/1a1a95de-rationale.png",
-      "sourcePage": 42,
-      "schoolSlug": null
+      "sourcePage": 42
     },
     {
       "externalId": "84664a7c",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -1322,12 +1323,12 @@
       "correctChoice": "A",
       "stemImageUrl": "/questions/sat/math/84664a7c-stem.png",
       "explanationImageUrl": "/questions/sat/math/84664a7c-rationale.png",
-      "sourcePage": 44,
-      "schoolSlug": null
+      "sourcePage": 44
     },
     {
       "externalId": "e62cfe5f",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear functions",
@@ -1335,15 +1336,15 @@
       "difficultyInt": 3,
       "stem": "According to a model, the head width, in millimeters, of a worker bumblebee can be estimated by adding 0.6 to four times the body weight of the bee, in grams. According to the model, what would be the head width, in millimeters, of a worker bumblebee that has a body weight of 0.5 grams? Rationale The correct answer is 2.6. According to the model, the head width, in millimeters, of a worker bumblebee can be estimated by adding 0.6 to 4 times the body weight, in grams, of the bee. Let x represent the body weight, in grams, of a worker bumblebee and let y represent the head width, in millimeters. Translating the verbal description of the model into an equation yields . Substituting 0.5 grams for x in this equation yields , or . Therefore, a worker bumblebee with a body weight of 0.5 grams has an estimated head width of 2.6 millimeters. Note that 2.6 and 13/5 are examples of ways to enter a correct answer.",
       "choices": [],
-      "correctChoice": "",
+      "correctChoice": "2.6",
       "stemImageUrl": "/questions/sat/math/e62cfe5f-stem.png",
       "explanationImageUrl": "/questions/sat/math/e62cfe5f-rationale.png",
-      "sourcePage": 45,
-      "schoolSlug": null
+      "sourcePage": 45
     },
     {
       "externalId": "b0fc3166",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Systems of two linear equations in two variables",
@@ -1375,12 +1376,12 @@
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/b0fc3166-stem.png",
       "explanationImageUrl": "/questions/sat/math/b0fc3166-rationale.png",
-      "sourcePage": 46,
-      "schoolSlug": null
+      "sourcePage": 46
     },
     {
       "externalId": "9b886541",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -1412,12 +1413,12 @@
       "correctChoice": "D",
       "stemImageUrl": "/questions/sat/math/9b886541-stem.png",
       "explanationImageUrl": "/questions/sat/math/9b886541-rationale.png",
-      "sourcePage": 47,
-      "schoolSlug": null
+      "sourcePage": 47
     },
     {
       "externalId": "465c73ad",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -1428,12 +1429,12 @@
       "correctChoice": "8.6, 43/5",
       "stemImageUrl": "/questions/sat/math/465c73ad-stem.png",
       "explanationImageUrl": "/questions/sat/math/465c73ad-rationale.png",
-      "sourcePage": 48,
-      "schoolSlug": null
+      "sourcePage": 48
     },
     {
       "externalId": "db422e7f",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "SPR",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -1444,12 +1445,12 @@
       "correctChoice": ".5, 1/2",
       "stemImageUrl": "/questions/sat/math/db422e7f-stem.png",
       "explanationImageUrl": "/questions/sat/math/db422e7f-rationale.png",
-      "sourcePage": 49,
-      "schoolSlug": null
+      "sourcePage": 49
     },
     {
       "externalId": "590f2187",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in one variable",
@@ -1481,12 +1482,12 @@
       "correctChoice": "B",
       "stemImageUrl": "/questions/sat/math/590f2187-stem.png",
       "explanationImageUrl": "/questions/sat/math/590f2187-rationale.png",
-      "sourcePage": 50,
-      "schoolSlug": null
+      "sourcePage": 50
     },
     {
       "externalId": "01682aa5",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -1518,12 +1519,12 @@
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/01682aa5-stem.png",
       "explanationImageUrl": "/questions/sat/math/01682aa5-rationale.png",
-      "sourcePage": 51,
-      "schoolSlug": null
+      "sourcePage": 51
     },
     {
       "externalId": "9b0a4eae",
       "sectionKey": "MATH",
+      "schoolSlug": null,
       "questionType": "MCQ",
       "domain": "Algebra",
       "skill": "Linear equations in two variables",
@@ -1533,30 +1534,29 @@
       "choices": [
         {
           "id": "A",
-          "text": "",
-          "imageUrl": null
+          "text": "The length is  less than the perimeter, and the width is  less than the perimeter.",
+          "imageUrl": "/questions/sat/math/9b0a4eae-A.png"
         },
         {
           "id": "B",
-          "text": "",
-          "imageUrl": null
+          "text": "The length is , and the width is .",
+          "imageUrl": "/questions/sat/math/9b0a4eae-B.png"
         },
         {
           "id": "C",
-          "text": "",
-          "imageUrl": null
+          "text": "The length is , and the width is .",
+          "imageUrl": "/questions/sat/math/9b0a4eae-C.png"
         },
         {
           "id": "D",
-          "text": "",
-          "imageUrl": null
+          "text": "The length is  less than the perimeter, and the width is  less than the perimeter.",
+          "imageUrl": "/questions/sat/math/9b0a4eae-D.png"
         }
       ],
       "correctChoice": "C",
       "stemImageUrl": "/questions/sat/math/9b0a4eae-stem.png",
       "explanationImageUrl": "/questions/sat/math/9b0a4eae-rationale.png",
-      "sourcePage": 52,
-      "schoolSlug": null
+      "sourcePage": 52
     }
   ]
 }

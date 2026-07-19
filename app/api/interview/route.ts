@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@/auth";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -10,6 +11,11 @@ async function fileToBase64(file: File) {
 }
 
 export async function POST(req: NextRequest) {
+  const session = await auth();
+  if (session?.user?.role !== "ADMIN") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
   const webhook = process.env.INTERVIEW_WEBHOOK_URL;
   if (!webhook) {
     return NextResponse.json(
@@ -57,7 +63,7 @@ export async function POST(req: NextRequest) {
     try {
       parsed = JSON.parse(text);
     } catch {
-      // Apps Script sometimes returns HTML on auth errors — surface as-is.
+      // Apps Script sometimes returns HTML on auth errors, surface as-is.
     }
     if (!res.ok || parsed.ok === false) {
       return NextResponse.json(

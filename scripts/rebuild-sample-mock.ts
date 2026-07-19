@@ -1,7 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { isRenderableQuestion } from "../lib/sections";
-
-const PER_SECTION = 25;
+import { describeMockCounts, pickMockCounts } from "../lib/mock-counts";
 
 async function main() {
   const db = new PrismaClient();
@@ -13,14 +12,17 @@ async function main() {
     return;
   }
   const mock = mocks[0];
-  console.log(`Rebuilding "${mock.title}" (${mock.id}) with ${PER_SECTION} q/section.`);
+  const counts = pickMockCounts();
+  console.log(
+    `Rebuilding "${mock.title}" (${mock.id}) with Math=${counts.MATH}, Reading=${counts.READING}, Writing=${counts.WRITING}.`,
+  );
 
   await db.mockTestQuestion.deleteMany({ where: { mockTestId: mock.id } });
 
   const sections = await db.section.findMany();
   const byKey = Object.fromEntries(sections.map((s) => [s.key, s]));
 
-  for (const key of ["MATH", "READING", "WRITING"]) {
+  for (const key of ["MATH", "READING", "WRITING"] as const) {
     const sec = byKey[key];
     if (!sec) {
       console.warn(`Section ${key} not found, skipping.`);
@@ -38,7 +40,7 @@ async function main() {
           choicesJson: q.choicesJson,
         }),
       )
-      .slice(0, PER_SECTION);
+      .slice(0, counts[key]);
 
     let order = 0;
     for (const q of pool) {
@@ -57,7 +59,7 @@ async function main() {
   await db.mockTest.update({
     where: { id: mock.id },
     data: {
-      description: `Full mock: ${PER_SECTION} Math + ${PER_SECTION} Reading + ${PER_SECTION} Writing + Essay, 3.5 hours total.`,
+      description: describeMockCounts(counts),
     },
   });
 

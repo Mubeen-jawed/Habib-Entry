@@ -89,10 +89,10 @@ export function BrowseRunner({
               src={q.stemImageUrl}
               alt="Figure for the question"
               className={cn(
-                "rounded-md border bg-white self-center mb-3",
+                "bg-white self-center mb-3",
                 sectionKey === "MATH"
                   ? "w-full max-h-none"
-                  : "max-h-[520px] w-auto",
+                  : "max-h-[780px] w-auto",
               )}
             />
           )}
@@ -129,7 +129,10 @@ export function BrowseRunner({
                   <img
                     src={c.imageUrl}
                     alt={`Choice ${c.id}`}
-                    className="flex-1 max-h-32 w-auto bg-white"
+                    className={cn(
+                      "flex-1 w-auto bg-white",
+                      sectionKey === "MATH" ? "max-h-[36rem]" : "max-h-[18rem]",
+                    )}
                   />
                 ) : (
                   <span className="flex-1 min-w-0">{c.text}</span>
@@ -145,7 +148,7 @@ export function BrowseRunner({
               <img
                 src={q.explanationImageUrl}
                 alt="Explanation"
-                className="w-full h-auto bg-white rounded"
+                className="w-full h-auto bg-white"
               />
             </div>
           )}

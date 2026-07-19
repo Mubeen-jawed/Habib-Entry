@@ -3,8 +3,7 @@ import Link from "next/link";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { parseChoices, SECTION_NAMES, SectionKey } from "@/lib/sections";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -52,9 +51,8 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
   }
 
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-5xl px-4 py-8 space-y-6">
+    <AppShell>
+      <div className="mx-auto max-w-[1600px] px-4 py-8 space-y-6">
         <div>
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
             {attempt.mode === "MOCK" ? "Mock test" : "Practice"} review
@@ -157,7 +155,12 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
                     <img
                       src={a.question.stemImageUrl}
                       alt="Figure for the question"
-                      className="rounded-md border bg-white max-h-[520px] w-auto"
+                      className={cn(
+                        "bg-white",
+                        a.question.section.key === "MATH"
+                          ? "w-full max-h-none"
+                          : "max-h-[780px] w-auto",
+                      )}
                     />
                   )}
                   {a.question.passage && (
@@ -197,7 +200,12 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
                             <img
                               src={c.imageUrl}
                               alt={`Choice ${c.id}`}
-                              className="flex-1 max-h-32 w-auto bg-white"
+                              className={cn(
+                                "flex-1 w-auto bg-white",
+                                a.question.section.key === "MATH"
+                                  ? "max-h-[36rem]"
+                                  : "max-h-[18rem]",
+                              )}
                             />
                           ) : (
                             <span className="flex-1">{c.text}</span>
@@ -217,7 +225,7 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
                       <img
                         src={a.question.explanationImageUrl}
                         alt="Explanation"
-                        className="w-full h-auto bg-white rounded"
+                        className="w-full h-auto bg-white"
                       />
                     </div>
                   )}
@@ -241,8 +249,7 @@ export default async function AttemptReviewPage({ params }: { params: Params }) 
             <Link href="/dashboard">Back to dashboard</Link>
           </Button>
         </div>
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

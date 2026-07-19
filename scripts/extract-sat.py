@@ -5,8 +5,8 @@ Auto-detects section (READING or WRITING) per question from the domain label, so
 this script handles both `reading-*.pdf` and `writing-*.pdf` exports uniformly.
 
 Input:  data/sat/<name>.pdf
-Output: data/sat/<name>.json               — structured questions
-        public/questions/sat/<id>.png       — cropped chart image (chart-bearing only)
+Output: data/sat/<name>.json              , structured questions
+        public/questions/sat/<id>.png      , cropped chart image (chart-bearing only)
 
 Usage:
     .venv/bin/python scripts/extract-sat.py \
@@ -149,7 +149,7 @@ def _reconstruct_paragraphs(text: str, drop_chart_noise: bool = False) -> list[s
     doesn't end with sentence-terminating punctuation.
 
     When drop_chart_noise=True, drop chunks that are short and have no sentence
-    marker — these are chart axis labels, legend items, and tick numbers.
+    marker, these are chart axis labels, legend items, and tick numbers.
     """
     chunks = _split_paragraphs(text)
     if drop_chart_noise:
@@ -314,7 +314,7 @@ def _compute_chart_bbox(page: pdfplumber.page.Page) -> tuple[float, float, float
         if 140 < c["top"] < sy0 - 1 and c["top"] > sy0 - 80
     ]
     if title_chars:
-        # Never allow top above y=142 — the "Question" heading sits at y~135 and
+        # Never allow top above y=142, the "Question" heading sits at y~135 and
         # we don't want it in the crop.
         top = max(142, min(top, min(c["top"] for c in title_chars) - 14))
 

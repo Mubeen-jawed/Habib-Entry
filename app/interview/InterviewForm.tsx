@@ -90,7 +90,7 @@ export function InterviewForm() {
         </div>
         <h2 className="text-xl font-semibold">Submission received</h2>
         <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto leading-relaxed">
-          Thanks — we&apos;ll reach out on WhatsApp within 12 hours. Your mock interview will be
+          Thanks, we&apos;ll reach out on WhatsApp within 12 hours. Your mock interview will be
           scheduled after your HU test.
         </p>
         <Button
@@ -262,7 +262,7 @@ export function InterviewForm() {
         </FieldRow>
 
         {interviewDateStatus === "yes" && (
-          <FieldRow label="If yes — your Habib interview date & time">
+          <FieldRow label="If yes, your Habib interview date & time">
             <div className="flex gap-3 flex-wrap">
               <Input type="date" name="interviewDate" className="max-w-[10rem]" />
               <Input type="time" name="interviewTime" className="max-w-[8rem]" />

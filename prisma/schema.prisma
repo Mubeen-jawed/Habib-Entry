@@ -1,4 +1,4 @@
-// Habib Entry — Prisma schema
+// Habib Entry, Prisma schema
 // SQLite for dev; switch provider to "postgresql" for prod and re-run prisma migrate.
 
 generator client {
@@ -19,6 +19,11 @@ model User {
   emailVerified DateTime?
   image         String?
   passwordHash  String?
+  // "FREE" | "PAID" | "ADMIN". Stored as string; SQLite has no native enum.
+  role          String    @default("FREE")
+  // Selected school slug: "dsse" | "ahss". Null until the user picks one.
+  schoolSlug    String?
+  lastSignInAt  DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 
@@ -217,4 +222,23 @@ model Essay {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId, updatedAt])
+}
+
+// ---------- Analytics ----------
+
+model PageView {
+  id        String   @id @default(cuid())
+  path      String
+  // Anonymous session cookie value so we can de-dupe unique visitors.
+  visitorId String
+  // Set if the request had an authenticated session.
+  userId    String?
+  referer   String?
+  userAgent String?
+  country   String?
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([path, createdAt])
+  @@index([visitorId, createdAt])
 }

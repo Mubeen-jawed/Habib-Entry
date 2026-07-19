@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { auth } from "@/auth";
+import { db } from "@/lib/db";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
   const school = SCHOOLS[slug as keyof typeof SCHOOLS];
-  if (!school) return { title: "School — HabibEntry" };
+  if (!school) return { title: "School, HabibEntry" };
   return {
-    title: `${school.code} entry test — HabibEntry`,
-    description: `Full test breakdown for ${school.name} applicants: ${school.specific.name} plus shared English components.`,
+    title: `${school.code} entry test, HabibEntry`,
+    description: `Full test breakdown for ${school.name} applicants: ${school.specific.name} plus English components.`,
   };
 }
 
@@ -32,15 +33,26 @@ export default async function SchoolDetailPage({ params }: { params: Params }) {
 
   const session = await auth();
   const isLoggedIn = Boolean(session?.user);
-  const startPrepHref = isLoggedIn ? `/practice/math?school=${school.slug}` : "/register";
+  const latestMock = isLoggedIn
+    ? await db.mockTest.findFirst({
+        orderBy: { createdAt: "desc" },
+        select: { id: true },
+      })
+    : null;
+  const mockHref = isLoggedIn
+    ? latestMock
+      ? `/mock/${latestMock.id}`
+      : "/dashboard#mocks"
+    : "/register";
+  const practiceHref = isLoggedIn ? "/dashboard" : "/register";
 
   return (
     <>
       <SiteHeader />
       <main className="flex-1">
-        <section className={cn("bg-gradient-to-b py-14", school.color)}>
-          <div className="mx-auto max-w-4xl px-4">
-            <div className="flex items-center gap-2 mb-3">
+        <section className={cn("bg-gradient-to-b py-20 md:py-28", school.color)}>
+          <div className="mx-auto max-w-3xl px-4 text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
               <Badge variant="outline" className={school.accent}>
                 {school.code}
               </Badge>
@@ -48,75 +60,52 @@ export default async function SchoolDetailPage({ params }: { params: Params }) {
                 ← Back to schools
               </Link>
             </div>
-            <h1 className="text-3xl md:text-4xl font-semibold tracking-tight">{school.name}</h1>
-            <p className="mt-3 text-muted-foreground text-lg">{school.tagline}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild variant="brand" size="lg">
-                <Link href={startPrepHref}>Start prep for {school.code}</Link>
+            <h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-balance">
+              {school.name}
+            </h1>
+            <p className="mt-4 text-muted-foreground text-lg md:text-xl">{school.tagline}</p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+              <Button asChild variant="brand" size="xl">
+                <Link href={mockHref}>Start Mock test</Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/dashboard">Go to dashboard</Link>
+              <Button asChild variant="outline" size="xl">
+                <Link href={practiceHref}>Practice single section</Link>
               </Button>
             </div>
           </div>
         </section>
 
-        <section className="mx-auto max-w-4xl px-4 py-12 space-y-8">
-          {/* School-specific first */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <h2 className="text-xl font-semibold">School-specific component</h2>
-              <Badge variant="warning">Differs by school</Badge>
-            </div>
-            <ComponentCard c={school.specific} accent={school.accent} highlight />
-          </div>
+        <section className="mx-auto max-w-4xl px-4 py-12">
+          <details className="group rounded-2xl border bg-card shadow-soft">
+            <summary className="flex items-center justify-between gap-3 cursor-pointer list-none p-6 md:p-7">
+              <span className="text-lg font-semibold">See the content   </span>
+              <span
+                aria-hidden
+                className="text-muted-foreground text-2xl leading-none transition-transform group-open:rotate-45"
+              >
+                +
+              </span>
+            </summary>
+            <div className="px-6 md:px-7 pb-7 space-y-8">
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <h2 className="text-xl font-semibold">School-specific component</h2>
+                </div>
+                <ComponentCard c={school.specific} accent={school.accent} highlight />
+              </div>
 
-          {/* Shared */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <h2 className="text-xl font-semibold">English components (shared)</h2>
-              <Badge variant="secondary">Same for both schools</Badge>
+              <div>
+                <div className="flex items-center gap-2 mb-4">
+                  <h2 className="text-xl font-semibold">English components</h2>
+                </div>
+                <div className="space-y-4">
+                  {school.shared.map((c) => (
+                    <ComponentCard key={c.key} c={c} accent={school.accent} />
+                  ))}
+                </div>
+              </div>
             </div>
-            <div className="space-y-4">
-              {school.shared.map((c) => (
-                <ComponentCard key={c.key} c={c} accent={school.accent} />
-              ))}
-            </div>
-          </div>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Ready to start?</CardTitle>
-              <CardDescription>
-                Practice the {school.specific.name} pool tailored to {school.code}, or
-                practice the shared English components.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="flex flex-wrap gap-3">
-              <Button asChild variant="brand">
-                <Link href={`/practice/math?school=${school.slug}`}>
-                  Practice {school.specific.name.split(" ")[0]} math
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/practice/reading">Practice reading</Link>
-              </Button>
-              <Button asChild variant="outline">
-                <Link href="/practice/writing">Practice writing</Link>
-              </Button>
-              <Button asChild variant="ghost">
-                <Link
-                  href={
-                    school.slug === "dsse"
-                      ? "/schools/ahss"
-                      : "/schools/dsse"
-                  }
-                >
-                  Compare to the other school →
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+          </details>
         </section>
       </main>
       <SiteFooter />

@@ -1,12 +1,11 @@
 import Link from "next/link";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { db } from "@/lib/db";
 import { SECTION_KEYS, SECTION_NAMES, SLUG_BY_SECTION, isRenderableQuestion } from "@/lib/sections";
 
-export const metadata = { title: "Testing browser — HabibEntry" };
+export const metadata = { title: "Testing browser, HabibEntry" };
 
 export default async function TestingIndex() {
   const sections = await db.section.findMany();
@@ -20,9 +19,8 @@ export default async function TestingIndex() {
   }
 
   return (
-    <>
-      <SiteHeader />
-      <main className="flex-1 mx-auto max-w-3xl px-4 py-8">
+    <AppShell>
+      <div className="mx-auto max-w-3xl px-4 py-8">
         <BackButton className="mb-6" />
         <div className="mb-6">
           <div className="text-xs uppercase tracking-wide text-muted-foreground">
@@ -55,8 +53,7 @@ export default async function TestingIndex() {
             </Card>
           ))}
         </div>
-      </main>
-      <SiteFooter />
-    </>
+      </div>
+    </AppShell>
   );
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Habib Entry — one-shot dev bootstrap.
+# Habib Entry, one-shot dev bootstrap.
 # Installs deps, applies migrations, seeds the DB, then starts the dev server.
 
 set -euo pipefail
@@ -23,7 +23,7 @@ PORT="${PORT:-3005}"
 # If the desired port is busy, free it so AUTH_URL stays consistent.
 if command -v lsof >/dev/null 2>&1; then
   if lsof -ti:"$PORT" >/dev/null 2>&1; then
-    echo "==> Port $PORT is in use — freeing it"
+    echo "==> Port $PORT is in use, freeing it"
     lsof -ti:"$PORT" | xargs -r kill -9 || true
     sleep 1
   fi

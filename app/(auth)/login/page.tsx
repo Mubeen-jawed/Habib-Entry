@@ -44,11 +44,6 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {error === "CredentialsSignin" && (
-            <div className="rounded-md border border-destructive/40 bg-destructive/10 text-destructive-foreground p-3 text-sm">
-              Invalid email or password.
-            </div>
-          )}
           <form action={loginAction} className="space-y-3">
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
@@ -57,6 +52,9 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
             <div className="space-y-1.5">
               <Label htmlFor="password">Password</Label>
               <Input id="password" name="password" type="password" required autoComplete="current-password" />
+              {error === "CredentialsSignin" && (
+                <p className="text-sm text-red-600">Invalid email or password.</p>
+              )}
             </div>
             <Button type="submit" className="w-full" variant="brand" size="lg">
               Sign in

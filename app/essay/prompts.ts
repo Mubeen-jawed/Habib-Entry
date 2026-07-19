@@ -9,7 +9,7 @@ export const ESSAY_PROMPTS: string[] = [
   "Should we seek others' opinions, or focus on developing our own ideas?",
   "Are people happier when they focus on goals other than their own happiness?",
   "Do people put too much emphasis on learning practical skills?",
-  "Can deception — pretending to act in a certain way when it is not true — sometimes lead to good results?",
+  "Can deception, pretending to act in a certain way when it is not true, sometimes lead to good results?",
   "Can you control your happiness, or is happiness not in your control?",
   "Does history hold value for the present generation?",
   "Should you wear a tie to an interview?",

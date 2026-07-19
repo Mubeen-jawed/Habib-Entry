@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Habib Entry — first-time setup on a fresh developer machine.
+# Habib Entry, first-time setup on a fresh developer machine.
 #
 # Installs Node.js and pnpm (if missing), creates a local .env from the
 # example, applies Prisma migrations, seeds the SQLite DB, and prints how
@@ -84,7 +84,7 @@ ENV_EXAMPLE="$APP_DIR/.env.example"
 
 if [ ! -f "$ENV_FILE" ]; then
   if [ ! -f "$ENV_EXAMPLE" ]; then
-    die ".env.example is missing — can't bootstrap .env"
+    die ".env.example is missing, can't bootstrap .env"
   fi
   log "Creating .env from .env.example"
   cp "$ENV_EXAMPLE" "$ENV_FILE"
@@ -99,7 +99,7 @@ if [ ! -f "$ENV_FILE" ]; then
 
   chmod 600 "$ENV_FILE"
 else
-  log ".env already present — leaving it alone"
+  log ".env already present, leaving it alone"
 fi
 
 # ---------- 4. install + prisma + seed --------------------------------------
@@ -113,19 +113,19 @@ log "Applying Prisma migrations"
 pnpm prisma migrate deploy
 
 log "Seeding base sections + sample mock scaffold (idempotent)"
-pnpm db:seed || warn "seed step reported an error — continuing"
+pnpm db:seed || warn "seed step reported an error, continuing"
 
 log "Seeding SAT question banks (Math / Reading / Writing)"
 for f in data/sat/maths.json data/sat/reading.json data/sat/writing.json; do
   if [ -f "$f" ]; then
-    pnpm exec tsx prisma/seed-sat.ts "$f" || warn "SAT seed for $f reported an error — continuing"
+    pnpm exec tsx prisma/seed-sat.ts "$f" || warn "SAT seed for $f reported an error, continuing"
   else
-    warn "missing $f — skipping"
+    warn "missing $f, skipping"
   fi
 done
 
 log "Rebuilding sample mock with 25 questions/section (renderable MCQs only)"
-pnpm exec tsx scripts/rebuild-sample-mock.ts || warn "rebuild-sample-mock reported an error — continuing"
+pnpm exec tsx scripts/rebuild-sample-mock.ts || warn "rebuild-sample-mock reported an error, continuing"
 
 # ---------- done ------------------------------------------------------------
 log "Setup complete"
