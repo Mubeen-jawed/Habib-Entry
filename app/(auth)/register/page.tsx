@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { signIn } from "@/auth";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -69,9 +69,14 @@ export default async function RegisterPage({ searchParams }: { searchParams: Sea
               <Label htmlFor="password">Password (min 8 chars)</Label>
               <Input id="password" name="password" type="password" required minLength={8} autoComplete="new-password" />
             </div>
-            <Button type="submit" className="w-full" variant="brand" size="lg">
+            <SubmitButton
+              className="w-full"
+              variant="brand"
+              size="lg"
+              loadingText="Creating account…"
+            >
               Create account
-            </Button>
+            </SubmitButton>
           </form>
           <p className="text-sm text-muted-foreground text-center">
             Already have an account?{" "}

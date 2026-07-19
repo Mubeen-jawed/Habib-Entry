@@ -2,7 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -56,9 +56,14 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
                 <p className="text-sm text-red-600">Invalid email or password.</p>
               )}
             </div>
-            <Button type="submit" className="w-full" variant="brand" size="lg">
+            <SubmitButton
+              className="w-full"
+              variant="brand"
+              size="lg"
+              loadingText="Signing in…"
+            >
               Sign in
-            </Button>
+            </SubmitButton>
           </form>
 
           {googleEnabled && (
@@ -68,9 +73,13 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
                 await signIn("google", { redirectTo: callbackUrl });
               }}
             >
-              <Button type="submit" variant="outline" className="w-full">
+              <SubmitButton
+                variant="outline"
+                className="w-full"
+                loadingText="Redirecting…"
+              >
                 Continue with Google
-              </Button>
+              </SubmitButton>
             </form>
           )}
 

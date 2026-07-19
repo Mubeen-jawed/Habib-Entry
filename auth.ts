@@ -96,12 +96,19 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
         token.id &&
         (user || trigger === "update" || !token.role || needsSchoolRefresh)
       ) {
-        const dbUser = await db.user.findUnique({
-          where: { id: token.id as string },
-          select: { role: true, schoolSlug: true },
-        });
-        token.role = (dbUser?.role as "FREE" | "PAID" | "ADMIN") ?? "FREE";
-        token.schoolSlug = (dbUser?.schoolSlug as "dsse" | "ahss" | null) ?? null;
+        try {
+          const dbUser = await db.user.findUnique({
+            where: { id: token.id as string },
+            select: { role: true, schoolSlug: true },
+          });
+          token.role = (dbUser?.role as "FREE" | "PAID" | "ADMIN") ?? "FREE";
+          token.schoolSlug =
+            (dbUser?.schoolSlug as "dsse" | "ahss" | null) ?? null;
+        } catch {
+          // Middleware runs on the edge runtime where Prisma isn't available.
+          // Skip the refresh here; a Node-runtime page render will pick it up
+          // on the next request and update the cookie then.
+        }
       }
       return token;
     },
