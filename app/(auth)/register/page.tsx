@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { db } from "@/lib/db";
 import { signIn } from "@/auth";
 import { SubmitButton } from "@/components/submit-button";
+import { GoogleSignInButton } from "@/components/google-signin-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,6 +38,8 @@ export default async function RegisterPage({ searchParams }: { searchParams: Sea
     await signIn("credentials", { email, password, redirectTo: "/select-school" });
   }
 
+  const googleEnabled = !!process.env.AUTH_GOOGLE_ID;
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md">
@@ -55,6 +58,23 @@ export default async function RegisterPage({ searchParams }: { searchParams: Sea
             <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
               Please enter a valid email and a password of at least 8 characters.
             </div>
+          )}
+          {googleEnabled && (
+            <>
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google", { redirectTo: "/select-school" });
+                }}
+              >
+                <GoogleSignInButton label="Sign up with Google" />
+              </form>
+              <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
+                <span className="h-px flex-1 bg-border" />
+                <span>or</span>
+                <span className="h-px flex-1 bg-border" />
+              </div>
+            </>
           )}
           <form action={registerAction} className="space-y-3">
             <div className="space-y-1.5">

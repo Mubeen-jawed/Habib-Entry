@@ -121,7 +121,7 @@ export function PracticeRunner({
               className={cn(
                 "bg-white self-center mb-3",
                 sectionKey === "MATH"
-                  ? "w-full max-h-none"
+                  ? "w-[calc(100%+3rem)] max-w-none -mx-6 max-h-none md:w-full md:mx-0"
                   : "max-h-[780px] w-auto",
               )}
             />

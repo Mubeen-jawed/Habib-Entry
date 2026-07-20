@@ -106,7 +106,7 @@ export default async function PracticePage({
 
   return (
     <AppShell>
-      <div className="mx-auto max-w-[1600px] px-4 py-8">
+      <div className="mx-auto max-w-[1600px] px-4 pt-16 pb-8 md:py-8">
         <PracticeRunner
           attemptId={attempt.id}
           sectionKey={sectionKey}

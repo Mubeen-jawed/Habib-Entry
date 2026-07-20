@@ -24,6 +24,7 @@ model User {
   // Selected school slug: "dsse" | "ahss". Null until the user picks one.
   schoolSlug    String?
   lastSignInAt  DateTime?
+  interviewSubmittedAt DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 

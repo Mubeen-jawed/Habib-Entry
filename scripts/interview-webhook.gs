@@ -4,14 +4,26 @@
  * Setup:
  *   1. Open https://script.google.com and create a new project.
  *   2. Paste this file into Code.gs.
- *   3. Replace SHEET_ID and DRIVE_FOLDER_ID below.
+ *   3. Project Settings → check "Show 'appsscript.json' manifest file in editor",
+ *      then open appsscript.json and set its oauthScopes so DriveApp gets the
+ *      full drive scope (not the default drive.file, which can't read folders
+ *      the script didn't itself create):
+ *        "oauthScopes": [
+ *          "https://www.googleapis.com/auth/spreadsheets",
+ *          "https://www.googleapis.com/auth/drive",
+ *          "https://www.googleapis.com/auth/script.external_request"
+ *        ]
+ *      Without this you'll see: "Unexpected error while getting the method or
+ *      property getFolderById on object DriveApp".
+ *   4. Replace SHEET_ID and DRIVE_FOLDER_ID below.
  *      - SHEET_ID is in the Sheet URL: docs.google.com/spreadsheets/d/<SHEET_ID>/edit
  *      - DRIVE_FOLDER_ID is in the Drive folder URL: drive.google.com/drive/folders/<FOLDER_ID>
- *   4. Deploy > New deployment > Type: Web app.
+ *   5. Toolbar → run doPost once (it will error on the missing event object,
+ *      but this triggers the authorization prompt for the scopes above).
+ *   6. Deploy > New deployment > Type: Web app.
  *      - Execute as: Me
  *      - Who has access: Anyone
- *   5. Copy the /exec URL and set it as INTERVIEW_WEBHOOK_URL in .env.local.
- *   6. On the first request Google will ask you to authorize Drive + Sheets access.
+ *   7. Copy the /exec URL and set it as INTERVIEW_WEBHOOK_URL in .env.local.
  */
 
 const SHEET_ID = 'REPLACE_WITH_SPREADSHEET_ID';
@@ -110,7 +122,14 @@ function saveFile(file, prefix) {
   const blob = Utilities.newBlob(bytes, file.type || 'application/octet-stream', name);
   const folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
   const saved = folder.createFile(blob);
-  saved.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  // Best-effort public link. Workspace policies often block ANYONE_WITH_LINK;
+  // if so, keep the file (already saved above) and return its normal URL —
+  // anyone with access to the parent folder can still open it.
+  try {
+    saved.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+  } catch (shareErr) {
+    // ignore: sharing policy restricted, file is still saved
+  }
   return saved.getUrl();
 }
 

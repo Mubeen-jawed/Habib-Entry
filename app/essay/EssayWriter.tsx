@@ -411,21 +411,23 @@ export function EssayWriter({
               {prompt}
             </CardTitle>
           </div>
-          <div className="flex flex-row-reverse items-center justify-between gap-2 md:flex-col md:justify-normal md:items-end md:gap-2 shrink-0">
+          <div className="flex flex-row-reverse items-center justify-between gap-2 md:flex-col md:justify-normal md:items-end md:gap-2 md:shrink-0">
             <Button
               variant="outline"
               size="sm"
               onClick={newPrompt}
+              className="flex-1 min-w-0 md:flex-none"
             >
-              <Shuffle className="w-4 h-4 mr-1.5" />
-              New prompt
+              <Shuffle className="w-4 h-4 mr-1.5 shrink-0" />
+              <span className="truncate">New prompt</span>
             </Button>
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setAllPromptsOpen(true)}
+              className="flex-1 min-w-0 md:flex-none"
             >
-              View all prompts
+              <span className="truncate">View all prompts</span>
             </Button>
           </div>
         </CardHeader>

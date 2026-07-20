@@ -38,8 +38,61 @@ type InterviewDateStatus =
   | "no-given"
   | "yes";
 
-export function InterviewForm() {
-  const [submitted, setSubmitted] = useState(false);
+type Prefill = {
+  name: string;
+  whatsapp: string;
+  field: string;
+  applicationId: string;
+  gender: string;
+  testMonth: string;
+  interviewDate: string;
+  interviewTime: string;
+  desiredDate: string;
+  preparation: string;
+  questions: string;
+  agree: boolean;
+};
+
+const EMPTY_PREFILL: Prefill = {
+  name: "",
+  whatsapp: "",
+  field: "",
+  applicationId: "",
+  gender: "",
+  testMonth: "",
+  interviewDate: "",
+  interviewTime: "",
+  desiredDate: "",
+  preparation: "",
+  questions: "",
+  agree: false,
+};
+
+const TEST_PREFILL: Prefill = {
+  name: "Test Admin",
+  whatsapp: "03001234567",
+  field: "Computer Science",
+  applicationId: "220000",
+  gender: "Male",
+  testMonth: "February",
+  interviewDate: "2026-08-15",
+  interviewTime: "14:30",
+  desiredDate: "2026-08-20",
+  preparation: "A Little",
+  questions: "This is a test submission from an admin.",
+  agree: true,
+};
+
+export function InterviewForm({
+  alreadySubmitted = false,
+  isAdmin = false,
+  intro,
+}: {
+  alreadySubmitted?: boolean;
+  isAdmin?: boolean;
+  intro?: React.ReactNode;
+}) {
+  const [submitted, setSubmitted] = useState(alreadySubmitted);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,6 +106,54 @@ export function InterviewForm() {
   const [helpOther, setHelpOther] = useState("");
   const [admitCardName, setAdmitCardName] = useState<string | null>(null);
   const [ecaName, setEcaName] = useState<string | null>(null);
+
+  const [prefill, setPrefill] = useState<Prefill>(EMPTY_PREFILL);
+  const [prefillTick, setPrefillTick] = useState(0);
+
+  async function applyTestPrefill() {
+    setPrefill(TEST_PREFILL);
+    setApplyingFor("HUTOPS");
+    setApplyingForOther("");
+    setTestDateStatus("yes");
+    setTestDateOther("");
+    setInterviewDateStatus("yes");
+    setHelpAreas(["Confidence", "Structuring answers"]);
+    setHelpOther("");
+    setAdmitCardName(null);
+    setEcaName(null);
+    setPrefillTick((t) => t + 1);
+
+    // Wait for the DOM to remount after prefillTick bump, then attach the
+    // demo PDFs to the actual <input type="file"> elements via DataTransfer.
+    // Browsers block direct programmatic .value assignment on file inputs,
+    // but .files can be replaced from a DataTransfer.files object.
+    await new Promise((r) => setTimeout(r, 0));
+    try {
+      const attach = async (
+        inputId: string,
+        url: string,
+        filename: string,
+        setName: (n: string | null) => void,
+      ) => {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Failed to load ${url}`);
+        const blob = await res.blob();
+        const file = new File([blob], filename, { type: "application/pdf" });
+        const input = document.getElementById(inputId) as HTMLInputElement | null;
+        if (!input) return;
+        const dt = new DataTransfer();
+        dt.items.add(file);
+        input.files = dt.files;
+        setName(file.name);
+      };
+      await Promise.all([
+        attach("admitCard", "/demo/admit-card.pdf", "demo-admit-card.pdf", setAdmitCardName),
+        attach("eca", "/demo/eca.pdf", "demo-eca.pdf", setEcaName),
+      ]);
+    } catch (err) {
+      console.warn("[interview] could not attach demo files", err);
+    }
+  }
 
   function toggleHelp(area: string) {
     setHelpAreas((prev) =>
@@ -93,23 +194,38 @@ export function InterviewForm() {
           Thanks, we&apos;ll reach out on WhatsApp within 12 hours. Your mock interview will be
           scheduled after your HU test.
         </p>
-        <Button
-          type="button"
-          variant="outline"
-          className="mt-6"
-          onClick={() => setSubmitted(false)}
-        >
-          Submit another response
-        </Button>
+        {isAdmin && (
+          <Button
+            type="button"
+            variant="outline"
+            className="mt-6"
+            onClick={() => setSubmitted(false)}
+          >
+            Submit another response (admin)
+          </Button>
+        )}
       </div>
     );
   }
 
   return (
+    <>
+      {intro}
     <form onSubmit={onSubmit} className="space-y-8">
+      {isAdmin && (
+        <div className="rounded-md border border-dashed border-brand/40 bg-brand-soft/40 p-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="text-xs text-muted-foreground">
+            Admin — prefills every field and attaches demo PDFs (admit card + ECA) for a quick end-to-end test.
+          </div>
+          <Button type="button" variant="outline" size="sm" onClick={applyTestPrefill}>
+            Fill with test data
+          </Button>
+        </div>
+      )}
+      <div key={prefillTick} className="space-y-8">
       <Section title="Your details">
         <FieldRow label="Name" required htmlFor="name">
-          <Input id="name" name="name" required autoComplete="name" />
+          <Input id="name" name="name" required autoComplete="name" defaultValue={prefill.name} />
         </FieldRow>
 
         <FieldRow label="WhatsApp Number" required htmlFor="whatsapp">
@@ -119,6 +235,7 @@ export function InterviewForm() {
             required
             inputMode="tel"
             placeholder="03XX XXXXXXX"
+            defaultValue={prefill.whatsapp}
           />
         </FieldRow>
 
@@ -127,7 +244,7 @@ export function InterviewForm() {
             id="field"
             name="field"
             required
-            defaultValue=""
+            defaultValue={prefill.field}
             className={selectClass}
           >
             <option value="" disabled>
@@ -142,17 +259,28 @@ export function InterviewForm() {
         </FieldRow>
 
         <FieldRow label="Habib's Application ID" required htmlFor="applicationId">
-          <Input id="applicationId" name="applicationId" required placeholder="e.g. 22XXXX" />
+          <Input
+            id="applicationId"
+            name="applicationId"
+            required
+            placeholder="e.g. 22XXXX"
+            defaultValue={prefill.applicationId}
+          />
         </FieldRow>
 
         <FieldRow label="Your Gender (for assigning interviewer)" required>
-          <RadioGroup name="gender" options={["Male", "Female"]} required />
+          <RadioGroup name="gender" options={["Male", "Female"]} required defaultValue={prefill.gender} />
         </FieldRow>
       </Section>
 
       <Section title="Test & interview status">
         <FieldRow label="Appearing for the test in the month of" required>
-          <RadioGroup name="testMonth" options={["February", "March"]} required />
+          <RadioGroup
+            name="testMonth"
+            options={["February", "March"]}
+            required
+            defaultValue={prefill.testMonth}
+          />
         </FieldRow>
 
         <FieldRow label="Applying for" required>
@@ -264,14 +392,30 @@ export function InterviewForm() {
         {interviewDateStatus === "yes" && (
           <FieldRow label="If yes, your Habib interview date & time">
             <div className="flex gap-3 flex-wrap">
-              <Input type="date" name="interviewDate" className="max-w-[10rem]" />
-              <Input type="time" name="interviewTime" className="max-w-[8rem]" />
+              <Input
+                type="date"
+                name="interviewDate"
+                className="max-w-[10rem]"
+                defaultValue={prefill.interviewDate}
+              />
+              <Input
+                type="time"
+                name="interviewTime"
+                className="max-w-[8rem]"
+                defaultValue={prefill.interviewTime}
+              />
             </div>
           </FieldRow>
         )}
 
         <FieldRow label="When do you want to be interviewed? (Desired date)" htmlFor="desiredDate">
-          <Input type="date" id="desiredDate" name="desiredDate" className="max-w-[10rem]" />
+          <Input
+            type="date"
+            id="desiredDate"
+            name="desiredDate"
+            className="max-w-[10rem]"
+            defaultValue={prefill.desiredDate}
+          />
         </FieldRow>
       </Section>
 
@@ -317,6 +461,7 @@ export function InterviewForm() {
             name="preparation"
             options={["Yes", "A Little", "Not Yet"]}
             required
+            defaultValue={prefill.preparation}
           />
         </FieldRow>
 
@@ -360,6 +505,7 @@ export function InterviewForm() {
             name="questions"
             rows={4}
             className="flex w-full rounded-md border border-input bg-background px-3 py-2 text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            defaultValue={prefill.questions}
           />
         </FieldRow>
       </Section>
@@ -374,10 +520,11 @@ export function InterviewForm() {
           <li>I allow my details to be shared only with my interviewer.</li>
         </ul>
         <label className="flex items-center gap-2 text-sm">
-          <input type="checkbox" name="agree" required />
+          <input type="checkbox" name="agree" required defaultChecked={prefill.agree} />
           Yes, I agree <span className="text-destructive">*</span>
         </label>
       </Section>
+      </div>
 
       {error && (
         <div className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
@@ -394,6 +541,7 @@ export function InterviewForm() {
         </Button>
       </div>
     </form>
+    </>
   );
 }
 
@@ -437,16 +585,24 @@ function RadioGroup({
   name,
   options,
   required,
+  defaultValue,
 }: {
   name: string;
   options: readonly string[];
   required?: boolean;
+  defaultValue?: string;
 }) {
   return (
     <div className="space-y-2">
       {options.map((opt, i) => (
         <label key={opt} className="flex items-center gap-2 text-sm">
-          <input type="radio" name={name} value={opt} required={required && i === 0} />
+          <input
+            type="radio"
+            name={name}
+            value={opt}
+            required={required && i === 0}
+            defaultChecked={defaultValue === opt}
+          />
           {opt}
         </label>
       ))}

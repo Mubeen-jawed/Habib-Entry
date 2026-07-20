@@ -242,7 +242,7 @@ export function DashboardSidebar({
                   : "animate-slide-in-from-left"
               )
             : "hidden",
-          "md:sticky md:top-0 md:self-start md:h-screen md:shrink-0 md:flex md:inset-auto md:z-auto md:bg-card/40 md:backdrop-blur md:transition-[width] md:duration-200",
+          "md:fixed md:top-0 md:left-0 md:h-dvh md:z-30 md:flex md:bg-card/40 md:backdrop-blur md:transition-[width] md:duration-200",
           isCollapsed ? "md:w-16" : "md:w-64"
         )}
       >
@@ -361,6 +361,13 @@ export function DashboardSidebar({
           onNavigate={closeMobile}
         />
       </aside>
+      <div
+        aria-hidden
+        className={cn(
+          "hidden md:block md:shrink-0 md:transition-[width] md:duration-200",
+          isCollapsed ? "md:w-16" : "md:w-64"
+        )}
+      />
     </>
   );
 }

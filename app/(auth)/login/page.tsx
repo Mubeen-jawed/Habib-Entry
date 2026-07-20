@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { SubmitButton } from "@/components/submit-button";
+import { GoogleSignInButton } from "@/components/google-signin-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,6 +45,23 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
+          {googleEnabled && (
+            <>
+              <form
+                action={async () => {
+                  "use server";
+                  await signIn("google", { redirectTo: callbackUrl });
+                }}
+              >
+                <GoogleSignInButton label="Sign in with Google" />
+              </form>
+              <div className="flex items-center gap-3 text-xs uppercase tracking-wider text-muted-foreground">
+                <span className="h-px flex-1 bg-border" />
+                <span>or</span>
+                <span className="h-px flex-1 bg-border" />
+              </div>
+            </>
+          )}
           <form action={loginAction} className="space-y-3">
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>
@@ -65,23 +83,6 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
               Sign in
             </SubmitButton>
           </form>
-
-          {googleEnabled && (
-            <form
-              action={async () => {
-                "use server";
-                await signIn("google", { redirectTo: callbackUrl });
-              }}
-            >
-              <SubmitButton
-                variant="outline"
-                className="w-full"
-                loadingText="Redirecting…"
-              >
-                Continue with Google
-              </SubmitButton>
-            </form>
-          )}
 
           <p className="text-sm text-muted-foreground text-center">
             Don&apos;t have an account?{" "}
