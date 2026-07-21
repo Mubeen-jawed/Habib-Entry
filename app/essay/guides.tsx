@@ -4,15 +4,6 @@ import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ESSAY_PROMPTS } from "./prompts";
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
 export function TipsGuideContent() {
   return (
     <>
@@ -195,70 +186,133 @@ export function RubricGuideContent() {
   );
 }
 
-function openPrintWindow(title: string, bodyHtml: string) {
-  const w = window.open("", "_blank");
-  if (!w) return;
-  w.document.write(`<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>${escapeHtml(title)}</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: Georgia, "Times New Roman", serif; color: #111; margin: 32px; line-height: 1.55; }
-    h1 { font-size: 22px; margin: 0 0 4px; }
-    h2 { font-size: 16px; margin: 20px 0 6px; }
-    h3 { font-size: 14px; margin: 14px 0 4px; }
-    .sub { color: #555; font-size: 12px; margin-bottom: 24px; }
-    ol, ul { padding-left: 20px; }
-    li { padding: 4px 0; font-size: 14px; }
-    table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
-    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; vertical-align: top; }
-    th { background: #f5f5f5; font-weight: 600; }
-    .card { border: 1px solid #ddd; border-radius: 6px; padding: 12px 14px; margin: 10px 0; }
-    .headline { color: #6b21a8; font-weight: 600; font-size: 13px; margin-top: 4px; }
-    .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b21a8; margin-bottom: 4px; }
-    .req { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 6px; padding: 8px 10px; margin-top: 8px; }
-    .warn { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; }
-    @media print { body { margin: 16mm; } .noprint { display: none; } }
-  </style>
-</head>
-<body>
-${bodyHtml}
-<script>window.onload = function(){ window.print(); };<\/script>
-</body>
-</html>`);
-  w.document.close();
+async function createPdf() {
+  const [{ jsPDF }] = await Promise.all([import("jspdf")]);
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 48;
+  const maxWidth = pageWidth - margin * 2;
+
+  let y = margin;
+
+  function ensureSpace(needed: number) {
+    if (y + needed > pageHeight - margin) {
+      doc.addPage();
+      y = margin;
+    }
+  }
+
+  function heading(text: string) {
+    ensureSpace(28);
+    doc.setFont("times", "bold");
+    doc.setFontSize(20);
+    doc.setTextColor(17, 17, 17);
+    doc.text(text, margin, y);
+    y += 14;
+  }
+
+  function subtext(text: string) {
+    doc.setFont("times", "italic");
+    doc.setFontSize(11);
+    doc.setTextColor(90, 90, 90);
+    const lines = doc.splitTextToSize(text, maxWidth);
+    ensureSpace(lines.length * 14 + 6);
+    doc.text(lines, margin, y);
+    y += lines.length * 14 + 12;
+  }
+
+  function bullet(text: string, indent = 0, bold = false) {
+    doc.setFont("times", bold ? "bold" : "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(17, 17, 17);
+    const x = margin + indent * 16;
+    const textX = x + 12;
+    const lines = doc.splitTextToSize(text, maxWidth - indent * 16 - 12);
+    ensureSpace(lines.length * 15);
+    doc.setFillColor(17, 17, 17);
+    if (indent === 0) {
+      doc.circle(x + 3, y - 3.5, 1.6, "F");
+    } else {
+      doc.setDrawColor(17, 17, 17);
+      doc.setLineWidth(0.6);
+      doc.circle(x + 3, y - 3.5, 1.6, "S");
+    }
+    doc.text(lines, textX, y);
+    y += lines.length * 15;
+  }
+
+  function paragraph(text: string, bold = false, gapAfter = 4) {
+    doc.setFont("times", bold ? "bold" : "normal");
+    doc.setFontSize(12);
+    doc.setTextColor(17, 17, 17);
+    const lines = doc.splitTextToSize(text, maxWidth);
+    ensureSpace(lines.length * 15 + gapAfter);
+    doc.text(lines, margin, y);
+    y += lines.length * 15 + gapAfter;
+  }
+
+  return { doc, heading, subtext, bullet, paragraph, ensureSpace, margin, maxWidth };
 }
 
-export function downloadTipsPdf() {
-  const body = `
-    <h1>HabibEntry, Essay tips</h1>
-    <div class="sub">A five-paragraph outline you can use as a scaffold for any prompt.</div>
-    <ol>
-      <li><strong>Introduction</strong>
-        <ul><li>Hook</li><li>Elaboration</li><li>Thesis statement</li></ul>
-      </li>
-      <li><strong>Body paragraph 1</strong>
-        <ul><li>Connector</li><li>Topic sentence</li><li>Elaboration</li><li>Example (L / E / L + E)</li></ul>
-      </li>
-      <li><strong>Body paragraph 2</strong>
-        <ul><li>Connector</li><li>Topic sentence</li><li>Elaboration</li><li>Example (L / E / L + E)</li></ul>
-      </li>
-      <li><strong>Body paragraph 3</strong>
-        <ul><li>Connector</li><li>Topic sentence</li><li>Elaboration</li><li>Example (L / E / L + E)</li></ul>
-      </li>
-      <li><strong>Counterargument</strong></li>
-      <li><strong>Rebuttal</strong></li>
-      <li><strong>Conclusion</strong>
-        <ul><li>Connector</li><li>Revision</li><li>Ending sentence</li></ul>
-      </li>
-    </ol>
-  `;
-  openPrintWindow("HabibEntry, Essay tips", body);
+export async function downloadTipsPdf() {
+  const { doc, heading, subtext, bullet, paragraph } = await createPdf();
+  heading("HabibEntry, Essay tips");
+  subtext("A five-paragraph outline you can use as a scaffold for any prompt.");
+
+  const sections: Array<{ title: string; items?: string[] }> = [
+    { title: "Introduction", items: ["Hook", "Elaboration", "Thesis statement"] },
+    {
+      title: "Body paragraph 1",
+      items: ["Connector", "Topic sentence", "Elaboration", "Example (L / E / L + E)"],
+    },
+    {
+      title: "Body paragraph 2",
+      items: ["Connector", "Topic sentence", "Elaboration", "Example (L / E / L + E)"],
+    },
+    {
+      title: "Body paragraph 3",
+      items: ["Connector", "Topic sentence", "Elaboration", "Example (L / E / L + E)"],
+    },
+    { title: "Counterargument" },
+    { title: "Rebuttal" },
+    {
+      title: "Conclusion",
+      items: ["Connector", "Revision", "Ending sentence"],
+    },
+  ];
+
+  sections.forEach((section, i) => {
+    paragraph(`${i + 1}. ${section.title}`, true, 2);
+    section.items?.forEach((item) => bullet(item, 1));
+  });
+
+  doc.save("habibentry-essay-tips.pdf");
 }
 
-export function downloadRubricPdf() {
+export async function downloadRubricPdf() {
+  const [{ jsPDF }, autoTableModule] = await Promise.all([
+    import("jspdf"),
+    import("jspdf-autotable"),
+  ]);
+  const autoTable = autoTableModule.default;
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const margin = 48;
+
+  doc.setFont("times", "bold");
+  doc.setFontSize(20);
+  doc.setTextColor(17, 17, 17);
+  doc.text("HabibEntry, Essay grading rubric", margin, margin);
+
+  doc.setFont("times", "italic");
+  doc.setFontSize(11);
+  doc.setTextColor(90, 90, 90);
+  doc.text(
+    "Essays are marked out of 6 on each criterion. Aim for the 5-6 column.",
+    margin,
+    margin + 18,
+  );
+
   const rows: Array<[string, string, string, string]> = [
     [
       "Thesis",
@@ -275,77 +329,67 @@ export function downloadRubricPdf() {
     [
       "Sentence structure",
       "Simple and fragmented; short sentences of the same length",
-      "Mostly short (less fragmented) with some complex sentences and some length variation",
+      "Mostly short with some complex sentences and some length variation",
       "Variety of sentence structures",
     ],
     [
       "Language / vocabulary",
       "Simple vocabulary; few or no transition words",
-      "Mix of simple and complex vocabulary; transitions used but could be better placed and more varied",
+      "Mix of simple and complex vocabulary; transitions used but could be better placed",
       "Complex vocabulary; appropriate, well-placed transition words",
     ],
     [
       "Grammar & mechanics",
-      "Many spelling and grammar errors, run-ons, and fragments, interferes with understanding",
-      "Some spelling and grammar errors and a few run-ons or fragments, less interference with understanding",
-      "Very few spelling or grammar issues, no run-ons or fragments, no interference with understanding",
+      "Many spelling and grammar errors, run-ons, and fragments; interferes with understanding",
+      "Some spelling and grammar errors and a few run-ons or fragments",
+      "Very few spelling or grammar issues; no run-ons or fragments",
     ],
     [
       "Development of idea / support",
-      "Did not clearly answer the question; no examples or unclear reasons; little or no connection between thesis and reason/example",
-      "Answered the question with references to current events, news, or literature; some connection between thesis and examples but not spelled out in each body paragraph",
-      "Answered the question with current events, news, or literature examples; clear connection between thesis and reason/example in each body paragraph",
+      "Did not clearly answer the question; no examples or unclear reasons",
+      "Answered with references to current events, news, or literature; some connection to thesis",
+      "Clear connection between thesis and reason/example in each body paragraph",
     ],
   ];
-  const rowsHtml = rows
-    .map(
-      ([c, low, mid, high]) =>
-        `<tr><td><strong>${escapeHtml(c)}</strong></td><td>${escapeHtml(low)}</td><td>${escapeHtml(mid)}</td><td>${escapeHtml(high)}</td></tr>`,
-    )
-    .join("");
-  const body = `
-    <h1>HabibEntry, Essay grading rubric</h1>
-    <div class="sub">Essays are marked out of 6 on each criterion. Aim for the 5–6 column.</div>
-    <table>
-      <thead>
-        <tr><th>Criterion</th><th>1–2</th><th>3–4</th><th>5–6</th></tr>
-      </thead>
-      <tbody>${rowsHtml}</tbody>
-    </table>
-  `;
-  openPrintWindow("HabibEntry, Essay grading rubric", body);
+
+  autoTable(doc, {
+    startY: margin + 36,
+    head: [["Criterion", "1-2", "3-4", "5-6"]],
+    body: rows,
+    styles: {
+      font: "times",
+      fontSize: 10,
+      cellPadding: 6,
+      valign: "top",
+      textColor: [17, 17, 17],
+    },
+    headStyles: {
+      fillColor: [107, 33, 168],
+      textColor: [255, 255, 255],
+      fontStyle: "bold",
+    },
+    alternateRowStyles: { fillColor: [250, 245, 255] },
+    columnStyles: {
+      0: { fontStyle: "bold", cellWidth: 100 },
+    },
+    margin: { left: margin, right: margin },
+  });
+
+  doc.save("habibentry-essay-grading-rubric.pdf");
 }
 
-export function downloadPromptsPdf() {
-  const w = window.open("", "_blank");
-  if (!w) return;
-  const items = ESSAY_PROMPTS.map(
-    (p, i) => `<li><span class="n">${i + 1}.</span> ${escapeHtml(p)}</li>`,
-  ).join("");
-  w.document.write(`<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>HabibEntry, Essay prompts</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: Georgia, "Times New Roman", serif; color: #111; margin: 32px; line-height: 1.55; }
-    h1 { font-size: 22px; margin: 0 0 4px; }
-    .sub { color: #555; font-size: 12px; margin-bottom: 24px; }
-    ol { list-style: none; padding: 0; margin: 0; }
-    li { padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
-    .n { color: #888; margin-right: 8px; font-weight: 600; }
-    @media print { body { margin: 16mm; } .noprint { display: none; } }
-  </style>
-</head>
-<body>
-  <h1>HabibEntry, Essay prompts</h1>
-  <div class="sub">A collection of prompts that may appear on the test. Practice writing five-paragraph responses of ~350–500 words.</div>
-  <ol>${items}</ol>
-  <script>window.onload = function(){ window.print(); };<\/script>
-</body>
-</html>`);
-  w.document.close();
+export async function downloadPromptsPdf() {
+  const { doc, heading, subtext, paragraph } = await createPdf();
+  heading("HabibEntry, Essay prompts");
+  subtext(
+    "A collection of prompts that may appear on the test. Practice writing five-paragraph responses of ~350-500 words.",
+  );
+
+  ESSAY_PROMPTS.forEach((prompt, i) => {
+    paragraph(`${i + 1}. ${prompt}`, false, 8);
+  });
+
+  doc.save("habibentry-essay-prompts.pdf");
 }
 
 export function PromptsGuideBody() {

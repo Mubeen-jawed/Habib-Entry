@@ -6,85 +6,129 @@ import {
   type Scholarship,
 } from "./data";
 
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+export async function downloadScholarshipsPdf() {
+  const { jsPDF } = await import("jspdf");
+  const doc = new jsPDF({ unit: "pt", format: "a4" });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+  const margin = 48;
+  const maxWidth = pageWidth - margin * 2;
 
-function renderScholarship(s: Scholarship): string {
-  const requirement =
-    typeof s.requirement === "string"
-      ? `<p>${escapeHtml(s.requirement)}</p>`
-      : `<div><strong>AKUEB:</strong> ${escapeHtml(s.requirement.akueb)}</div>
-         <div style="margin-top:4px"><strong>Other Boards:</strong> ${escapeHtml(s.requirement.otherBoards)}</div>`;
+  let y = margin;
 
-  const notMet = s.ifNotMet
-    ? `<div class="warn"><div class="label" style="color:#b45309">If requirement not met</div>${escapeHtml(s.ifNotMet)}</div>`
-    : "";
+  function ensureSpace(needed: number) {
+    if (y + needed > pageHeight - margin) {
+      doc.addPage();
+      y = margin;
+    }
+  }
 
-  return `
-    <div class="card">
-      <div><strong>${escapeHtml(s.name)}</strong></div>
-      <div class="headline">${escapeHtml(s.headline)}</div>
-      <p style="margin-top:8px">${escapeHtml(s.details)}</p>
-      <div class="req"><div class="label">Grade requirement</div>${requirement}</div>
-      ${notMet}
-    </div>
-  `;
-}
+  function writeText(
+    text: string,
+    opts: {
+      size?: number;
+      bold?: boolean;
+      italic?: boolean;
+      color?: [number, number, number];
+      gapAfter?: number;
+      indent?: number;
+    } = {},
+  ) {
+    const {
+      size = 12,
+      bold = false,
+      italic = false,
+      color = [17, 17, 17],
+      gapAfter = 4,
+      indent = 0,
+    } = opts;
+    const style = bold && italic ? "bolditalic" : bold ? "bold" : italic ? "italic" : "normal";
+    doc.setFont("times", style);
+    doc.setFontSize(size);
+    doc.setTextColor(color[0], color[1], color[2]);
+    const x = margin + indent;
+    const lines = doc.splitTextToSize(text, maxWidth - indent);
+    ensureSpace(lines.length * (size + 3) + gapAfter);
+    doc.text(lines, x, y);
+    y += lines.length * (size + 3) + gapAfter;
+  }
 
-function renderGroup(title: string, description: string, list: Scholarship[]) {
-  return `
-    <h2>${escapeHtml(title)}</h2>
-    <div class="sub">${escapeHtml(description)}</div>
-    ${list.map(renderScholarship).join("")}
-  `;
-}
+  function drawCard(scholarship: Scholarship) {
+    writeText(scholarship.name, { bold: true, size: 13, gapAfter: 2 });
+    writeText(scholarship.headline, {
+      bold: true,
+      size: 11,
+      color: [107, 33, 168],
+      gapAfter: 6,
+    });
+    writeText(scholarship.details, { size: 11, gapAfter: 8 });
 
-export function downloadScholarshipsPdf() {
-  const w = window.open("", "_blank");
-  if (!w) return;
-  const body = `
-    <h1>HabibEntry, Grades &amp; scholarships</h1>
-    <div class="sub">Habib University merit- and need-based scholarship programs.</div>
-    ${renderGroup(
-      "International Examination Board Applicants",
-      "For applicants sitting O/A Levels, IB, or equivalent international boards.",
-      INTERNATIONAL_BOARD,
-    )}
-    ${renderGroup(
-      "National Examination Board Applicants",
-      "For applicants sitting Matric, FSc, or equivalent national boards.",
-      NATIONAL_BOARD,
-    )}
-  `;
-  w.document.write(`<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>HabibEntry, Grades & scholarships</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: Georgia, "Times New Roman", serif; color: #111; margin: 32px; line-height: 1.55; }
-    h1 { font-size: 22px; margin: 0 0 4px; }
-    h2 { font-size: 16px; margin: 20px 0 6px; }
-    .sub { color: #555; font-size: 12px; margin-bottom: 16px; }
-    .card { border: 1px solid #ddd; border-radius: 6px; padding: 12px 14px; margin: 10px 0; font-size: 13px; }
-    .headline { color: #6b21a8; font-weight: 600; font-size: 13px; margin-top: 4px; }
-    .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: #6b21a8; margin-bottom: 4px; font-weight: 600; }
-    .req { background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 6px; padding: 8px 10px; margin-top: 8px; }
-    .warn { background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 10px; margin-top: 6px; }
-    @media print { body { margin: 16mm; } .noprint { display: none; } .card { break-inside: avoid; } }
-  </style>
-</head>
-<body>
-${body}
-<script>window.onload = function(){ window.print(); };<\/script>
-</body>
-</html>`);
-  w.document.close();
+    writeText("GRADE REQUIREMENT", {
+      bold: true,
+      size: 9,
+      color: [107, 33, 168],
+      gapAfter: 2,
+    });
+    if (typeof scholarship.requirement === "string") {
+      writeText(scholarship.requirement, { size: 11, gapAfter: 6 });
+    } else {
+      writeText(`AKUEB: ${scholarship.requirement.akueb}`, {
+        size: 11,
+        gapAfter: 2,
+      });
+      writeText(`Other Boards: ${scholarship.requirement.otherBoards}`, {
+        size: 11,
+        gapAfter: 6,
+      });
+    }
+
+    if (scholarship.ifNotMet) {
+      writeText("IF REQUIREMENT NOT MET", {
+        bold: true,
+        size: 9,
+        color: [180, 83, 9],
+        gapAfter: 2,
+      });
+      writeText(scholarship.ifNotMet, {
+        size: 11,
+        color: [107, 65, 20],
+        gapAfter: 6,
+      });
+    }
+
+    doc.setDrawColor(230, 230, 230);
+    doc.setLineWidth(0.5);
+    doc.line(margin, y, margin + maxWidth, y);
+    y += 12;
+  }
+
+  function drawGroup(title: string, description: string, list: Scholarship[]) {
+    writeText(title, { bold: true, size: 15, gapAfter: 2 });
+    writeText(description, { italic: true, size: 11, color: [90, 90, 90], gapAfter: 10 });
+    list.forEach(drawCard);
+    y += 6;
+  }
+
+  writeText("HabibEntry, Grades & scholarships", {
+    bold: true,
+    size: 20,
+    gapAfter: 4,
+  });
+  writeText(
+    "Habib University merit- and need-based scholarship programs.",
+    { italic: true, size: 11, color: [90, 90, 90], gapAfter: 16 },
+  );
+
+  drawGroup(
+    "International Examination Board Applicants",
+    "For applicants sitting O/A Levels, IB, or equivalent international boards.",
+    INTERNATIONAL_BOARD,
+  );
+  drawGroup(
+    "National Examination Board Applicants",
+    "For applicants sitting Matric, FSc, or equivalent national boards.",
+    NATIONAL_BOARD,
+  );
+
+  doc.save("habibentry-grades-scholarships.pdf");
 }

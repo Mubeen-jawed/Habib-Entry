@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { requireAdmin } from "@/lib/admin";
 import { updateUserRole } from "./actions";
+import { ClickableRow } from "./ClickableRow";
 import type { Prisma } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -90,6 +91,7 @@ export default async function AdminUsersPage({
                 <tr>
                   <th className="px-4 py-3 font-medium">User</th>
                   <th className="px-4 py-3 font-medium">Role</th>
+                  <th className="px-4 py-3 font-medium">Major</th>
                   <th className="px-4 py-3 font-medium text-right">Attempts</th>
                   <th className="px-4 py-3 font-medium text-right">Essays</th>
                   <th className="px-4 py-3 font-medium">Joined</th>
@@ -100,7 +102,7 @@ export default async function AdminUsersPage({
               <tbody>
                 {users.length === 0 && (
                   <tr>
-                    <td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">
+                    <td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">
                       No users match those filters.
                     </td>
                   </tr>
@@ -108,13 +110,16 @@ export default async function AdminUsersPage({
                 {users.map((u) => {
                   const isSelf = u.id === session.user.id;
                   return (
-                    <tr key={u.id} className="border-t">
+                    <ClickableRow key={u.id} href={`/admin/users/${u.id}`}>
                       <td className="px-4 py-3">
                         <div className="font-medium">{u.name ?? "—"}</div>
                         <div className="text-xs text-muted-foreground">{u.email}</div>
                       </td>
                       <td className="px-4 py-3">
                         <RoleBadge role={u.role} />
+                      </td>
+                      <td className="px-4 py-3">
+                        <MajorBadge schoolSlug={u.schoolSlug} />
                       </td>
                       <td className="px-4 py-3 text-right">{u._count.attempts}</td>
                       <td className="px-4 py-3 text-right">{u._count.essays}</td>
@@ -151,7 +156,7 @@ export default async function AdminUsersPage({
                           </Button>
                         </form>
                       </td>
-                    </tr>
+                    </ClickableRow>
                   );
                 })}
               </tbody>
@@ -208,4 +213,10 @@ function RoleBadge({ role }: { role: string }) {
   if (role === "ADMIN") return <Badge>Admin</Badge>;
   if (role === "PAID") return <Badge variant="success">Paid</Badge>;
   return <Badge variant="secondary">Free</Badge>;
+}
+
+function MajorBadge({ schoolSlug }: { schoolSlug: string | null }) {
+  if (schoolSlug === "dsse") return <Badge variant="outline">DSSE</Badge>;
+  if (schoolSlug === "ahss") return <Badge variant="outline">AHSS</Badge>;
+  return <span className="text-xs text-muted-foreground">—</span>;
 }

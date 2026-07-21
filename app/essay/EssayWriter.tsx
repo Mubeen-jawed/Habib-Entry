@@ -28,6 +28,16 @@ import {
 const TARGET_MIN = 350;
 const TARGET_MAX = 500;
 
+const SAMPLE_ESSAY = `Success is often described as the achievement of one's goals, but the true measure of success lies not in the destination but in the journey undertaken to reach it. Every meaningful accomplishment is built upon a foundation of persistence, discipline, and the willingness to learn from failure. Those who understand this principle are the ones who ultimately leave a lasting mark on the world.
+
+Consider the story of Thomas Edison, who famously failed thousands of times before perfecting the incandescent light bulb. Rather than viewing each unsuccessful attempt as a defeat, Edison reframed his setbacks as steps toward discovery, once remarking that he had simply found many ways that would not work. His attitude illustrates how resilience transforms obstacles into opportunities. Without the courage to persist through repeated failure, the invention that reshaped modern life might never have existed.
+
+Beyond individual perseverance, success also depends on the ability to collaborate with and learn from others. No significant achievement in science, art, or business happens in isolation. The Wright brothers built upon decades of aviation research from countless engineers; Marie Curie relied on the guidance of mentors and the partnership of her husband. When individuals recognize that progress is a collective effort, they gain access to a wider pool of ideas, perspectives, and skills that accelerate their own growth.
+
+Equally important is the role of purpose. People who pursue goals aligned with their deeper values tend to persist longer and perform better than those who chase status or wealth alone. A doctor motivated by genuine care for patients, or a teacher driven by belief in a student's potential, draws energy from the meaning of the work itself. Purpose acts as a compass that keeps effort directed even when circumstances become difficult.
+
+In the end, success is less about talent or luck than it is about character. The combination of persistence, collaboration, and purpose forms the true engine of achievement. Those who cultivate these qualities not only reach their own goals but also inspire others to strive for something greater than themselves.`;
+
 type SavedEssay = {
   id: string;
   prompt: string;
@@ -153,12 +163,14 @@ function RatingBadges({ ratings }: { ratings: Ratings }) {
 
 export function EssayWriter({
   isSignedIn,
+  isAdmin = false,
   savedEssays,
   initialPreviewId = null,
   initialPromptIdx = null,
   initialDialog = null,
 }: {
   isSignedIn: boolean;
+  isAdmin?: boolean;
   savedEssays: SavedEssay[];
   initialPreviewId?: string | null;
   initialPromptIdx?: number | null;
@@ -269,6 +281,15 @@ export function EssayWriter({
   function clearEssay() {
     if (text && !confirm("Clear your essay? This can't be undone.")) return;
     setText("");
+    setCurrentEssayId(null);
+    setSaveStatus({ kind: "idle" });
+    setRatings(null);
+    setRatingsPasteText("");
+    setRatingsError(null);
+  }
+
+  function prefillSample() {
+    setText(SAMPLE_ESSAY);
     setCurrentEssayId(null);
     setSaveStatus({ kind: "idle" });
     setRatings(null);
@@ -432,6 +453,18 @@ export function EssayWriter({
           </div>
         </CardHeader>
       </Card>
+
+      {isAdmin && (
+        <div className="rounded-md border border-dashed border-brand/40 bg-brand-soft/40 p-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="text-xs text-muted-foreground">
+            Admin — loads a sample five-paragraph essay so you can test the
+            word-count, save, and AI-rating flows end to end.
+          </div>
+          <Button type="button" variant="outline" size="sm" onClick={prefillSample}>
+            Fill with sample essay
+          </Button>
+        </div>
+      )}
 
       <Card>
         <CardHeader>

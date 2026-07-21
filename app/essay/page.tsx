@@ -2,6 +2,7 @@ import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
+import { isEffectiveAdmin } from "@/lib/admin-view";
 import { EssayWriter } from "./EssayWriter";
 import { ESSAY_PROMPTS } from "./prompts";
 
@@ -53,12 +54,15 @@ export default async function EssayPage({
   const initialPreviewId =
     open && savedEssays.some((e) => e.id === open) ? open : null;
 
+  const isAdmin = await isEffectiveAdmin();
+
   return (
     <AppShell>
       <div className="mx-auto max-w-3xl px-4 py-8">
         <BackButton className="mb-6" />
         <EssayWriter
           isSignedIn={Boolean(userId)}
+          isAdmin={isAdmin}
           initialPreviewId={initialPreviewId}
           initialPromptIdx={initialPromptIdx}
           initialDialog={initialDialog}
