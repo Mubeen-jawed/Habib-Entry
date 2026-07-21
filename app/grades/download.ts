@@ -109,7 +109,7 @@ export async function downloadScholarshipsPdf() {
     y += 6;
   }
 
-  writeText("HabibEntry, Grades & scholarships", {
+  writeText("Imtehan, Grades & scholarships", {
     bold: true,
     size: 20,
     gapAfter: 4,
@@ -130,5 +130,5 @@ export async function downloadScholarshipsPdf() {
     NATIONAL_BOARD,
   );
 
-  doc.save("habibentry-grades-scholarships.pdf");
+  doc.save("imtehan-grades-scholarships.pdf");
 }

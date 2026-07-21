@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Habib Entry, one-shot dev bootstrap.
+# Imtehan, one-shot dev bootstrap.
 # Installs deps, applies migrations, seeds the DB, then starts the dev server.
 
 set -euo pipefail

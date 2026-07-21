@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Users } from "lucide-react";
 import { InterviewForm } from "./InterviewForm";
 
-export const metadata = { title: "Mock interview, HabibEntry" };
+export const metadata = { title: "Mock interview, Imtehan" };
 
 const INTERVIEWERS = [
   { name: "Hashir", dept: "CE" },

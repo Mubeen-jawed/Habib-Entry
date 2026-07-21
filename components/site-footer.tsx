@@ -69,7 +69,7 @@ export function SiteFooter() {
         </div>
         <div className="mt-10 pt-6 border-t border-border/70 flex flex-col md:flex-row gap-2 md:items-center md:justify-between text-sm text-muted-foreground">
           <p>
-            © {new Date().getFullYear()} HabibEntry. Independent prep site, not
+            © {new Date().getFullYear()} Imtehan. Independent prep site, not
             affiliated with Habib University.
           </p>
         </div>

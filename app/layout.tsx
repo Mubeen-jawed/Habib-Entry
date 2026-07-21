@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Habib Entry, Prep for the Habib University admissions process",
+  title: "Imtehan, Prep for the Habib University admissions process",
   description:
     "Focused practice, mock tests, essay guidance, mock interviews, and ECA form help for Habib University applicants.",
 };

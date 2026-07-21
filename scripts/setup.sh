@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Habib Entry, first-time setup on a fresh developer machine.
+# Imtehan, first-time setup on a fresh developer machine.
 #
 # Installs Node.js and pnpm (if missing), creates a local .env from the
 # example, applies Prisma migrations, seeds the SQLite DB, and prints how

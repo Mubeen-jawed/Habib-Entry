@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Habib Entry, VPS deploy bootstrap.
+# Imtehan, VPS deploy bootstrap.
 #
 # Target: Ubuntu / Debian, PostgreSQL, pnpm, PM2, nginx on port 3005.
 # Run this ON the VPS, from the project root (or with APP_DIR set):
@@ -11,7 +11,7 @@
 set -euo pipefail
 
 # ---------- configuration (override via env) --------------------------------
-APP_NAME="${APP_NAME:-habib-entry}"
+APP_NAME="${APP_NAME:-imtehan}"
 APP_PORT="${APP_PORT:-3005}"
 APP_DIR="${APP_DIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 NODE_MAJOR="${NODE_MAJOR:-20}"

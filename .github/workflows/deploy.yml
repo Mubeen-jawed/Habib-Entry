@@ -45,5 +45,5 @@ jobs:
             done
             pnpm exec node scripts/reset-reading-writing-schoolslug.mjs
             pnpm build
-            pm2 restart habib-entry --update-env
+            pm2 restart imtehan --update-env
             pm2 save

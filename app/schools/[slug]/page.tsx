@@ -19,9 +19,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
   const school = SCHOOLS[slug as keyof typeof SCHOOLS];
-  if (!school) return { title: "School, HabibEntry" };
+  if (!school) return { title: "School, Imtehan" };
   return {
-    title: `${school.code} entry test, HabibEntry`,
+    title: `${school.code} entry test, Imtehan`,
     description: `Full test breakdown for ${school.name} applicants: ${school.specific.name} plus English components.`,
   };
 }

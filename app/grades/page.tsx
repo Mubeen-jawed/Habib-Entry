@@ -3,7 +3,7 @@ import { BackButton } from "@/components/back-button";
 import { GraduationCap } from "lucide-react";
 import { ScholarshipList } from "./ScholarshipList";
 
-export const metadata = { title: "Grades & scholarships, HabibEntry" };
+export const metadata = { title: "Grades & scholarships, Imtehan" };
 
 export default function GradesPage() {
   return (

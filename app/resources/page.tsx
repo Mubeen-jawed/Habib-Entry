@@ -2,7 +2,7 @@ import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { ResourcesRunner } from "./ResourcesRunner";
 
-export const metadata = { title: "Resources, HabibEntry" };
+export const metadata = { title: "Resources, Imtehan" };
 
 export default function ResourcesPage() {
   return (

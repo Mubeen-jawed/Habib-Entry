@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { db } from "@/lib/db";
 import { SECTION_KEYS, SECTION_NAMES, SLUG_BY_SECTION, isRenderableQuestion } from "@/lib/sections";
 
-export const metadata = { title: "Testing browser, HabibEntry" };
+export const metadata = { title: "Testing browser, Imtehan" };
 
 export default async function TestingIndex() {
   const sections = await db.section.findMany();

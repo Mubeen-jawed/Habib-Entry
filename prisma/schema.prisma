@@ -1,4 +1,4 @@
-// Habib Entry, Prisma schema
+// Imtehan, Prisma schema
 // SQLite for dev; switch provider to "postgresql" for prod and re-run prisma migrate.
 
 generator client {

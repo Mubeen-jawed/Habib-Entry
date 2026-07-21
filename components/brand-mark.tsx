@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-// Signature monogram, a slightly tilted black chip with a white "H". The tilt
+// Signature monogram, a slightly tilted black chip with a white "I". The tilt
 // is the creative flourish; no color or pictographs.
 export function BrandMark({
   size = "md",
@@ -29,17 +29,17 @@ export function BrandMark({
           dims.chip
         )}
       >
-        H
+        I
       </span>
       <span className={cn("font-semibold tracking-tight text-foreground", dims.text)}>
-        Habib<span className="text-brand-strong">Entry</span>
+        Im<span className="text-brand-strong">tehan</span>
       </span>
     </span>
   );
 
   if (!linked) return content;
   return (
-    <Link href={href} aria-label="HabibEntry, home">
+    <Link href={href} aria-label="Imtehan, home">
       {content}
     </Link>
   );

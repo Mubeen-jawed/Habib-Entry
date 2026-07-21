@@ -257,7 +257,7 @@ async function createPdf() {
 
 export async function downloadTipsPdf() {
   const { doc, heading, subtext, bullet, paragraph } = await createPdf();
-  heading("HabibEntry, Essay tips");
+  heading("Imtehan, Essay tips");
   subtext("A five-paragraph outline you can use as a scaffold for any prompt.");
 
   const sections: Array<{ title: string; items?: string[] }> = [
@@ -287,7 +287,7 @@ export async function downloadTipsPdf() {
     section.items?.forEach((item) => bullet(item, 1));
   });
 
-  doc.save("habibentry-essay-tips.pdf");
+  doc.save("imtehan-essay-tips.pdf");
 }
 
 export async function downloadRubricPdf() {
@@ -302,7 +302,7 @@ export async function downloadRubricPdf() {
   doc.setFont("times", "bold");
   doc.setFontSize(20);
   doc.setTextColor(17, 17, 17);
-  doc.text("HabibEntry, Essay grading rubric", margin, margin);
+  doc.text("Imtehan, Essay grading rubric", margin, margin);
 
   doc.setFont("times", "italic");
   doc.setFontSize(11);
@@ -375,12 +375,12 @@ export async function downloadRubricPdf() {
     margin: { left: margin, right: margin },
   });
 
-  doc.save("habibentry-essay-grading-rubric.pdf");
+  doc.save("imtehan-essay-grading-rubric.pdf");
 }
 
 export async function downloadPromptsPdf() {
   const { doc, heading, subtext, paragraph } = await createPdf();
-  heading("HabibEntry, Essay prompts");
+  heading("Imtehan, Essay prompts");
   subtext(
     "A collection of prompts that may appear on the test. Practice writing five-paragraph responses of ~350-500 words.",
   );
@@ -389,7 +389,7 @@ export async function downloadPromptsPdf() {
     paragraph(`${i + 1}. ${prompt}`, false, 8);
   });
 
-  doc.save("habibentry-essay-prompts.pdf");
+  doc.save("imtehan-essay-prompts.pdf");
 }
 
 export function PromptsGuideBody() {

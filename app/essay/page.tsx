@@ -6,7 +6,7 @@ import { isEffectiveAdmin } from "@/lib/admin-view";
 import { EssayWriter } from "./EssayWriter";
 import { ESSAY_PROMPTS } from "./prompts";
 
-export const metadata = { title: "Essay practice, HabibEntry" };
+export const metadata = { title: "Essay practice, Imtehan" };
 
 type SearchParams = Promise<{ open?: string; prompt?: string; dialog?: string }>;
 

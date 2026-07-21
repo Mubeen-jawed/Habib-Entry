@@ -1,6 +1,6 @@
 import { ComingSoon } from "@/components/coming-soon";
 
-export const metadata = { title: "ECA form guide, HabibEntry" };
+export const metadata = { title: "ECA form guide, Imtehan" };
 
 export default function EcaPage() {
   return (
