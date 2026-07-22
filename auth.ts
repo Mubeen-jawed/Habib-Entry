@@ -68,6 +68,11 @@ if (process.env.AUTH_GOOGLE_ID && process.env.AUTH_GOOGLE_SECRET) {
 export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
+  // Behind nginx on the VPS, Auth.js must trust the forwarded Host/Proto
+  // headers — otherwise it derives the callback URL and cookie prefix from
+  // the internal http://localhost:3005 origin, the cookie fails to stick,
+  // and the browser bounces back to /login after Google returns.
+  trustHost: true,
   pages: {
     signIn: "/login",
   },

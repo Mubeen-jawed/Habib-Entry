@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { requireAdmin } from "@/lib/admin";
 import { updateUserRole } from "./actions";
 import { ClickableRow } from "./ClickableRow";
+import { DeleteUserButton } from "./DeleteUserButton";
 import type { Prisma } from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -96,7 +97,7 @@ export default async function AdminUsersPage({
                   <th className="px-4 py-3 font-medium text-right">Essays</th>
                   <th className="px-4 py-3 font-medium">Joined</th>
                   <th className="px-4 py-3 font-medium">Last sign-in</th>
-                  <th className="px-4 py-3 font-medium text-right">Change role</th>
+                  <th className="px-4 py-3 font-medium text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,31 +131,38 @@ export default async function AdminUsersPage({
                         {u.lastSignInAt ? u.lastSignInAt.toLocaleString() : "—"}
                       </td>
                       <td className="px-4 py-3">
-                        <form
-                          action={updateUserRole}
-                          className="flex justify-end items-center gap-2"
-                        >
-                          <input type="hidden" name="userId" value={u.id} />
-                          <select
-                            name="role"
-                            defaultValue={u.role}
-                            disabled={isSelf}
-                            className="h-8 rounded-md border border-input bg-background px-2 text-xs disabled:opacity-50"
-                            title={isSelf ? "You can't change your own role" : ""}
+                        <div className="flex justify-end items-center gap-2">
+                          <form
+                            action={updateUserRole}
+                            className="flex items-center gap-2"
                           >
-                            <option value="FREE">Free</option>
-                            <option value="PAID">Paid</option>
-                            <option value="ADMIN">Admin</option>
-                          </select>
-                          <Button
-                            type="submit"
-                            size="sm"
-                            variant="outline"
+                            <input type="hidden" name="userId" value={u.id} />
+                            <select
+                              name="role"
+                              defaultValue={u.role}
+                              disabled={isSelf}
+                              className="h-8 rounded-md border border-input bg-background px-2 text-xs disabled:opacity-50"
+                              title={isSelf ? "You can't change your own role" : ""}
+                            >
+                              <option value="FREE">Free</option>
+                              <option value="PAID">Paid</option>
+                              <option value="ADMIN">Admin</option>
+                            </select>
+                            <Button
+                              type="submit"
+                              size="sm"
+                              variant="outline"
+                              disabled={isSelf}
+                            >
+                              Save
+                            </Button>
+                          </form>
+                          <DeleteUserButton
+                            userId={u.id}
+                            email={u.email}
                             disabled={isSelf}
-                          >
-                            Save
-                          </Button>
-                        </form>
+                          />
+                        </div>
                       </td>
                     </ClickableRow>
                   );

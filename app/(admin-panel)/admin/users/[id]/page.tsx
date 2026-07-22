@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { SECTION_NAMES, type SectionKey } from "@/lib/sections";
 import { SCHOOLS, type SchoolSlug } from "@/lib/schools";
+import { DeleteUserButton } from "../DeleteUserButton";
 
 export const dynamic = "force-dynamic";
 
@@ -16,8 +17,9 @@ export default async function AdminUserDetailPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  await requireAdmin();
+  const session = await requireAdmin();
   const { id } = await params;
+  const isSelf = session.user.id === id;
 
   const user = await db.user.findUnique({
     where: { id },
@@ -59,12 +61,20 @@ export default async function AdminUserDetailPage({
             </h1>
             <p className="text-muted-foreground text-sm">{user.email}</p>
           </div>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <RoleBadge role={user.role} />
             {school ? (
               <Badge variant="outline">{school.code} · {school.name}</Badge>
             ) : (
               <Badge variant="warning">No school picked</Badge>
+            )}
+            {!isSelf && (
+              <DeleteUserButton
+                userId={user.id}
+                email={user.email}
+                redirectTo="/admin/users"
+                variant="full"
+              />
             )}
           </div>
         </div>

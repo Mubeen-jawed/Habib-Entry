@@ -22,6 +22,7 @@ import { toneBg } from "@/lib/tones";
 import { ESSAY_PROMPTS } from "@/app/essay/prompts";
 import { SCHOOLS, type SchoolSlug } from "@/lib/schools";
 import { isEffectiveAdmin } from "@/lib/admin-view";
+import { ChangeSchoolButton } from "./ChangeSchoolButton";
 
 const SECTION_META: Record<string, { name: string; icon: React.ComponentType<{ className?: string }>; slug: string; tone: Tone }> = {
   MATH:    { name: "Math",    icon: MathDoodleIcon,    slug: "math",    tone: "sky" },
@@ -282,17 +283,24 @@ export default async function DashboardPage() {
           }
           actions={
             <div className="flex flex-col items-start md:items-end gap-2">
-              {userSchool && (
+              {userSchool && userSchoolSlug && (
                 <div className="inline-flex items-center gap-2 rounded-full border bg-card px-3 py-1.5 text-xs font-medium shadow-soft">
                   <GraduationCap className="w-4 h-4 text-brand-strong" />
                   <span className="text-muted-foreground">Applying to</span>
                   <span className="font-semibold">{userSchool.code}</span>
-                  <Link
-                    href={`/select-school?callbackUrl=${encodeURIComponent("/dashboard")}`}
-                    className="text-brand-strong hover:underline"
-                  >
-                    Change
-                  </Link>
+                  <ChangeSchoolButton
+                    current={{
+                      slug: userSchoolSlug,
+                      code: userSchool.code,
+                      name: userSchool.name,
+                    }}
+                    target={(() => {
+                      const other: SchoolSlug =
+                        userSchoolSlug === "dsse" ? "ahss" : "dsse";
+                      const o = SCHOOLS[other];
+                      return { slug: o.slug, code: o.code, name: o.name };
+                    })()}
+                  />
                 </div>
               )}
               {/* <Sticker tone="mint" rotate={6}>
