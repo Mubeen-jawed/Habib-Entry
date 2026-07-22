@@ -6,19 +6,19 @@ import { Container } from "@/components/ui/container";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { TonedCard } from "@/components/ui/toned-card";
 import { Chip } from "@/components/ui/chip";
-import { IconTile } from "@/components/ui/icon-tile";
 import { Sticker } from "@/components/ui/sticker";
 import { ScribbleUnderline, Sparkle } from "@/components/ui/scribble";
+import { ExamBySchoolToggle } from "@/components/exam-by-school-toggle";
 import {
   ArrowRight,
-  BookOpen,
-  Calculator,
+  Building2,
   ClipboardCheck,
   FileText,
   GraduationCap,
   MessageSquare,
-  PenLine,
   Star,
+  Timer,
+  TrendingUp,
 } from "lucide-react";
 import { SCHOOL_LIST, type School } from "@/lib/schools";
 import { cn } from "@/lib/utils";
@@ -44,10 +44,12 @@ const COMPONENTS: Array<{
   { tone: "peach",   icon: Star,            title: "Meta-curricular",  description: "Beyond the classroom",  href: "/eca",      linkLabel: "Get help" },
 ];
 
-const STEPS: Array<{ n: number; tone: Tone; title: string; body: string }> = [
-  { n: 1, tone: "lavender", title: "Pick your school", body: "DSSE for science/engineering. AHSS for arts, humanities & social sciences." },
-  { n: 2, tone: "mint",     title: "Practice or mock", body: "Warm up with untimed practice, or simulate the real test with a timed mock." },
-  { n: 3, tone: "peach",    title: "Review and improve", body: "Every attempt is saved with per-question explanations and per-section scores." },
+type StepIcon = React.ComponentType<{ className?: string }>;
+
+const STEPS: Array<{ n: number; tone: Tone; icon: StepIcon; title: string; body: string }> = [
+  { n: 1, tone: "lavender", icon: Building2,   title: "Pick your school",    body: "DSSE for science/engineering. AHSS for arts, humanities & social sciences." },
+  { n: 2, tone: "mint",     icon: Timer,       title: "Practice or mock",    body: "Warm up with untimed practice, or simulate the real test with a timed mock." },
+  { n: 3, tone: "peach",    icon: TrendingUp,  title: "Review and improve",  body: "Every attempt is saved with per-question explanations and per-section scores." },
 ];
 
 export default function LandingPage() {
@@ -144,31 +146,9 @@ export default function LandingPage() {
             eyebrow="At a glance"
             eyebrowTone="mint"
             title="The Habib entrance exam"
-            description="A quick overview of what every applicant sits, and where the two schools differ."
+            description="Pick your school on the left to see the exact test sections and skills covered."
           />
-          <div className="grid gap-6 md:grid-cols-3">
-            <MiniComponent
-              tone="mint"
-              icon={BookOpen}
-              title="Accuplacer Reading"
-              body="Shared across both schools. ~20–25 MCQs on information & ideas, rhetoric, synthesis, and vocabulary."
-              tag="Same for both"
-            />
-            <MiniComponent
-              tone="pink"
-              icon={PenLine}
-              title="Accuplacer Writing + Essay"
-              body="Shared. ~20–25 MCQs on grammar & style, plus one 350–500 word persuasive essay."
-              tag="Same for both"
-            />
-            <MiniComponent
-              tone="peach"
-              icon={Calculator}
-              title="Math"
-              body="DSSE takes Advanced Level Math. AHSS takes Arithmetic (whole numbers, fractions, decimals, percent)."
-              tag="Differs"
-            />
-          </div>
+          <ExamBySchoolToggle />
         </Section>
 
         {/* How it works */}
@@ -178,9 +158,13 @@ export default function LandingPage() {
             eyebrowTone="peach"
             title="Three steps to test-ready"
           />
-          <div className="grid gap-6 md:grid-cols-3">
-            {STEPS.map((s) => (
-              <Step key={s.n} {...s} />
+          <div className="relative mt-10 max-w-5xl mx-auto grid gap-12 md:grid-cols-3 md:gap-0">
+            {STEPS.map((s, i) => (
+              <Step
+                key={s.n}
+                {...s}
+                showConnector={i < STEPS.length - 1}
+              />
             ))}
           </div>
         </Section>
@@ -247,39 +231,59 @@ function SchoolCard({ school, tone }: { school: School; tone: Tone }) {
   );
 }
 
-function MiniComponent({
+function Step({
+  n,
   tone,
-  icon,
+  icon: Icon,
   title,
   body,
-  tag,
+  showConnector,
 }: {
+  n: number;
   tone: Tone;
-  icon: React.ComponentType<{ className?: string }>;
+  icon: StepIcon;
   title: string;
   body: string;
-  tag: string;
+  showConnector: boolean;
 }) {
   return (
-    <div className="rounded-2xl border bg-card p-6 md:p-7 shadow-soft space-y-4">
-      <div className="flex items-center gap-3">
-        <IconTile icon={icon} tone={tone} />
-        <div className="font-semibold">{title}</div>
-      </div>
-      <p className="text-sm text-muted-foreground leading-relaxed">{body}</p>
-      <Chip tone={tone}>{tag}</Chip>
-    </div>
-  );
-}
-
-function Step({ n, tone, title, body }: { n: number; tone: Tone; title: string; body: string }) {
-  return (
-    <div className="rounded-2xl border bg-card p-8 shadow-soft transition-transform hover:-translate-y-0.5">
-      <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center font-semibold mb-5 text-lg", toneBg[tone], toneText[tone])}>
-        {n}
+    <div className="relative flex flex-col items-center text-center px-4">
+      {showConnector && (
+        <svg
+          aria-hidden
+          viewBox="0 0 100 20"
+          preserveAspectRatio="none"
+          className="hidden md:block pointer-events-none absolute text-brand"
+          style={{
+            top: "4.5rem",
+            left: "calc(50% + 4rem)",
+            width: "calc(100% - 8rem)",
+            height: "2.25rem",
+            overflow: "visible",
+          }}
+        >
+          <path
+            d={
+              n % 2 === 1
+                ? "M2,12 Q22,3 46,11 T78,9 T98,11"
+                : "M2,9 Q24,17 48,10 T80,12 T98,10"
+            }
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.25"
+            strokeDasharray="9 7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+      )}
+      <div className="text-sm font-medium text-muted-foreground mb-3">{n}</div>
+      <div className={cn("relative z-10 w-24 h-24 rounded-full flex items-center justify-center mb-5", toneBg[tone])}>
+        <Icon className={cn("w-10 h-10", toneText[tone])} />
       </div>
       <h3 className="font-semibold text-lg">{title}</h3>
-      <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{body}</p>
+      <p className="text-sm text-muted-foreground mt-2 leading-relaxed max-w-[240px]">{body}</p>
     </div>
   );
 }

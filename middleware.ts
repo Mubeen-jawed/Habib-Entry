@@ -7,7 +7,11 @@ const ADMIN_ONLY_PREFIXES = [
   "/testing",
 ];
 
-const USER_PROTECTED_PREFIXES = ["/practice", "/attempts", "/mock", "/essay", "/interview"];
+// /essay and /interview are intentionally NOT here — those pages render a
+// signed-out marketing preview for logged-out visitors and only gate the
+// real functionality when a session exists. Server actions in
+// essay/actions.ts and api/interview/route.ts re-check auth themselves.
+const USER_PROTECTED_PREFIXES = ["/practice", "/attempts", "/mock"];
 
 const PROTECTED_PREFIXES = [
   "/dashboard",

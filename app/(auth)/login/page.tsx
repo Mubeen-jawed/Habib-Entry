@@ -62,6 +62,12 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
               </div>
             </>
           )}
+          {error === "OAuthAccountNotLinked" && (
+            <div className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm">
+              An account with that email already exists. Please sign in with
+              your email and password below.
+            </div>
+          )}
           <form action={loginAction} className="space-y-3">
             <div className="space-y-1.5">
               <Label htmlFor="email">Email</Label>

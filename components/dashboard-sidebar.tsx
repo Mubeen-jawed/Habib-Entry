@@ -242,7 +242,7 @@ export function DashboardSidebar({
                   : "animate-slide-in-from-left"
               )
             : "hidden",
-          "md:fixed md:top-0 md:left-0 md:h-dvh md:z-30 md:flex md:bg-card/40 md:backdrop-blur md:transition-[width] md:duration-200",
+          "md:fixed md:top-0 md:left-0 md:h-dvh md:z-30 md:flex md:bg-card md:border-r md:border-border/60 md:transition-[width] md:duration-200",
           isCollapsed ? "md:w-16" : "md:w-64"
         )}
       >

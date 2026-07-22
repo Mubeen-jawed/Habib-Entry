@@ -53,7 +53,7 @@ export function SiteMobileMenu({
         <>
           <div
             className={cn(
-              "fixed inset-x-0 top-16 bottom-0 z-30 bg-foreground/10 backdrop-blur-[2px] md:hidden transition-opacity duration-200",
+              "fixed inset-x-0 top-16 bottom-0 z-30 bg-foreground/20 md:hidden transition-opacity duration-200",
               closing ? "opacity-0" : "opacity-100"
             )}
             onClick={close}

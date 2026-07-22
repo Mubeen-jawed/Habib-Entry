@@ -64,7 +64,13 @@ export default async function RegisterPage({ searchParams }: { searchParams: Sea
               <form
                 action={async () => {
                   "use server";
-                  await signIn("google", { redirectTo: "/select-school" });
+                  // Land on /dashboard and let middleware handle onboarding:
+                  // returning Google users go straight through, new users get
+                  // bounced to /select-school with a proper callbackUrl. The
+                  // old hardcoded "/select-school" here forced every Google
+                  // sign-in — even returning users with a school already set —
+                  // through the picker again.
+                  await signIn("google", { redirectTo: "/dashboard" });
                 }}
               >
                 <GoogleSignInButton label="Sign up with Google" />

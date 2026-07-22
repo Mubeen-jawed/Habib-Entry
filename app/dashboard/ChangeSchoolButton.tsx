@@ -59,7 +59,7 @@ export function ChangeSchoolButton({
           className="fixed inset-0 z-50 flex items-center justify-center p-4"
         >
           <div
-            className="absolute inset-0 bg-background/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-foreground/40"
             onClick={() => {
               if (!isPending) setOpen(false);
             }}

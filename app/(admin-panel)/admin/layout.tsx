@@ -19,7 +19,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b bg-background/80 backdrop-blur sticky top-0 z-40">
+      <header className="border-b bg-background sticky top-0 z-40">
         <div className="mx-auto max-w-7xl px-4 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Link href="/" className="font-semibold tracking-tight text-lg">

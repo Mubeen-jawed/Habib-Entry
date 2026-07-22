@@ -24,7 +24,7 @@ export async function SiteHeader() {
   const navItems = isAdmin ? [...NAV, ...ADMIN_NAV] : NAV;
 
   return (
-    <header className="sticky top-0 z-40 bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 bg-background/95 border-b border-border/40">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3 md:gap-6">
         <BrandMark size="sm" />
         <SiteNav items={navItems} />

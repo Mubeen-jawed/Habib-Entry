@@ -29,7 +29,7 @@ export function AdminViewToggleButton({
         title={`${hint} — click to switch`}
         aria-label={label}
         className={cn(
-          "group inline-flex items-center gap-2 rounded-full border pl-3 pr-4 py-2 text-sm font-medium shadow-pop backdrop-blur transition-all",
+          "group inline-flex items-center gap-2 rounded-full border pl-3 pr-4 py-2 text-sm font-medium shadow-pop transition-[transform,background-color]",
           "hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           isAdminView
             ? "bg-foreground text-background border-foreground/30 hover:bg-foreground/90"

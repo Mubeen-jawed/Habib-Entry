@@ -17,7 +17,7 @@ export function SiteNav({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
 
   return (
-    <nav className="hidden md:flex items-center gap-1 text-sm rounded-full border border-border/70 bg-card/70 backdrop-blur px-1.5 py-1 shadow-soft">
+    <nav className="hidden md:flex items-center gap-1 text-sm rounded-full border border-border/70 bg-card px-1.5 py-1 shadow-soft">
       {items.map((n) => {
         const active = isActive(pathname, n.href);
         return (

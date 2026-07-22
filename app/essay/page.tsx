@@ -1,5 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
+import { SignedOutPreview } from "@/components/signed-out-preview";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { isEffectiveAdmin } from "@/lib/admin-view";
@@ -19,6 +20,17 @@ export default async function EssayPage({
 }) {
   const session = await auth();
   const userId = session?.user?.id ?? null;
+
+  if (!userId) {
+    return (
+      <SignedOutPreview
+        title="Essay practice"
+        description="Draft your Habib admissions essay against real prompts and get instant AI feedback on reading, analysis, and writing so you know exactly what to sharpen before test day."
+        callbackUrl="/essay"
+      />
+    );
+  }
+
   const { open, prompt, dialog } = await searchParams;
 
   const parsedPromptIdx = prompt !== undefined ? Number(prompt) : NaN;

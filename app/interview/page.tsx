@@ -3,6 +3,7 @@ import { db } from "@/lib/db";
 import { isEffectiveAdmin } from "@/lib/admin-view";
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
+import { SignedOutPreview } from "@/components/signed-out-preview";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Users } from "lucide-react";
@@ -39,6 +40,17 @@ const GUIDELINES = [
 
 export default async function InterviewPage() {
   const session = await auth();
+
+  if (!session?.user?.id) {
+    return (
+      <SignedOutPreview
+        title="Free mock interviews"
+        description="Book a one-on-one mock interview with a current Habib student who has been through the real thing — practice, get feedback, and walk into your HU interview with confidence."
+        callbackUrl="/interview"
+      />
+    );
+  }
+
   const isAdmin = await isEffectiveAdmin();
   let alreadySubmitted = false;
   if (session?.user?.id && !isAdmin) {

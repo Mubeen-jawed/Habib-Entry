@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { CheckCircle2, Upload } from "lucide-react";
+import { Check, CheckCircle2, Upload } from "lucide-react";
 
 const FIELDS = [
   "Computer Science",
@@ -186,9 +186,7 @@ export function InterviewForm({
   if (submitted) {
     return (
       <div className="rounded-lg border bg-card p-8 text-center">
-        <div className="mx-auto w-12 h-12 rounded-full bg-brand/10 flex items-center justify-center text-brand mb-4">
-          <CheckCircle2 className="w-6 h-6" />
-        </div>
+        <Check className="mx-auto w-16 h-16 text-brand mb-4" strokeWidth={2.5} />
         <h2 className="text-xl font-semibold">Submission received</h2>
         <p className="text-sm text-muted-foreground mt-2 max-w-md mx-auto leading-relaxed">
           Thanks, we&apos;ll reach out on WhatsApp within 12 hours. Your mock interview will be
