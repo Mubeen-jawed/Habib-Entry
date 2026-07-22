@@ -25,7 +25,7 @@ export async function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 bg-background/95 border-b border-border/40">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 h-16 flex items-center justify-between gap-3 md:gap-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 h-[80px]  flex items-center justify-between gap-3 md:gap-6">
         <BrandMark size="sm" />
         <SiteNav items={navItems} />
         <div className="flex items-center gap-2">

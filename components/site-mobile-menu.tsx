@@ -53,7 +53,7 @@ export function SiteMobileMenu({
         <>
           <div
             className={cn(
-              "fixed inset-x-0 top-16 bottom-0 z-30 bg-foreground/20 md:hidden transition-opacity duration-200",
+              "fixed inset-x-0 top-[126px] bottom-0 z-30 bg-foreground/20 md:hidden transition-opacity duration-200",
               closing ? "opacity-0" : "opacity-100"
             )}
             onClick={close}
@@ -61,7 +61,7 @@ export function SiteMobileMenu({
           />
           <div
             className={cn(
-              "fixed inset-x-0 top-16 z-40 max-h-[calc(100dvh-4rem)] overflow-y-auto bg-background border-b border-border/70 shadow-lg md:hidden",
+              "fixed inset-x-0 top-[126px] z-40 max-h-[calc(100dvh-126px)] overflow-y-auto bg-background border-b border-border/70 shadow-lg md:hidden",
               closing ? "animate-slide-out-to-top" : "animate-slide-in-from-top"
             )}
           >

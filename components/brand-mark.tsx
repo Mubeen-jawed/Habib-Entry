@@ -16,9 +16,9 @@ export function BrandMark({
   linked?: boolean;
 }) {
   const dims = {
-    sm: { chip: "w-20 h-20", px: 80 },
-    md: { chip: "w-28 h-28", px: 112 },
-    lg: { chip: "w-40 h-40", px: 160 },
+    sm: { chip: "w-24 h-24 md:w-28 md:h-28", px: 112, sizes: "(max-width: 768px) 64px, 112px" },
+    md: { chip: "w-24 h-24 md:w-40 md:h-40", px: 160, sizes: "(max-width: 768px) 96px, 160px" },
+    lg: { chip: "w-32 h-32 md:w-56 md:h-56", px: 224, sizes: "(max-width: 768px) 128px, 224px" },
   }[size];
 
   const content = (
@@ -32,6 +32,7 @@ export function BrandMark({
           alt=""
           width={dims.px}
           height={dims.px}
+          sizes={dims.sizes}
           priority
           className="w-full h-full object-contain"
         />

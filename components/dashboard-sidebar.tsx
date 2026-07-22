@@ -248,7 +248,7 @@ export function DashboardSidebar({
       >
         <div
           className={cn(
-            "flex items-center h-16 px-3 border-b border-border/70",
+            "flex items-center h-[126px] px-3 border-b border-border/70",
             isCollapsed ? "justify-center" : "justify-between"
           )}
         >
