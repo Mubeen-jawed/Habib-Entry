@@ -37,11 +37,11 @@ const COMPONENTS: Array<{
   href: string;
   linkLabel: string;
 }> = [
-  { tone: "sky",     icon: GraduationCap,   title: "Grades",           description: "Academic transcript",   href: "/grades",   linkLabel: "Scholarships" },
+  { tone: "sky",     icon: GraduationCap,   title: "Eligibility",      description: "Academic transcript",   href: "/grades",   linkLabel: "Scholarships" },
   { tone: "lavender",icon: ClipboardCheck,  title: "Test",             description: "Entrance exam",         href: "#schools",  linkLabel: "See patterns" },
   { tone: "mint",    icon: MessageSquare,   title: "Interview",        description: "One-on-one",            href: "/interview",linkLabel: "Book a mock" },
   { tone: "pink",    icon: FileText,        title: "Essay",            description: "Written response",      href: "/essay",    linkLabel: "Practice" },
-  { tone: "peach",   icon: Star,            title: "Meta-curricular",  description: "Beyond the classroom",  href: "/eca",      linkLabel: "Get help" },
+  { tone: "peach",   icon: Star,            title: "Meta-curricular",  description: "Beyond the classroom",  href: "/meta-curricular", linkLabel: "See guide" },
 ];
 
 type StepIcon = React.ComponentType<{ className?: string }>;

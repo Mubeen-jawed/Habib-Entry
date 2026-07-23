@@ -10,8 +10,8 @@ const NAV = [
   { href: "/#schools", label: "Schools" },
   { href: "/schools/dsse", label: "DSSE" },
   { href: "/schools/ahss", label: "AHSS" },
-  { href: "/essay", label: "Essay" },
-  { href: "/interview", label: "Interview" },
+  { href: "/grades", label: "Eligibility" },
+  { href: "/meta-curricular", label: "Meta-curricular" },
 ];
 
 const ADMIN_NAV = [

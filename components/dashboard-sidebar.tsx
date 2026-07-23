@@ -19,6 +19,7 @@ import {
   Pencil,
   Settings,
   Sparkles,
+  Star,
   Timer,
   X,
 } from "lucide-react";
@@ -53,7 +54,9 @@ const INTERVIEW_ITEMS: NavItem[] = [
   { href: "/interview", label: "Interview", icon: MessageSquare },
 ];
 
-const META_ITEMS: NavItem[] = [];
+const META_ITEMS: NavItem[] = [
+  { href: "/meta-curricular", label: "Form guide", icon: Star },
+];
 
 const RESOURCES_ITEM: NavItem = {
   href: "/resources",
@@ -177,6 +180,12 @@ export function DashboardSidebar({
   );
   const resourcesActiveHref = getSectionActiveHref(
     [RESOURCES_ITEM],
+    pathname,
+    search,
+    hash
+  );
+  const metaActiveHref = getSectionActiveHref(
+    META_ITEMS,
     pathname,
     search,
     hash
@@ -334,7 +343,7 @@ export function DashboardSidebar({
           <SidebarSection
             heading="Meta-curricular"
             items={META_ITEMS}
-            activeHref={null}
+            activeHref={metaActiveHref}
             collapsed={isCollapsed}
             collapsible
             storageKey="dashboard-sidebar-section-meta"

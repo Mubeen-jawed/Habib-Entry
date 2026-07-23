@@ -48,7 +48,7 @@ function ScholarshipGroup({
 
 function ScholarshipItem({ scholarship }: { scholarship: Scholarship }) {
   return (
-    <details className="group rounded-lg border bg-card open:border-brand/40 transition-colors">
+    <details className="group rounded-lg border bg-card transition-colors">
       <summary className="flex items-start justify-between gap-4 p-5 cursor-pointer list-none">
         <div className="min-w-0">
           <div className="font-medium text-sm">{scholarship.name}</div>
@@ -58,27 +58,29 @@ function ScholarshipItem({ scholarship }: { scholarship: Scholarship }) {
         </div>
         <ChevronDown className="w-4 h-4 mt-1 text-muted-foreground shrink-0 transition-transform group-open:rotate-180" />
       </summary>
-      <div className="px-5 pb-5 -mt-1 text-sm text-muted-foreground leading-relaxed space-y-3">
+      <div className="px-5 pb-5 -mt-1 text-sm text-muted-foreground leading-relaxed space-y-4">
         <p>{scholarship.details}</p>
-        <div className="rounded-md border border-brand/20 bg-brand/5 px-3 py-2 text-foreground">
-          <div className="text-xs font-medium uppercase tracking-wide text-brand mb-1">
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-brand mb-1">
             Grade requirement
           </div>
           {typeof scholarship.requirement === "string" ? (
-            <p className="text-sm leading-relaxed">{scholarship.requirement}</p>
+            <p className="text-sm leading-relaxed font-semibold text-foreground">
+              {scholarship.requirement}
+            </p>
           ) : (
-            <div className="grid gap-2 sm:grid-cols-2 mt-1">
-              <div className="rounded-md border border-brand/30 bg-background px-3 py-2 shadow-sm">
-                <div className="text-sm font-bold text-brand mb-1">AKUEB</div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+            <div className="grid gap-3 sm:grid-cols-2 mt-1">
+              <div>
+                <div className="text-xs font-bold text-brand mb-0.5">AKUEB</div>
+                <p className="text-sm leading-relaxed font-semibold text-foreground">
                   {scholarship.requirement.akueb}
                 </p>
               </div>
-              <div className="rounded-md border border-brand/30 bg-background px-3 py-2 shadow-sm">
-                <div className="text-sm font-bold text-brand mb-1">
+              <div>
+                <div className="text-xs font-bold text-brand mb-0.5">
                   Other Boards
                 </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">
+                <p className="text-sm leading-relaxed font-semibold text-foreground">
                   {scholarship.requirement.otherBoards}
                 </p>
               </div>
@@ -86,11 +88,11 @@ function ScholarshipItem({ scholarship }: { scholarship: Scholarship }) {
           )}
         </div>
         {scholarship.ifNotMet && (
-          <div className="rounded-md border border-amber-500/30 bg-amber-500/5 px-3 py-2 text-foreground">
-            <div className="text-xs font-medium uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-wide text-amber-600 dark:text-amber-400 mb-1">
               If requirement not met
             </div>
-            <p className="text-sm leading-relaxed text-muted-foreground">
+            <p className="text-sm leading-relaxed font-semibold text-foreground">
               {scholarship.ifNotMet}
             </p>
           </div>
