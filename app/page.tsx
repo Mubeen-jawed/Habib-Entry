@@ -11,7 +11,6 @@ import { Sticker } from "@/components/ui/sticker";
 import { ScribbleUnderline, Sparkle } from "@/components/ui/scribble";
 import { ExamBySchoolToggle } from "@/components/exam-by-school-toggle";
 import { SchoolCard } from "@/components/school-card";
-import { RelatedPrepTopics } from "@/components/related-prep-topics";
 import {
   ArrowRight,
   Building2,
@@ -188,14 +187,6 @@ export default function LandingPage() {
             ))}
           </div>
         </Section>
-
-        {/* Related prep topics — every keyword the site covers, as anchor-text links */}
-        <RelatedPrepTopics
-          eyebrow="Prep topics"
-          eyebrowTone="lavender"
-          title="Habib entrance test prep, topic by topic"
-          description="From Accuplacer math practice to Habib persuasive essay structure, every topic Habib evaluates has its own guide."
-        />
 
         {/* CTA */}
         <Section spacing="lg">

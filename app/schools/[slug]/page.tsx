@@ -7,7 +7,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { SCHOOLS, SCHOOL_LIST, type TestComponent } from "@/lib/schools";
 import { cn } from "@/lib/utils";
 
@@ -81,25 +80,6 @@ export default async function SchoolDetailPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
-
-        <RelatedPrepTopics
-          slugs={[
-            ...(slug === "dsse" ? RELATED_SLUGS.dsse : RELATED_SLUGS.ahss),
-          ]}
-          eyebrow={`${school.code} prep`}
-          eyebrowTone={slug === "dsse" ? "sky" : "peach"}
-          title={
-            slug === "dsse"
-              ? "Habib University DSSE entry test preparation"
-              : "Habib University AHSS entry test preparation"
-          }
-          description={
-            slug === "dsse"
-              ? "Advanced Algebra & Functions, trigonometry, and the math-heavy Accuplacer practice that decides DSSE offers."
-              : "Reading, writing, and Habib persuasive essay practice tuned to the AHSS applicant profile."
-          }
-          spacing="sm"
-        />
 
         <section className="mx-auto max-w-4xl px-4 py-12">
           <details className="group rounded-2xl border bg-card shadow-soft">

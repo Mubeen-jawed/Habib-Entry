@@ -1,5 +1,4 @@
 import { ComingSoon } from "@/components/coming-soon";
-import { RELATED_SLUGS } from "@/components/related-prep-topics";
 
 export const metadata = {
   title: "Habib ECA form guide — activities, roles & impact | Imtehan",
@@ -19,10 +18,6 @@ export default function EcaPage() {
         "How to quantify results and describe leadership.",
         "Templates for sports, service, arts, and academic clubs.",
       ]}
-      relatedSlugs={[...RELATED_SLUGS.metaCurricular]}
-      relatedEyebrow="Also on Imtehan"
-      relatedEyebrowTone="mint"
-      relatedTitle="Habib entrance test preparation, end to end"
     />
   );
 }

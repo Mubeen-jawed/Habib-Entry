@@ -1,7 +1,6 @@
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { SignedOutPreview } from "@/components/signed-out-preview";
-import { RELATED_SLUGS } from "@/components/related-prep-topics";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { isEffectiveAdmin } from "@/lib/admin-view";
@@ -33,10 +32,6 @@ export default async function EssayPage({
         title="Habib essay writing practice"
         description="Draft your Habib admissions essay against real prompts and get instant AI feedback on reading, analysis, and writing — so you know exactly what to sharpen before test day."
         callbackUrl="/essay"
-        relatedSlugs={[...RELATED_SLUGS.essay]}
-        relatedEyebrow="Essay prep"
-        relatedEyebrowTone="pink"
-        relatedTitle="Habib essay writing practice, by topic"
       />
     );
   }

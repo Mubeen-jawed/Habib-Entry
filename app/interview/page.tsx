@@ -4,7 +4,6 @@ import { isEffectiveAdmin } from "@/lib/admin-view";
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { SignedOutPreview } from "@/components/signed-out-preview";
-import { RELATED_SLUGS } from "@/components/related-prep-topics";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Users } from "lucide-react";
@@ -53,10 +52,6 @@ export default async function InterviewPage() {
         title="Habib admission interview preparation"
         description="Book a free one-on-one mock interview with a current Habib student who has been through the real HU admission interview — practise, get feedback, and walk in confident."
         callbackUrl="/interview"
-        relatedSlugs={[...RELATED_SLUGS.interview]}
-        relatedEyebrow="Interview prep"
-        relatedEyebrowTone="mint"
-        relatedTitle="Habib admission interview preparation, and more"
       />
     );
   }

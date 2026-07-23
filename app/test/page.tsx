@@ -3,7 +3,6 @@ import { SiteFooter } from "@/components/site-footer";
 import { BackButton } from "@/components/back-button";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { SchoolCard } from "@/components/school-card";
-import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { SCHOOL_LIST } from "@/lib/schools";
 import type { Tone } from "@/lib/tones";
 
@@ -44,14 +43,6 @@ export default function TestPage() {
             ))}
           </div>
         </Section>
-
-        <RelatedPrepTopics
-          slugs={[...RELATED_SLUGS.test]}
-          eyebrow="Test prep"
-          eyebrowTone="sky"
-          title="Habib entry test preparation, by topic"
-          description="Free Habib mock tests, Accuplacer practice, and per-section guides for the Habib entrance exam."
-        />
       </main>
       <SiteFooter />
     </>

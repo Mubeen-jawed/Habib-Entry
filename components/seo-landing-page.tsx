@@ -8,9 +8,18 @@ import { Container } from "@/components/ui/container";
 import { ScribbleUnderline } from "@/components/ui/scribble";
 import { cn } from "@/lib/utils";
 import { toneBg, toneText } from "@/lib/tones";
-import { SEO_CTA_LABEL, type SeoLandingPage } from "@/lib/seo-landing";
+import {
+  SEO_CTA_LABEL,
+  SEO_LANDING_SLUGS,
+  type SeoLandingPage,
+} from "@/lib/seo-landing";
 
 export function SeoLandingPageView({ page }: { page: SeoLandingPage }) {
+  const outwardLinks = page.relatedLinks.filter((l) => {
+    const slug = l.href.replace(/^\/+/, "").split(/[/?#]/)[0];
+    return !SEO_LANDING_SLUGS.includes(slug);
+  });
+
   return (
     <>
       <SiteHeader />
@@ -88,13 +97,13 @@ export function SeoLandingPageView({ page }: { page: SeoLandingPage }) {
           </div>
 
           {/* Related links */}
-          {page.relatedLinks.length > 0 && (
+          {outwardLinks.length > 0 && (
             <div className="mt-16 pt-10 border-t">
               <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
                 Keep exploring
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {page.relatedLinks.map((l) => (
+                {outwardLinks.map((l) => (
                   <Link
                     key={l.href + l.label}
                     href={l.href}

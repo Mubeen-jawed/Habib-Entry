@@ -5,7 +5,6 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BackButton } from "@/components/back-button";
 import { MetaCurricularGuide } from "@/components/meta-curricular-guide";
-import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { Sticker } from "@/components/ui/sticker";
 import { ScribbleUnderline, Sparkle } from "@/components/ui/scribble";
 import type { SchoolSlug } from "@/lib/schools";
@@ -80,13 +79,6 @@ export default async function MetaCurricularPage() {
           <Header />
           <MetaCurricularGuide defaultSchool="dsse" />
         </div>
-        <RelatedPrepTopics
-          slugs={[...RELATED_SLUGS.metaCurricular]}
-          eyebrow="Also on Imtehan"
-          eyebrowTone="peach"
-          title="Habib entry test preparation, end to end"
-          description="The meta-curricular form is one of five admission components. Here are guides to the rest."
-        />
       </main>
       <SiteFooter />
     </>
