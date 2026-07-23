@@ -39,9 +39,9 @@ export function TonedCard({
     <Wrapper
       {...wrapperProps}
       className={cn(
-        "group relative flex gap-4 rounded-2xl border border-border/60 p-4 sm:p-6 md:p-7 shadow-soft transition-all overflow-hidden flex-row items-center sm:flex-col sm:items-stretch sm:gap-4",
+        "group relative flex gap-4 rounded-2xl border border-border/60 p-4 sm:p-6 md:p-7 shadow-soft transition-all duration-150 overflow-hidden flex-row items-center sm:flex-col sm:items-stretch sm:gap-4",
         solid ? toneBg[tone] : "bg-card",
-        href && "hover:shadow-pop hover:-translate-y-0.5",
+        href && "hover:shadow-pop hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] active:shadow-soft",
         className
       )}
     >

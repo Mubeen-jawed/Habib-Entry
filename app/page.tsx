@@ -9,6 +9,7 @@ import { Chip } from "@/components/ui/chip";
 import { Sticker } from "@/components/ui/sticker";
 import { ScribbleUnderline, Sparkle } from "@/components/ui/scribble";
 import { ExamBySchoolToggle } from "@/components/exam-by-school-toggle";
+import { SchoolCard } from "@/components/school-card";
 import {
   ArrowRight,
   Building2,
@@ -20,7 +21,7 @@ import {
   Timer,
   TrendingUp,
 } from "lucide-react";
-import { SCHOOL_LIST, type School } from "@/lib/schools";
+import { SCHOOL_LIST } from "@/lib/schools";
 import { cn } from "@/lib/utils";
 import { toneBg, toneText, type Tone } from "@/lib/tones";
 
@@ -38,7 +39,7 @@ const COMPONENTS: Array<{
   linkLabel: string;
 }> = [
   { tone: "sky",     icon: GraduationCap,   title: "Eligibility",      description: "Academic transcript",   href: "/grades",   linkLabel: "Scholarships" },
-  { tone: "lavender",icon: ClipboardCheck,  title: "Test",             description: "Entrance exam",         href: "#schools",  linkLabel: "See patterns" },
+  { tone: "lavender",icon: ClipboardCheck,  title: "Test",             description: "Entrance exam",         href: "/test",     linkLabel: "See patterns" },
   { tone: "mint",    icon: MessageSquare,   title: "Interview",        description: "One-on-one",            href: "/interview",linkLabel: "Book a mock" },
   { tone: "pink",    icon: FileText,        title: "Essay",            description: "Written response",      href: "/essay",    linkLabel: "Practice" },
   { tone: "peach",   icon: Star,            title: "Meta-curricular",  description: "Beyond the classroom",  href: "/meta-curricular", linkLabel: "See guide" },
@@ -206,33 +207,6 @@ export default function LandingPage() {
       </main>
       <SiteFooter />
     </>
-  );
-}
-
-function SchoolCard({ school, tone }: { school: School; tone: Tone }) {
-  return (
-    <Link
-      href={`/schools/${school.slug}`}
-      className="group relative flex flex-col gap-4 rounded-3xl border p-8 md:p-10 shadow-soft transition-all hover:shadow-pop hover:-translate-y-0.5 overflow-hidden bg-card"
-    >
-      <div className={cn("absolute -top-24 -right-24 w-64 h-64 rounded-full blur-3xl opacity-80 transition-opacity group-hover:opacity-100", toneBg[tone])} aria-hidden />
-      <div className="relative flex items-center justify-between">
-        <Chip tone={tone}>{school.code}</Chip>
-        <span className="text-xs text-muted-foreground uppercase tracking-widest">
-          {school.slug}
-        </span>
-      </div>
-      <div className="relative space-y-2">
-        <h3 className="text-xl md:text-2xl font-semibold tracking-tight">
-          {school.name}
-        </h3>
-        <p className="text-muted-foreground">{school.tagline}</p>
-      </div>
-      <div className={cn("relative mt-2 inline-flex items-center text-sm font-medium", toneText[tone])}>
-        View test details
-        <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-0.5" />
-      </div>
-    </Link>
   );
 }
 

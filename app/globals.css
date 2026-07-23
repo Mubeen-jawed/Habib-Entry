@@ -181,6 +181,13 @@
     letter-spacing: -0.022em;
     color: var(--color-heading);
   }
+  /* On pages that mount SiteHeader + main + SiteFooter directly under <body>,
+     guarantee <main> fills at least the viewport height minus the 80px header.
+     This keeps the footer (and its top border) completely below the fold on
+     short pages, so nothing peeks in on the initial viewport. */
+  body > main {
+    min-height: calc(100dvh - 80px);
+  }
 }
 
 @layer utilities {
