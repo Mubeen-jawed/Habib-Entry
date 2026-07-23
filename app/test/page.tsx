@@ -22,10 +22,10 @@ export default function TestPage() {
     <>
       <SiteHeader />
       <main className="flex-1">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 pt-10">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8 pt-8 md:pt-10">
           <BackButton />
         </div>
-        <Section spacing="lg" className="scroll-mt-20" id="schools">
+        <Section spacing="sm" className="scroll-mt-20" id="schools">
           <SectionHeading
             eyebrow="Entrance test"
             eyebrowTone="lavender"

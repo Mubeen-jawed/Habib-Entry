@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { BackButton } from "@/components/back-button";
 import { Button } from "@/components/ui/button";
 
 export function SignedOutPreview({
@@ -18,8 +19,12 @@ export function SignedOutPreview({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1 flex items-center justify-center px-4 py-16">
-        <div className="max-w-xl text-center">
+      <main className="flex-1 flex flex-col px-4 py-8">
+        <div className="mx-auto w-full max-w-6xl">
+          <BackButton />
+        </div>
+        <div className="flex-1 flex items-center justify-center py-8">
+          <div className="max-w-xl text-center">
           <div className="text-xs uppercase tracking-wider text-brand-strong font-medium">
             Let&apos;s ace the Habib test
           </div>
@@ -36,6 +41,7 @@ export function SignedOutPreview({
             <Button variant="outline" size="lg" asChild>
               <Link href={signInHref}>Sign in</Link>
             </Button>
+          </div>
           </div>
         </div>
       </main>

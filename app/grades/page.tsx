@@ -8,10 +8,10 @@ import { ScholarshipList } from "./ScholarshipList";
 
 export const metadata = { title: "Grades & scholarships, Imtehan" };
 
-function GradesContent({ signedIn }: { signedIn: boolean }) {
+function GradesContent() {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      {signedIn && <BackButton className="mb-6" />}
+      <BackButton className="mb-6" />
       <div className="mb-8">
         <div className="text-xs uppercase tracking-wide text-muted-foreground">
           Admission component
@@ -40,7 +40,7 @@ export default async function GradesPage() {
       <>
         <SiteHeader />
         <main className="flex-1">
-          <GradesContent signedIn={false} />
+          <GradesContent />
         </main>
         <SiteFooter />
       </>
@@ -49,7 +49,7 @@ export default async function GradesPage() {
 
   return (
     <AppShell>
-      <GradesContent signedIn />
+      <GradesContent />
     </AppShell>
   );
 }

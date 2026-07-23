@@ -22,7 +22,7 @@ export const DSSE_GUIDE: SchoolGuide = {
   slug: "dsse",
   code: "DSSE",
   name: "Dhanani School of Science & Engineering",
-  scope: "Computer Science, Data Science, Electrical Engineering",
+  scope: "Computer Science, Computer Engineering, Electrical Engineering",
   activities: [
     { activity: "Built a real app, website, or software", rating: 10, tier: "s", why: "Demonstrates technical ability, initiative, and problem solving." },
     { activity: "Research project (AI, CS, Math, Science)", rating: 10, tier: "s", why: "Shows intellectual curiosity beyond school." },

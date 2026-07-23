@@ -1,6 +1,7 @@
 import { auth, signOut } from "@/auth";
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
 import { SiteFooter } from "@/components/site-footer";
+import { cn } from "@/lib/utils";
 
 export async function AppShell({
   children,
@@ -26,7 +27,10 @@ export async function AppShell({
         signOutAction={signOutAction}
       />
       <main className="flex-1 min-w-0 flex flex-col">
-        <div className={contentClassName ?? "flex-1"}>{children}</div>
+        {/* Mobile-only top padding clears the fixed sidebar-open button (top-3, ~40px tall). */}
+        <div className={cn("pt-12 md:pt-0", contentClassName ?? "flex-1")}>
+          {children}
+        </div>
         <SiteFooter />
       </main>
     </div>
