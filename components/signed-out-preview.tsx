@@ -3,15 +3,25 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BackButton } from "@/components/back-button";
 import { Button } from "@/components/ui/button";
+import { RelatedPrepTopics } from "@/components/related-prep-topics";
+import type { Tone } from "@/lib/tones";
 
 export function SignedOutPreview({
   title,
   description,
   callbackUrl,
+  relatedSlugs,
+  relatedTitle,
+  relatedEyebrow,
+  relatedEyebrowTone,
 }: {
   title: string;
   description: string;
   callbackUrl: string;
+  relatedSlugs?: string[];
+  relatedTitle?: React.ReactNode;
+  relatedEyebrow?: React.ReactNode;
+  relatedEyebrowTone?: Tone;
 }) {
   const signInHref = `/login?callbackUrl=${encodeURIComponent(callbackUrl)}`;
   const registerHref = `/register?callbackUrl=${encodeURIComponent(callbackUrl)}`;
@@ -44,6 +54,15 @@ export function SignedOutPreview({
           </div>
           </div>
         </div>
+        {relatedSlugs && relatedSlugs.length > 0 && (
+          <RelatedPrepTopics
+            slugs={relatedSlugs}
+            eyebrow={relatedEyebrow ?? "Related resources"}
+            eyebrowTone={relatedEyebrowTone ?? "lavender"}
+            title={relatedTitle ?? "Explore Habib entrance test prep by topic"}
+            spacing="md"
+          />
+        )}
       </main>
       <SiteFooter />
     </>

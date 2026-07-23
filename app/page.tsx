@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import { Sticker } from "@/components/ui/sticker";
 import { ScribbleUnderline, Sparkle } from "@/components/ui/scribble";
 import { ExamBySchoolToggle } from "@/components/exam-by-school-toggle";
 import { SchoolCard } from "@/components/school-card";
+import { RelatedPrepTopics } from "@/components/related-prep-topics";
 import {
   ArrowRight,
   Building2,
@@ -28,6 +30,20 @@ import { toneBg, toneText, type Tone } from "@/lib/tones";
 const SCHOOL_TONES: Record<string, Tone> = {
   dsse: "sky",
   ahss: "peach",
+};
+
+export const metadata: Metadata = {
+  title: "Habib entry test preparation — free mocks, essay & interview | Imtehan",
+  description:
+    "Imtehan is the free resource for the Habib University entry test: full-length Accuplacer mock tests, per-section practice for DSSE and AHSS, essay writing practice, and one-on-one mock interviews with current Habib students.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: "Habib entry test preparation — free mocks, essay & interview | Imtehan",
+    description:
+      "Free Habib University entry test preparation for DSSE and AHSS applicants — Accuplacer mocks, essay practice, and mock interviews.",
+  },
 };
 
 const COMPONENTS: Array<{
@@ -82,7 +98,10 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="mt-8 text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed animate-fade-in-up">
-              Crack the Habib Exam using the best resources shared by current students.
+              Free Habib entry test preparation for DSSE and AHSS applicants —
+              full-length Accuplacer mock tests, per-section practice, timed
+              essay prompts, and one-on-one mock interviews with current Habib
+              students.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up">
               <Button asChild size="xl" variant="brand">
@@ -169,6 +188,14 @@ export default function LandingPage() {
             ))}
           </div>
         </Section>
+
+        {/* Related prep topics — every keyword the site covers, as anchor-text links */}
+        <RelatedPrepTopics
+          eyebrow="Prep topics"
+          eyebrowTone="lavender"
+          title="Habib entrance test prep, topic by topic"
+          description="From Accuplacer math practice to Habib persuasive essay structure, every topic Habib evaluates has its own guide."
+        />
 
         {/* CTA */}
         <Section spacing="lg">

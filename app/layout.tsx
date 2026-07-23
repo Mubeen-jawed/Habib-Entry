@@ -15,9 +15,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Imtehan, Prep for the Habib University admissions process",
+  metadataBase: new URL("https://imtehan.pk"),
+  title: {
+    default: "Imtehan — Habib entry test preparation, mocks, essay & interview",
+    template: "%s",
+  },
   description:
-    "Focused practice, mock tests, essay guidance, mock interviews, and ECA form help for Habib University applicants.",
+    "Free Habib University entry test preparation — Accuplacer mock tests, essay writing practice, mock interviews, and section-by-section practice for DSSE and AHSS applicants.",
+  keywords: [
+    "Habib entry test",
+    "Habib mock test",
+    "Habib test preparation",
+    "Habib University DSSE entry test preparation",
+    "Habib University AHSS test preparation",
+    "Accuplacer practice test",
+    "Accuplacer math practice",
+    "Habib essay writing practice",
+    "Habib admission interview preparation",
+    "Habib scholarship test",
+  ],
 };
 
 export default function RootLayout({

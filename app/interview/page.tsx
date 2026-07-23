@@ -4,12 +4,18 @@ import { isEffectiveAdmin } from "@/lib/admin-view";
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { SignedOutPreview } from "@/components/signed-out-preview";
+import { RELATED_SLUGS } from "@/components/related-prep-topics";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle2, Users } from "lucide-react";
 import { InterviewForm } from "./InterviewForm";
 
-export const metadata = { title: "Mock interview, Imtehan" };
+export const metadata = {
+  title: "Habib admission interview preparation — free mock interviews | Imtehan",
+  description:
+    "Free Habib admission interview preparation with current Habib students who have completed the real HU interview. Gender-matched, one-on-one, over video call.",
+  alternates: { canonical: "/interview" },
+};
 
 const INTERVIEWERS = [
   { name: "Hashir", dept: "CE" },
@@ -44,9 +50,13 @@ export default async function InterviewPage() {
   if (!session?.user?.id) {
     return (
       <SignedOutPreview
-        title="Free mock interviews"
-        description="Book a one-on-one mock interview with a current Habib student who has been through the real thing — practice, get feedback, and walk into your HU interview with confidence."
+        title="Habib admission interview preparation"
+        description="Book a free one-on-one mock interview with a current Habib student who has been through the real HU admission interview — practise, get feedback, and walk in confident."
         callbackUrl="/interview"
+        relatedSlugs={[...RELATED_SLUGS.interview]}
+        relatedEyebrow="Interview prep"
+        relatedEyebrowTone="mint"
+        relatedTitle="Habib admission interview preparation, and more"
       />
     );
   }

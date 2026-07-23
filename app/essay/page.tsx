@@ -1,13 +1,19 @@
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { SignedOutPreview } from "@/components/signed-out-preview";
+import { RELATED_SLUGS } from "@/components/related-prep-topics";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { isEffectiveAdmin } from "@/lib/admin-view";
 import { EssayWriter } from "./EssayWriter";
 import { ESSAY_PROMPTS } from "./prompts";
 
-export const metadata = { title: "Essay practice, Imtehan" };
+export const metadata = {
+  title: "Habib essay writing practice — timed prompts with rubric feedback | Imtehan",
+  description:
+    "Habib essay writing practice against real Habib University essay prompts. Persuasive essay structure, rubric-aligned feedback, and Habib essay examples.",
+  alternates: { canonical: "/essay" },
+};
 
 type SearchParams = Promise<{ open?: string; prompt?: string; dialog?: string }>;
 
@@ -24,9 +30,13 @@ export default async function EssayPage({
   if (!userId) {
     return (
       <SignedOutPreview
-        title="Essay practice"
-        description="Draft your Habib admissions essay against real prompts and get instant AI feedback on reading, analysis, and writing so you know exactly what to sharpen before test day."
+        title="Habib essay writing practice"
+        description="Draft your Habib admissions essay against real prompts and get instant AI feedback on reading, analysis, and writing — so you know exactly what to sharpen before test day."
         callbackUrl="/essay"
+        relatedSlugs={[...RELATED_SLUGS.essay]}
+        relatedEyebrow="Essay prep"
+        relatedEyebrowTone="pink"
+        relatedTitle="Habib essay writing practice, by topic"
       />
     );
   }

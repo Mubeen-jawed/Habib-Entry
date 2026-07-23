@@ -4,15 +4,25 @@ import { SiteFooter } from "@/components/site-footer";
 import { BackButton } from "@/components/back-button";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { RelatedPrepTopics } from "@/components/related-prep-topics";
+import type { Tone } from "@/lib/tones";
 
 export function ComingSoon({
   title,
   tagline,
   bullets,
+  relatedSlugs,
+  relatedTitle,
+  relatedEyebrow,
+  relatedEyebrowTone,
 }: {
   title: string;
   tagline: string;
   bullets: string[];
+  relatedSlugs?: string[];
+  relatedTitle?: React.ReactNode;
+  relatedEyebrow?: React.ReactNode;
+  relatedEyebrowTone?: Tone;
 }) {
   return (
     <>
@@ -48,6 +58,14 @@ export function ComingSoon({
           </div>
           </div>
         </section>
+        {relatedSlugs && relatedSlugs.length > 0 && (
+          <RelatedPrepTopics
+            slugs={relatedSlugs}
+            eyebrow={relatedEyebrow ?? "Related resources"}
+            eyebrowTone={relatedEyebrowTone ?? "lavender"}
+            title={relatedTitle ?? "Habib entrance test preparation, by topic"}
+          />
+        )}
       </main>
       <SiteFooter />
     </>

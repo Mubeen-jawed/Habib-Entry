@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { SCHOOLS, SCHOOL_LIST, type TestComponent } from "@/lib/schools";
 import { cn } from "@/lib/utils";
 
@@ -20,9 +21,15 @@ export async function generateMetadata({ params }: { params: Params }) {
   const { slug } = await params;
   const school = SCHOOLS[slug as keyof typeof SCHOOLS];
   if (!school) return { title: "School, Imtehan" };
+  const isDsse = slug === "dsse";
   return {
-    title: `${school.code} entry test, Imtehan`,
-    description: `Full test breakdown for ${school.name} applicants: ${school.specific.name} plus English components.`,
+    title: isDsse
+      ? "Habib University DSSE entry test preparation — advanced math, essay, interview | Imtehan"
+      : "Habib University AHSS entry test preparation — reading, writing, essay | Imtehan",
+    description: isDsse
+      ? "DSSE-specific Habib entry test preparation: Advanced Algebra & Functions, trigonometry, algebra, Accuplacer math practice, timed essay, and mock interviews."
+      : "AHSS-specific Habib entry test preparation: reading, writing, Accuplacer English practice, Habib persuasive essay structure, and mock interviews.",
+    alternates: { canonical: `/schools/${slug}` },
   };
 }
 
@@ -74,6 +81,25 @@ export default async function SchoolDetailPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
+
+        <RelatedPrepTopics
+          slugs={[
+            ...(slug === "dsse" ? RELATED_SLUGS.dsse : RELATED_SLUGS.ahss),
+          ]}
+          eyebrow={`${school.code} prep`}
+          eyebrowTone={slug === "dsse" ? "sky" : "peach"}
+          title={
+            slug === "dsse"
+              ? "Habib University DSSE entry test preparation"
+              : "Habib University AHSS entry test preparation"
+          }
+          description={
+            slug === "dsse"
+              ? "Advanced Algebra & Functions, trigonometry, and the math-heavy Accuplacer practice that decides DSSE offers."
+              : "Reading, writing, and Habib persuasive essay practice tuned to the AHSS applicant profile."
+          }
+          spacing="sm"
+        />
 
         <section className="mx-auto max-w-4xl px-4 py-12">
           <details className="group rounded-2xl border bg-card shadow-soft">
