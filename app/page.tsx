@@ -125,7 +125,7 @@ export default function LandingPage() {
             title="5 admission components"
             description="Every applicant is reviewed across the same five areas."
           />
-          <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+          <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             {COMPONENTS.map((c) => (
               <TonedCard
                 key={c.title}
@@ -171,14 +171,14 @@ export default function LandingPage() {
 
         {/* CTA */}
         <Section spacing="lg">
-          <div className="relative overflow-hidden rounded-3xl border p-10 md:p-16 shadow-soft bg-mesh-soft bg-card">
+          <div className="relative overflow-hidden rounded-3xl border p-6 sm:p-10 md:p-16 shadow-soft bg-mesh-soft bg-card">
             <div className="absolute -top-20 -right-20 w-72 h-72 rounded-full bg-pink blur-3xl opacity-70" aria-hidden />
             <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-mint blur-3xl opacity-70" aria-hidden />
-            <Sticker tone="butter" rotate={-8} className="absolute top-4 right-6 z-10">
+            {/* <Sticker tone="butter" rotate={-8} className="absolute top-4 right-6 z-10">
               <Sparkle color="currentColor" className="w-3 h-3" /> no card required
-            </Sticker>
-            <div className="relative flex flex-col md:flex-row items-start md:items-center gap-8 justify-between">
-              <div className="max-w-xl">
+            </Sticker> */}
+            <div className="relative flex flex-col md:flex-row items-stretch md:items-center gap-8 justify-between">
+              <div className="max-w-xl min-w-0">
                 <h3 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05]">
                   Ready when{" "}
                   <span className="relative inline-block">
@@ -190,7 +190,12 @@ export default function LandingPage() {
                   Create an account and start with a free practice section.
                 </p>
               </div>
-              <Button asChild size="xl" variant="brand">
+              <Button
+                asChild
+                size="xl"
+                variant="brand"
+                className="w-full md:w-auto shrink-0"
+              >
                 <Link href="/register">
                   Create your account <ArrowRight className="w-4 h-4" />
                 </Link>

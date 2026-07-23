@@ -39,7 +39,7 @@ export function TonedCard({
     <Wrapper
       {...wrapperProps}
       className={cn(
-        "group relative flex flex-col gap-4 rounded-2xl border border-border/60 p-6 md:p-7 shadow-soft transition-all overflow-hidden",
+        "group relative flex gap-4 rounded-2xl border border-border/60 p-4 sm:p-6 md:p-7 shadow-soft transition-all overflow-hidden flex-row items-center sm:flex-col sm:items-stretch sm:gap-4",
         solid ? toneBg[tone] : "bg-card",
         href && "hover:shadow-pop hover:-translate-y-0.5",
         className
@@ -53,7 +53,7 @@ export function TonedCard({
           toneBg[tone]
         )}
       />
-      <div className="relative flex items-start justify-between gap-3">
+      <div className="relative flex items-start justify-between gap-3 shrink-0">
         {icon && <IconTile icon={icon} tone={tone} />}
         {eyebrow && (
           <span
@@ -67,8 +67,10 @@ export function TonedCard({
           </span>
         )}
       </div>
-      <div className="relative space-y-1.5">
-        <h3 className="font-semibold text-lg tracking-tight">{title}</h3>
+      <div className="relative space-y-1.5 min-w-0 flex-1">
+        <h3 className="font-semibold text-base sm:text-lg tracking-tight">
+          {title}
+        </h3>
         {description && (
           <p className="text-sm text-muted-foreground leading-relaxed">
             {description}
@@ -79,12 +81,13 @@ export function TonedCard({
       {href && linkLabel && (
         <div
           className={cn(
-            "relative mt-auto pt-2 inline-flex items-center text-sm font-medium",
+            "relative inline-flex items-center text-sm font-medium shrink-0",
+            "sm:mt-auto sm:pt-2",
             toneText[tone]
           )}
         >
-          {linkLabel}
-          <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-0.5" />
+          <span className="hidden sm:inline">{linkLabel}</span>
+          <ArrowRight className="w-4 h-4 sm:ml-1 transition-transform group-hover:translate-x-0.5" />
         </div>
       )}
     </Wrapper>
