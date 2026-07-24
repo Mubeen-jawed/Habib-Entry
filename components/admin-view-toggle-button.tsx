@@ -26,7 +26,7 @@ export function AdminViewToggleButton({
       <button
         type="submit"
         disabled={pending}
-        title={`${hint} — click to switch`}
+        title={`${hint}, click to switch`}
         aria-label={label}
         className={cn(
           "group inline-flex items-center gap-2 rounded-full border pl-3 pr-4 py-2 text-sm font-medium shadow-pop transition-[transform,background-color]",

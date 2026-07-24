@@ -16,7 +16,7 @@ export async function switchSchool(slug: SchoolSlug) {
   });
 
   // Force the JWT to refresh so middleware/pages see the new schoolSlug
-  // immediately — same pattern used by /select-school.
+  // immediately, same pattern used by /select-school.
   await unstable_update({ user: { schoolSlug: slug } });
 
   revalidatePath("/dashboard");

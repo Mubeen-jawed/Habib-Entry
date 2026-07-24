@@ -7,17 +7,26 @@ const ADMIN_ONLY_PREFIXES = [
   "/testing",
 ];
 
-// /essay and /interview are intentionally NOT here — those pages render a
-// signed-out marketing preview for logged-out visitors and only gate the
-// real functionality when a session exists. Server actions in
-// essay/actions.ts and api/interview/route.ts re-check auth themselves.
-const USER_PROTECTED_PREFIXES = ["/practice", "/attempts", "/mock"];
+// /essay, /interview, /dashboard, /practice, and /mock are intentionally NOT
+// gated here, those pages render a guest-friendly variant for logged-out
+// visitors, and server actions/APIs re-check auth themselves (essay/actions.ts,
+// api/interview/route.ts, practice/actions.ts, mock/actions.ts).
+const USER_PROTECTED_PREFIXES = ["/attempts"];
 
 const PROTECTED_PREFIXES = [
-  "/dashboard",
   ...USER_PROTECTED_PREFIXES,
   ...ADMIN_ONLY_PREFIXES,
   "/admin",
+];
+
+// Dashboard, practice, and mock are guest-accessible but signed-in non-admin
+// users still need to have picked a school before we let them into these
+// routes.
+const SIGNED_IN_SCHOOL_REQUIRED_PREFIXES = [
+  ...PROTECTED_PREFIXES,
+  "/dashboard",
+  "/practice",
+  "/mock",
 ];
 
 // Signed-in users should land on the dashboard, not the marketing home or the
@@ -74,10 +83,13 @@ export default auth((req) => {
   }
 
   // Signed-in non-admin users without a school picked yet must complete that
-  // step before using any protected area of the app.
+  // step before using any protected area of the app, including the dashboard.
+  const needsSchoolCheck = SIGNED_IN_SCHOOL_REQUIRED_PREFIXES.some((p) =>
+    pathname.startsWith(p)
+  );
   if (
     req.auth &&
-    isProtected &&
+    needsSchoolCheck &&
     role !== "ADMIN" &&
     schoolSlug !== "dsse" &&
     schoolSlug !== "ahss"

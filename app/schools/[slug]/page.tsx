@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { SCHOOLS, SCHOOL_LIST, type TestComponent } from "@/lib/schools";
 import { cn } from "@/lib/utils";
 
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: { params: Params }) {
   const isDsse = slug === "dsse";
   return {
     title: isDsse
-      ? "Habib University DSSE entry test preparation — advanced math, essay, interview | Imtehan"
-      : "Habib University AHSS entry test preparation — reading, writing, essay | Imtehan",
+      ? "Habib University DSSE entry test preparation, advanced math, essay, interview | Imtehan"
+      : "Habib University AHSS entry test preparation, reading, writing, essay | Imtehan",
     description: isDsse
       ? "DSSE-specific Habib entry test preparation: Advanced Algebra & Functions, trigonometry, algebra, Accuplacer math practice, timed essay, and mock interviews."
       : "AHSS-specific Habib entry test preparation: reading, writing, Accuplacer English practice, Habib persuasive essay structure, and mock interviews.",
@@ -37,20 +37,14 @@ export default async function SchoolDetailPage({ params }: { params: Params }) {
   const school = SCHOOLS[slug as keyof typeof SCHOOLS];
   if (!school) notFound();
 
-  const session = await auth();
-  const isLoggedIn = Boolean(session?.user);
-  const latestMock = isLoggedIn
-    ? await db.mockTest.findFirst({
-        orderBy: { createdAt: "desc" },
-        select: { id: true },
-      })
-    : null;
-  const mockHref = isLoggedIn
-    ? latestMock
-      ? `/mock/${latestMock.id}`
-      : "/dashboard#mocks"
-    : "/register";
-  const practiceHref = isLoggedIn ? "/dashboard" : "/register";
+  // Mocks and practice are guest-accessible, so look up the latest mock for
+  // everyone and point at it directly instead of gating on signin.
+  const latestMock = await db.mockTest.findFirst({
+    orderBy: { createdAt: "desc" },
+    select: { id: true },
+  });
+  const mockHref = latestMock ? `/mock/${latestMock.id}` : "/dashboard#mocks";
+  const practiceHref = "/dashboard";
 
   return (
     <>
@@ -80,6 +74,25 @@ export default async function SchoolDetailPage({ params }: { params: Params }) {
             </div>
           </div>
         </section>
+
+        <RelatedPrepTopics
+          slugs={[
+            ...(slug === "dsse" ? RELATED_SLUGS.dsse : RELATED_SLUGS.ahss),
+          ]}
+          eyebrow={`${school.code} prep`}
+          eyebrowTone={slug === "dsse" ? "sky" : "peach"}
+          title={
+            slug === "dsse"
+              ? "Habib University DSSE entry test preparation"
+              : "Habib University AHSS entry test preparation"
+          }
+          description={
+            slug === "dsse"
+              ? "Advanced Algebra & Functions, trigonometry, and the math-heavy Accuplacer practice that decides DSSE offers."
+              : "Reading, writing, and Habib persuasive essay practice tuned to the AHSS applicant profile."
+          }
+          spacing="sm"
+        />
 
         <section className="mx-auto max-w-4xl px-4 py-12">
           <details className="group rounded-2xl border bg-card shadow-soft">

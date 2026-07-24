@@ -17,23 +17,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://imtehan.pk"),
   title: {
-    default: "Imtehan — Habib entry test preparation, mocks, essay & interview",
+    default: "Imtehan, the free Habib University admissions app",
     template: "%s",
   },
   description:
-    "Free Habib University entry test preparation — Accuplacer mock tests, essay writing practice, mock interviews, and section-by-section practice for DSSE and AHSS applicants.",
-  keywords: [
-    "Habib entry test",
-    "Habib mock test",
-    "Habib test preparation",
-    "Habib University DSSE entry test preparation",
-    "Habib University AHSS test preparation",
-    "Accuplacer practice test",
-    "Accuplacer math practice",
-    "Habib essay writing practice",
-    "Habib admission interview preparation",
-    "Habib scholarship test",
-  ],
+    "Imtehan is the free Habib University admissions app, built and maintained by current Habib students.",
 };
 
 export default function RootLayout({

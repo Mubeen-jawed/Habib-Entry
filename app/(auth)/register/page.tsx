@@ -68,7 +68,7 @@ export default async function RegisterPage({ searchParams }: { searchParams: Sea
                   // returning Google users go straight through, new users get
                   // bounced to /select-school with a proper callbackUrl. The
                   // old hardcoded "/select-school" here forced every Google
-                  // sign-in — even returning users with a school already set —
+                  // sign-in, even returning users with a school already set,
                   // through the picker again.
                   await signIn("google", { redirectTo: "/dashboard" });
                 }}

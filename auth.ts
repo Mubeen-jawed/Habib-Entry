@@ -69,7 +69,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
   // Behind nginx on the VPS, Auth.js must trust the forwarded Host/Proto
-  // headers — otherwise it derives the callback URL and cookie prefix from
+  // headers, otherwise it derives the callback URL and cookie prefix from
   // the internal http://localhost:3005 origin, the cookie fails to stick,
   // and the browser bounces back to /login after Google returns.
   trustHost: true,
@@ -92,7 +92,7 @@ export const { handlers, auth, signIn, signOut, unstable_update } = NextAuth({
       if (user) token.id = user.id;
 
       // Refresh role + school from DB on sign-in, on session update, when role
-      // is missing, or whenever a non-admin still lacks a schoolSlug — that
+      // is missing, or whenever a non-admin still lacks a schoolSlug, that
       // last case ensures the token can't get stuck stale after a user picks
       // their school (unstable_update in a server-action → redirect is flaky).
       const needsSchoolRefresh =

@@ -8,18 +8,9 @@ import { Container } from "@/components/ui/container";
 import { ScribbleUnderline } from "@/components/ui/scribble";
 import { cn } from "@/lib/utils";
 import { toneBg, toneText } from "@/lib/tones";
-import {
-  SEO_CTA_LABEL,
-  SEO_LANDING_SLUGS,
-  type SeoLandingPage,
-} from "@/lib/seo-landing";
+import { SEO_CTA_LABEL, type SeoLandingPage } from "@/lib/seo-landing";
 
 export function SeoLandingPageView({ page }: { page: SeoLandingPage }) {
-  const outwardLinks = page.relatedLinks.filter((l) => {
-    const slug = l.href.replace(/^\/+/, "").split(/[/?#]/)[0];
-    return !SEO_LANDING_SLUGS.includes(slug);
-  });
-
   return (
     <>
       <SiteHeader />
@@ -50,7 +41,7 @@ export function SeoLandingPageView({ page }: { page: SeoLandingPage }) {
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3">
               <Button asChild size="lg" variant="brand">
-                <Link href="/register">
+                <Link href="/dashboard">
                   {SEO_CTA_LABEL} <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
@@ -97,13 +88,13 @@ export function SeoLandingPageView({ page }: { page: SeoLandingPage }) {
           </div>
 
           {/* Related links */}
-          {outwardLinks.length > 0 && (
+          {page.relatedLinks.length > 0 && (
             <div className="mt-16 pt-10 border-t">
               <div className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
                 Keep exploring
               </div>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                {outwardLinks.map((l) => (
+                {page.relatedLinks.map((l) => (
                   <Link
                     key={l.href + l.label}
                     href={l.href}
@@ -133,11 +124,11 @@ export function SeoLandingPageView({ page }: { page: SeoLandingPage }) {
                   </span>
                 </h3>
                 <p className="text-foreground/70 mt-3 text-base md:text-lg">
-                  Create an account and start with a free practice section — no card required.
+                  Create an account and start with a free practice section, no card required.
                 </p>
               </div>
               <Button asChild size="xl" variant="brand" className="w-full md:w-auto shrink-0">
-                <Link href="/register">
+                <Link href="/dashboard">
                   {SEO_CTA_LABEL} <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>

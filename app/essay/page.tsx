@@ -1,6 +1,5 @@
 import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
-import { SignedOutPreview } from "@/components/signed-out-preview";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { isEffectiveAdmin } from "@/lib/admin-view";
@@ -8,9 +7,9 @@ import { EssayWriter } from "./EssayWriter";
 import { ESSAY_PROMPTS } from "./prompts";
 
 export const metadata = {
-  title: "Habib essay writing practice — timed prompts with rubric feedback | Imtehan",
+  title: "Habib essay writing practice, timed prompts with rubric feedback | Imtehan",
   description:
-    "Habib essay writing practice against real Habib University essay prompts. Persuasive essay structure, rubric-aligned feedback, and Habib essay examples.",
+    "Habib essay writing practice against real Habib University essay prompts. Persuasive essay structure, rubric-aligned feedback, and Habib essay examples. Free to try, no sign-in required to start.",
   alternates: { canonical: "/essay" },
 };
 
@@ -25,16 +24,7 @@ export default async function EssayPage({
 }) {
   const session = await auth();
   const userId = session?.user?.id ?? null;
-
-  if (!userId) {
-    return (
-      <SignedOutPreview
-        title="Habib essay writing practice"
-        description="Draft your Habib admissions essay against real prompts and get instant AI feedback on reading, analysis, and writing — so you know exactly what to sharpen before test day."
-        callbackUrl="/essay"
-      />
-    );
-  }
+  const isSignedIn = Boolean(userId);
 
   const { open, prompt, dialog } = await searchParams;
 
@@ -71,30 +61,37 @@ export default async function EssayPage({
   const initialPreviewId =
     open && savedEssays.some((e) => e.id === open) ? open : null;
 
-  const isAdmin = await isEffectiveAdmin();
+  const isAdmin = isSignedIn ? await isEffectiveAdmin() : false;
+
+  const writer = (
+    <div className="mx-auto max-w-3xl px-4 py-8">
+      <BackButton className="mb-6" />
+      <EssayWriter
+        isSignedIn={isSignedIn}
+        isAdmin={isAdmin}
+        initialPreviewId={initialPreviewId}
+        initialPromptIdx={initialPromptIdx}
+        initialDialog={initialDialog}
+        savedEssays={savedEssays.map((e) => ({
+          id: e.id,
+          prompt: e.prompt,
+          text: e.text,
+          wordCount: e.wordCount,
+          readingScore: e.readingScore,
+          analysisScore: e.analysisScore,
+          writingScore: e.writingScore,
+          updatedAt: e.updatedAt.toISOString(),
+        }))}
+      />
+    </div>
+  );
 
   return (
-    <AppShell>
-      <div className="mx-auto max-w-3xl px-4 py-8">
-        <BackButton className="mb-6" />
-        <EssayWriter
-          isSignedIn={Boolean(userId)}
-          isAdmin={isAdmin}
-          initialPreviewId={initialPreviewId}
-          initialPromptIdx={initialPromptIdx}
-          initialDialog={initialDialog}
-          savedEssays={savedEssays.map((e) => ({
-            id: e.id,
-            prompt: e.prompt,
-            text: e.text,
-            wordCount: e.wordCount,
-            readingScore: e.readingScore,
-            analysisScore: e.analysisScore,
-            writingScore: e.writingScore,
-            updatedAt: e.updatedAt.toISOString(),
-          }))}
-        />
-      </div>
+    <AppShell
+      guestCallbackUrl="/essay"
+      guestMessage="You're writing as a guest, sign in to save your essays and AI scores."
+    >
+      {writer}
     </AppShell>
   );
 }

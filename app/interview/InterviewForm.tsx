@@ -86,10 +86,12 @@ const TEST_PREFILL: Prefill = {
 export function InterviewForm({
   alreadySubmitted = false,
   isAdmin = false,
+  isGuest = false,
   intro,
 }: {
   alreadySubmitted?: boolean;
   isAdmin?: boolean;
+  isGuest?: boolean;
   intro?: React.ReactNode;
 }) {
   const [submitted, setSubmitted] = useState(alreadySubmitted);
@@ -163,6 +165,10 @@ export function InterviewForm({
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (isGuest) {
+      window.location.href = "/register?callbackUrl=/interview";
+      return;
+    }
     setError(null);
     setPending(true);
     try {
@@ -213,7 +219,7 @@ export function InterviewForm({
       {isAdmin && (
         <div className="rounded-md border border-dashed border-brand/40 bg-brand-soft/40 p-4 flex flex-wrap items-center justify-between gap-3">
           <div className="text-xs text-muted-foreground">
-            Admin — prefills every field and attaches demo PDFs (admit card + ECA) for a quick end-to-end test.
+            Admin, prefills every field and attaches demo PDFs (admit card + ECA) for a quick end-to-end test.
           </div>
           <Button type="button" variant="outline" size="sm" onClick={applyTestPrefill}>
             Fill with test data
@@ -535,7 +541,11 @@ export function InterviewForm({
           Clear form
         </Button>
         <Button type="submit" variant="brand" disabled={pending}>
-          {pending ? "Submitting…" : "Submit"}
+          {pending
+            ? "Submitting…"
+            : isGuest
+              ? "Sign in to submit"
+              : "Submit"}
         </Button>
       </div>
     </form>

@@ -1,13 +1,21 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { saveMockAnswer, saveMockEssay, submitMockAttempt } from "./actions";
+import {
+  saveMockAnswer,
+  saveMockEssay,
+  submitMockAttempt,
+  discardMockAttempt,
+} from "./actions";
+import { clearSnapshot, readSnapshot, writeSnapshot } from "@/lib/guest-storage";
+import { LeaveTestGuard, leaveTestAndGoTo } from "@/components/leave-test-guard";
 import type { SectionKey } from "@/lib/sections";
 
 type Choice = { id: string; text: string; imageUrl?: string | null };
@@ -25,22 +33,36 @@ type SectionMeta = { key: SectionKey; name: string };
 
 const WARN_SECONDS = 300;
 
+type MockSnapshot = {
+  idx: number;
+  chosen: string | null;
+  guestAnswers: Record<string, { correct: boolean; sectionKey: SectionKey }>;
+  essayText: string;
+  deadline: number; // wall-clock ms when the timer hits zero
+  finished: boolean;
+  essayPrompt: string;
+};
+
 export function MockRunner({
   attemptId,
+  mockId,
   sections,
   questions,
   initialAnswers,
-  essayPrompt,
+  essayPrompt: initialEssayPrompt,
   initialEssayText,
   remainingSeconds,
+  isGuest = false,
 }: {
   attemptId: string;
+  mockId: string;
   sections: SectionMeta[];
   questions: Q[];
   initialAnswers: Record<string, { chosen: string | null; correct: boolean }>;
   essayPrompt: string;
   initialEssayText: string;
   remainingSeconds: number;
+  isGuest?: boolean;
 }) {
   const router = useRouter();
 
@@ -78,8 +100,64 @@ export function MockRunner({
   const [chosen, setChosen] = useState<string | null>(null);
   const [essayText, setEssayText] = useState(initialEssayText);
   const [remaining, setRemaining] = useState(remainingSeconds);
+  const [essayPrompt, setEssayPrompt] = useState(initialEssayPrompt);
   const [pending, startTransition] = useTransition();
   const submittingRef = useRef(false);
+  const [guestAnswers, setGuestAnswers] = useState<
+    Record<string, { correct: boolean; sectionKey: SectionKey }>
+  >({});
+  const [finished, setFinished] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Restore guest snapshot on mount. Guests get a wall-clock deadline so the
+  // timer keeps ticking even if they close the tab and come back later.
+  useEffect(() => {
+    if (!isGuest) {
+      setHydrated(true);
+      return;
+    }
+    const snap = readSnapshot<MockSnapshot>("mock", mockId);
+    if (snap) {
+      setIdx(Math.min(snap.idx, ordered.length));
+      setChosen(snap.chosen ?? null);
+      setGuestAnswers(snap.guestAnswers ?? {});
+      setEssayText(snap.essayText ?? "");
+      setEssayPrompt(snap.essayPrompt ?? initialEssayPrompt);
+      setFinished(Boolean(snap.finished));
+      const remainingFromDeadline = Math.max(
+        0,
+        Math.floor((snap.deadline - Date.now()) / 1000),
+      );
+      setRemaining(remainingFromDeadline);
+    }
+    setHydrated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Persist snapshot on guest state changes (after hydration).
+  useEffect(() => {
+    if (!isGuest || !hydrated) return;
+    writeSnapshot<MockSnapshot>("mock", mockId, {
+      idx,
+      chosen,
+      guestAnswers,
+      essayText,
+      essayPrompt,
+      deadline: Date.now() + remaining * 1000,
+      finished,
+    });
+  }, [
+    isGuest,
+    hydrated,
+    mockId,
+    idx,
+    chosen,
+    guestAnswers,
+    essayText,
+    essayPrompt,
+    remaining,
+    finished,
+  ]);
 
   const inEssay = idx >= ordered.length;
   const currentQ = inEssay ? null : ordered[idx];
@@ -134,6 +212,10 @@ export function MockRunner({
   function finalize() {
     if (submittingRef.current) return;
     submittingRef.current = true;
+    if (isGuest) {
+      setFinished(true);
+      return;
+    }
     startTransition(async () => {
       if (essayPrompt) {
         try {
@@ -159,6 +241,18 @@ export function MockRunner({
     const choice = chosen;
     const correct = choice === q.correctChoice;
 
+    if (isGuest) {
+      if (choice) {
+        setGuestAnswers((prev) => ({
+          ...prev,
+          [q.id]: { correct, sectionKey: q.sectionKey },
+        }));
+      }
+      setChosen(null);
+      setIdx((i) => i + 1);
+      return;
+    }
+
     startTransition(async () => {
       // Persist even a null-choice? Only save if a choice is picked;
       // if user skips, we just advance without recording an answer.
@@ -175,6 +269,30 @@ export function MockRunner({
     });
   }
 
+  function saveAndExit() {
+    if (submittingRef.current) return;
+    // Hard nav below guarantees the destination /dashboard renders fresh —
+    // no client-side router cache can serve a stale progress bar or
+    // "Let's Go" instead of "Resume".
+    if (isGuest) {
+      leaveTestAndGoTo("/dashboard");
+      return;
+    }
+    startTransition(async () => {
+      // Save any in-progress essay text (per-question answers are already
+      // saved on Next). The attempt stays unsubmitted so the dashboard shows
+      // it as "In progress" and the runner resumes it next visit.
+      if (essayPrompt && essayText.trim().length > 0) {
+        try {
+          await saveMockEssay({ attemptId, prompt: essayPrompt, text: essayText });
+        } catch {
+          /* still navigate away */
+        }
+      }
+      leaveTestAndGoTo("/dashboard");
+    });
+  }
+
   const hh = Math.floor(remaining / 3600);
   const mm = Math.floor((remaining % 3600) / 60);
   const ss = String(remaining % 60).padStart(2, "0");
@@ -186,8 +304,88 @@ export function MockRunner({
 
   const currentSection = currentQ ? sections[currentSectionIdx] : null;
 
+  if (finished && isGuest) {
+    const perSection = sections.map((s) => {
+      const total = questions.filter((q) => q.sectionKey === s.key).length;
+      const correct = Object.values(guestAnswers).filter(
+        (a) => a.sectionKey === s.key && a.correct,
+      ).length;
+      return { name: s.name, total, correct };
+    });
+    const totalCorrect = perSection.reduce((sum, s) => sum + s.correct, 0);
+    const totalQs = perSection.reduce((sum, s) => sum + s.total, 0);
+
+    return (
+      <div className="max-w-2xl mx-auto text-center py-12">
+        <div className="text-xs uppercase tracking-wide text-muted-foreground">
+          Mock complete
+        </div>
+        <h1 className="mt-3 text-4xl md:text-5xl font-semibold tracking-tight">
+          You got {totalCorrect} of {totalQs}.
+        </h1>
+        <div className="mt-8 grid gap-3 sm:grid-cols-3 text-left">
+          {perSection.map((s) => (
+            <div key={s.name} className="rounded-2xl border bg-card p-4">
+              <div className="text-sm text-muted-foreground">{s.name}</div>
+              <div className="text-xl font-semibold mt-1">
+                {s.correct}/{s.total}
+              </div>
+            </div>
+          ))}
+        </div>
+        <p className="mt-8 text-muted-foreground">
+          This attempt wasn&apos;t saved. Sign in to keep a history of your
+          mocks, see per-question explanations, and track improvement over time.
+        </p>
+        <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+          <Button asChild variant="brand" size="lg">
+            <Link href="/register?callbackUrl=/dashboard">
+              Create free account
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="lg">
+            <Link href="/dashboard">Back to dashboard</Link>
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  const guardActive = !finished && !submittingRef.current;
+
+  async function guardSave() {
+    if (isGuest) return; // snapshot already up to date
+    if (!attemptId) return;
+    if (essayPrompt && essayText.trim().length > 0) {
+      try {
+        await saveMockEssay({ attemptId, prompt: essayPrompt, text: essayText });
+      } catch {
+        /* still navigate */
+      }
+    }
+  }
+
+  async function guardDiscard() {
+    if (isGuest) {
+      clearSnapshot("mock", mockId);
+      return;
+    }
+    if (attemptId) {
+      try {
+        await discardMockAttempt({ attemptId });
+      } catch {
+        /* still navigate */
+      }
+    }
+  }
+
   return (
     <div className="space-y-6">
+      <LeaveTestGuard
+        active={guardActive}
+        saveFn={guardSave}
+        discardFn={guardDiscard}
+      />
       {nearEnd && !submittingRef.current && (
         <div className="rounded-md border border-destructive/40 bg-destructive/10 px-4 py-2 text-sm text-destructive">
           Less than {Math.ceil(remaining / 60)} minute
@@ -339,17 +537,26 @@ export function MockRunner({
             <ChevronRight className="w-4 h-4" />
           </button>
         </div>
-        <Button
-          variant="brand"
-          disabled={pending || (!inEssay && !chosen)}
-          onClick={next}
-        >
-          {pending
-            ? "Saving…"
-            : inEssay
-              ? "Submit mock"
-              : "Next"}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            disabled={pending}
+            onClick={saveAndExit}
+          >
+            Save and exit
+          </Button>
+          <Button
+            variant="brand"
+            disabled={pending || (!inEssay && !chosen)}
+            onClick={next}
+          >
+            {pending
+              ? "Saving…"
+              : inEssay
+                ? "Submit mock"
+                : "Next"}
+          </Button>
+        </div>
       </div>
     </div>
   );

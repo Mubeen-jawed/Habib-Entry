@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 import { AppShell } from "@/components/app-shell";
+import { SectionProgressBar } from "@/components/section-progress-bar";
 import { DeleteMockButton } from "@/components/delete-mock-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -156,21 +156,31 @@ function PenDoodleIcon({ className }: { className?: string }) {
   );
 }
 
+export const metadata = {
+  title: "Dashboard, Habib entry test prep, essay & interview | Imtehan",
+  description:
+    "Your Imtehan dashboard, practice sections, mock tests, saved essays, and mock interview bookings for Habib University applicants.",
+};
+
+// Always render fresh — the dashboard mirrors live attempt state and shouldn't
+// be served from any Next cache.
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function DashboardPage() {
   const session = await auth();
-  if (!session?.user?.id) {
-    // Middleware should have caught this, but if the JWT can't be read here
-    // (e.g. after a bad env change) don't blow up the render — send to login.
-    redirect("/login");
-  }
-  const userId = session.user.id;
-  const isAdmin = await isEffectiveAdmin();
+  const userId = session?.user?.id ?? null;
+  const isSignedIn = Boolean(userId);
+  const isAdmin = isSignedIn ? await isEffectiveAdmin() : false;
+
   // Read the persisted school from DB so we always show the latest choice
-  // even if the JWT hasn't refreshed yet.
-  const dbUser = await db.user.findUnique({
-    where: { id: userId },
-    select: { schoolSlug: true },
-  });
+  // even if the JWT hasn't refreshed yet. Guests default to null.
+  const dbUser = userId
+    ? await db.user.findUnique({
+        where: { id: userId },
+        select: { schoolSlug: true },
+      })
+    : null;
   const userSchoolSlug =
     dbUser?.schoolSlug === "dsse" || dbUser?.schoolSlug === "ahss"
       ? (dbUser.schoolSlug as SchoolSlug)
@@ -180,24 +190,77 @@ export default async function DashboardPage() {
   const [sections, mockTests, savedEssays, mockAttemptCount, inProgressMockAttempt] = await Promise.all([
     db.section.findMany({ orderBy: { order: "asc" } }),
     db.mockTest.findMany({ orderBy: { createdAt: "desc" }, take: 5 }),
-    db.essay.findMany({
-      where: { userId },
-      orderBy: { updatedAt: "desc" },
-      take: 5,
-      select: { id: true, prompt: true, wordCount: true, updatedAt: true },
-    }),
-    db.attempt.count({ where: { userId, mode: "MOCK" } }),
-    db.attempt.findFirst({
-      where: {
-        userId,
-        mode: "MOCK",
-        submittedAt: null,
-        mockTestId: { not: null },
-      },
-      orderBy: { startedAt: "desc" },
-      include: { mockTest: true },
-    }),
+    userId
+      ? db.essay.findMany({
+          where: { userId },
+          orderBy: { updatedAt: "desc" },
+          take: 5,
+          select: { id: true, prompt: true, wordCount: true, updatedAt: true },
+        })
+      : Promise.resolve([] as Array<{
+          id: string;
+          prompt: string;
+          wordCount: number;
+          updatedAt: Date;
+        }>),
+    userId ? db.attempt.count({ where: { userId, mode: "MOCK" } }) : Promise.resolve(0),
+    userId
+      ? db.attempt.findFirst({
+          where: {
+            userId,
+            mode: "MOCK",
+            submittedAt: null,
+            mockTestId: { not: null },
+          },
+          orderBy: { startedAt: "desc" },
+          include: { mockTest: true },
+        })
+      : Promise.resolve(null),
   ]);
+
+  // Find unfinished practice attempts per section so we can label the section
+  // card button "Resume" instead of "Let's Go" with a progress hint.
+  const inProgressPracticeAttempts = userId
+    ? await db.attempt.findMany({
+        where: {
+          userId,
+          mode: "PRACTICE",
+          submittedAt: null,
+          questionIdsJson: { not: null },
+        },
+        include: { answers: { select: { questionId: true } } },
+      })
+    : [];
+  const resumableBySection = new Map<
+    string,
+    { attempt: (typeof inProgressPracticeAttempts)[number]; answered: number; total: number }
+  >();
+  for (const a of inProgressPracticeAttempts) {
+    if (!a.sectionKey || !a.questionIdsJson) continue;
+    let ids: string[] = [];
+    try {
+      const parsed = JSON.parse(a.questionIdsJson);
+      if (Array.isArray(parsed) && parsed.every((v: unknown) => typeof v === "string")) {
+        ids = parsed;
+      }
+    } catch {
+      continue;
+    }
+    if (ids.length === 0) continue;
+    const answeredCount = a.answers.filter((ans) => ids.includes(ans.questionId)).length;
+    // Skip only fully-answered attempts; a fresh 0-answer attempt still
+    // counts as resumable so the "Resume" label appears on the dashboard
+    // as soon as the user clicks Save and exit.
+    if (answeredCount >= ids.length) continue;
+    const existing = resumableBySection.get(a.sectionKey);
+    if (!existing || existing.attempt.startedAt < a.startedAt) {
+      resumableBySection.set(a.sectionKey, {
+        attempt: a,
+        answered: answeredCount,
+        total: ids.length,
+      });
+    }
+  }
 
   const latestMockId = mockTests[0]?.id;
   const hasStartedMock = mockAttemptCount > 0;
@@ -231,10 +294,12 @@ export default async function DashboardPage() {
     renderableCounts[s.key] = qs.filter(isRenderableQuestion).length;
   }
 
-  const answered = await db.answer.findMany({
-    where: { attempt: { userId } },
-    include: { question: true },
-  });
+  const answered = userId
+    ? await db.answer.findMany({
+        where: { attempt: { userId } },
+        include: { question: true },
+      })
+    : [];
   const attemptedBySection = new Map<string, Set<string>>();
   for (const a of answered) {
     const key = (await keyForSection(a.question.sectionId)) ?? "?";
@@ -260,15 +325,16 @@ export default async function DashboardPage() {
     revalidatePath("/dashboard");
   }
 
-  return (
-    <AppShell>
+  const dashboardBody = (
       <div>
         <PageHeader
           eyebrow="Dashboard"
           eyebrowTone="pink"
           title={<>Welcome{firstName ? `, ${firstName}` : ""}.</>}
           description={
-            userSchool ? (
+            !isSignedIn ? (
+              "Try any section, take a mock, or write an essay — free, no sign-in required. Sign in when you want to save your progress."
+            ) : userSchool ? (
               <>
                 You&apos;re preparing for{" "}
                 <span className="font-medium text-foreground">
@@ -321,6 +387,7 @@ export default async function DashboardPage() {
               const done = attemptedBySection.get(s.key)?.size ?? 0;
               const pct = total > 0 ? Math.round((done / total) * 100) : 0;
               const slug = meta?.slug ?? s.key.toLowerCase();
+              const resumable = resumableBySection.get(s.key);
               return (
                 <Card key={s.id} className="relative overflow-hidden">
                   <div className={cn("absolute -top-16 -right-16 w-40 h-40 rounded-full blur-3xl opacity-70", toneBg[tone])} aria-hidden />
@@ -334,15 +401,17 @@ export default async function DashboardPage() {
                     </div>
                   </CardHeader>
                   <CardContent className="relative space-y-4">
-                    <div>
-                      <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
-                        <span>Progress</span>
-                        <span className="font-medium text-foreground">
-                          {done}/{total} · {pct}%
-                        </span>
+                    <SectionProgressBar
+                      sectionKey={s.key}
+                      total={total}
+                      serverDone={done}
+                      isGuest={!isSignedIn}
+                    />
+                    {resumable && (
+                      <div className="text-xs text-brand-strong font-medium">
+                        In progress · question {Math.min(resumable.answered + 1, resumable.total)} of {resumable.total}
                       </div>
-                      <Progress value={pct} />
-                    </div>
+                    )}
                     <div className="flex gap-2">
                       <Button asChild variant="brand" className="flex-1 group">
                         <Link
@@ -353,7 +422,7 @@ export default async function DashboardPage() {
                           }
                         >
                           <span className="inline-flex items-center">
-                            Let&apos;s Go!
+                            {resumable ? "Resume" : "Let’s Go!"}
                             <span className="inline-flex overflow-hidden w-0 opacity-0 -translate-x-1 transition-all duration-200 group-hover:w-4 group-hover:ml-1 group-hover:opacity-100 group-hover:translate-x-0">
                               <ArrowRight />
                             </span>
@@ -552,6 +621,14 @@ export default async function DashboardPage() {
           </Card>
         </Section>
       </div>
+  );
+
+  return (
+    <AppShell
+      guestCallbackUrl="/dashboard"
+      guestMessage="You're browsing as a guest, sign in to save your progress, track attempts, and pick up where you left off."
+    >
+      {dashboardBody}
     </AppShell>
   );
 }

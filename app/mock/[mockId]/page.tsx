@@ -15,7 +15,8 @@ type Params = Promise<{ mockId: string }>;
 export default async function MockPage({ params }: { params: Params }) {
   const { mockId } = await params;
   const session = await auth();
-  const userId = session!.user.id;
+  const userId = session?.user?.id ?? null;
+  const isSignedIn = Boolean(userId);
 
   const mock = await db.mockTest.findUnique({
     where: { id: mockId },
@@ -32,13 +33,15 @@ export default async function MockPage({ params }: { params: Params }) {
   const totalTimeSeconds =
     mock.totalTimeSeconds ?? DEFAULT_TOTAL_TIME_SECONDS;
 
-  // Reuse an in-progress attempt for this mock only if it isn't stale.
-  // Attempts predating the new flow (no essayPrompt) or past their time
-  // budget get auto-submitted so the user starts fresh with a full timer.
-  let attempt = await db.attempt.findFirst({
-    where: { userId, mockTestId: mock.id, submittedAt: null },
-    orderBy: { startedAt: "desc" },
-  });
+  // Reuse an in-progress attempt for this mock only if it isn't stale. Guests
+  // don't have persisted attempts, so they always start fresh with a random
+  // essay prompt and the full timer.
+  let attempt = userId
+    ? await db.attempt.findFirst({
+        where: { userId, mockTestId: mock.id, submittedAt: null },
+        orderBy: { startedAt: "desc" },
+      })
+    : null;
   if (attempt) {
     const elapsed = Math.floor(
       (Date.now() - attempt.startedAt.getTime()) / 1000,
@@ -52,7 +55,7 @@ export default async function MockPage({ params }: { params: Params }) {
       attempt = null;
     }
   }
-  if (!attempt) {
+  if (!attempt && userId) {
     const essayPrompt =
       ESSAY_PROMPTS[Math.floor(Math.random() * ESSAY_PROMPTS.length)];
     attempt = await db.attempt.create({
@@ -66,23 +69,36 @@ export default async function MockPage({ params }: { params: Params }) {
     });
   }
 
-  // Preload existing answers for continuity.
-  const existingAnswers = await db.answer.findMany({
-    where: { attemptId: attempt.id },
-  });
+  const guestEssayPrompt =
+    ESSAY_PROMPTS[Math.floor(Math.random() * ESSAY_PROMPTS.length)];
+
+  // Preload existing answers for continuity. Guests always start empty.
+  const existingAnswers = attempt
+    ? await db.answer.findMany({ where: { attemptId: attempt.id } })
+    : [];
   const answered = Object.fromEntries(
     existingAnswers.map((a) => [a.questionId, { chosen: a.chosen, correct: a.correct }])
   );
 
+  const guestCallbackUrl = `/mock/${mockId}`;
+  const guestMessage =
+    "Browsing as a guest, this mock won't be saved. Sign in to keep a history and see per-question explanations.";
+
   if (mock.items.length === 0) {
+    const empty = (
+      <div className="mx-auto max-w-5xl px-4 py-20 text-center">
+        <h1 className="text-2xl font-semibold">This mock has no questions yet.</h1>
+        <Button asChild variant="brand" className="mt-4">
+          <Link href="/dashboard">Back to dashboard</Link>
+        </Button>
+      </div>
+    );
     return (
-      <AppShell>
-        <div className="mx-auto max-w-5xl px-4 py-20 text-center">
-          <h1 className="text-2xl font-semibold">This mock has no questions yet.</h1>
-          <Button asChild variant="brand" className="mt-4">
-            <Link href="/dashboard">Back to dashboard</Link>
-          </Button>
-        </div>
+      <AppShell
+        guestCallbackUrl={guestCallbackUrl}
+        guestMessage={guestMessage}
+      >
+        {empty}
       </AppShell>
     );
   }
@@ -110,25 +126,32 @@ export default async function MockPage({ params }: { params: Params }) {
       correctChoice: it.question.correctChoice,
     }));
 
-  // Elapsed seconds since the attempt started, used to resume the global timer.
-  const elapsedSeconds = Math.floor(
-    (Date.now() - attempt.startedAt.getTime()) / 1000,
-  );
+  // Elapsed seconds since the attempt started, used to resume the global
+  // timer. Guests always get the full timer.
+  const elapsedSeconds = attempt
+    ? Math.floor((Date.now() - attempt.startedAt.getTime()) / 1000)
+    : 0;
   const remainingSeconds = Math.max(0, totalTimeSeconds - elapsedSeconds);
 
+  const runner = (
+    <div className="mx-auto max-w-[1600px] px-4 py-8">
+      <MockRunner
+        attemptId={attempt?.id ?? ""}
+        mockId={mock.id}
+        sections={sectionMeta}
+        questions={questions}
+        initialAnswers={answered}
+        essayPrompt={attempt?.essayPrompt ?? guestEssayPrompt}
+        initialEssayText={attempt?.essayText ?? ""}
+        remainingSeconds={remainingSeconds}
+        isGuest={!isSignedIn}
+      />
+    </div>
+  );
+
   return (
-    <AppShell>
-      <div className="mx-auto max-w-[1600px] px-4 py-8">
-        <MockRunner
-          attemptId={attempt.id}
-          sections={sectionMeta}
-          questions={questions}
-          initialAnswers={answered}
-          essayPrompt={attempt.essayPrompt ?? ""}
-          initialEssayText={attempt.essayText ?? ""}
-          remainingSeconds={remainingSeconds}
-        />
-      </div>
+    <AppShell guestCallbackUrl={guestCallbackUrl} guestMessage={guestMessage}>
+      {runner}
     </AppShell>
   );
 }

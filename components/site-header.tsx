@@ -10,7 +10,7 @@ const NAV = [
   { href: "/#schools", label: "Schools" },
   { href: "/schools/dsse", label: "DSSE" },
   { href: "/schools/ahss", label: "AHSS" },
-  { href: "/grades", label: "Eligibility" },
+  { href: "/interview", label: "Interview" },
   { href: "/meta-curricular", label: "Meta-curricular" },
 ];
 

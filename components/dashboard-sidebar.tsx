@@ -137,9 +137,11 @@ function useHash() {
 export function DashboardSidebar({
   user,
   signOutAction,
+  isGuest = false,
 }: {
   user: { name: string | null; email: string | null };
   signOutAction: () => Promise<void>;
+  isGuest?: boolean;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -362,13 +364,17 @@ export function DashboardSidebar({
           </ul>
         </nav>
 
-        <ProfileMenu
-          user={user}
-          firstName={firstName}
-          collapsed={isCollapsed}
-          signOutAction={signOutAction}
-          onNavigate={closeMobile}
-        />
+        {isGuest ? (
+          <GuestSignInMenu collapsed={isCollapsed} onNavigate={closeMobile} />
+        ) : (
+          <ProfileMenu
+            user={user}
+            firstName={firstName}
+            collapsed={isCollapsed}
+            signOutAction={signOutAction}
+            onNavigate={closeMobile}
+          />
+        )}
       </aside>
       <div
         aria-hidden
@@ -488,6 +494,58 @@ function ProfileMenu({
           </>
         )}
       </button>
+    </div>
+  );
+}
+
+function GuestSignInMenu({
+  collapsed,
+  onNavigate,
+}: {
+  collapsed: boolean;
+  onNavigate?: () => void;
+}) {
+  const callback = "/dashboard";
+  const signInHref = `/login?callbackUrl=${encodeURIComponent(callback)}`;
+  const registerHref = `/register?callbackUrl=${encodeURIComponent(callback)}`;
+
+  if (collapsed) {
+    return (
+      <div className="border-t border-border/70 p-2 flex justify-center">
+        <Link
+          href={signInHref}
+          onClick={onNavigate}
+          title="Sign in"
+          className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-brand text-brand-foreground hover:opacity-90"
+        >
+          <LogOut className="w-4 h-4 rotate-180" aria-hidden />
+          <span className="sr-only">Sign in</span>
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-t border-border/70 p-3 space-y-2">
+      <div className="text-xs text-muted-foreground leading-relaxed">
+        You&apos;re a guest. Sign in to save your progress.
+      </div>
+      <div className="flex flex-col gap-2">
+        <Link
+          href={registerHref}
+          onClick={onNavigate}
+          className="inline-flex items-center justify-center rounded-md bg-brand text-brand-foreground text-sm font-medium py-2 hover:opacity-90"
+        >
+          Create free account
+        </Link>
+        <Link
+          href={signInHref}
+          onClick={onNavigate}
+          className="inline-flex items-center justify-center rounded-md border text-sm font-medium py-2 hover:bg-brand-soft"
+        >
+          Sign in
+        </Link>
+      </div>
     </div>
   );
 }

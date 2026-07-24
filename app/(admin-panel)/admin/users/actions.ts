@@ -33,7 +33,7 @@ export async function deleteUser(formData: FormData) {
   const redirectTo = String(formData.get("redirectTo") ?? "");
   if (!userId) return;
 
-  // Don't let an admin delete themselves — avoids locking yourself out.
+  // Don't let an admin delete themselves, avoids locking yourself out.
   if (userId === session.user.id) return;
 
   await db.user.delete({ where: { id: userId } });

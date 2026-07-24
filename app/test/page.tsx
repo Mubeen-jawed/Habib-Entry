@@ -3,13 +3,14 @@ import { SiteFooter } from "@/components/site-footer";
 import { BackButton } from "@/components/back-button";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { SchoolCard } from "@/components/school-card";
+import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { SCHOOL_LIST } from "@/lib/schools";
 import type { Tone } from "@/lib/tones";
 
 export const metadata = {
-  title: "Habib entry test pattern — DSSE & AHSS Accuplacer breakdown | Imtehan",
+  title: "Habib entry test pattern, DSSE & AHSS Accuplacer breakdown | Imtehan",
   description:
-    "The full Habib entry test pattern for 2026 — Accuplacer sections, timings, and question counts for DSSE and AHSS applicants, plus links to targeted Habib test preparation.",
+    "The full Habib entry test pattern for 2026, Accuplacer sections, timings, and question counts for DSSE and AHSS applicants, plus links to targeted Habib test preparation.",
   alternates: { canonical: "/test" },
 };
 
@@ -43,6 +44,14 @@ export default function TestPage() {
             ))}
           </div>
         </Section>
+
+        <RelatedPrepTopics
+          slugs={[...RELATED_SLUGS.test]}
+          eyebrow="Test prep"
+          eyebrowTone="sky"
+          title="Habib entry test preparation, by topic"
+          description="Free Habib mock tests, Accuplacer practice, and per-section guides for the Habib entrance exam."
+        />
       </main>
       <SiteFooter />
     </>

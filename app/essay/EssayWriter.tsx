@@ -18,6 +18,7 @@ import {
 import { cn } from "@/lib/utils";
 import { ESSAY_PROMPTS } from "./prompts";
 import { deleteEssay, saveEssay } from "./actions";
+import { readSnapshot, writeSnapshot } from "@/lib/guest-storage";
 import {
   PromptsGuideBody,
   PromptsGuideFooterActions,
@@ -202,6 +203,40 @@ export function EssayWriter({
   const [tipOpen, setTipOpen] = useState(initialDialog === "tips");
   const [rubricOpen, setRubricOpen] = useState(initialDialog === "rubric");
   const [pending, startTransition] = useTransition();
+  const [guestHydrated, setGuestHydrated] = useState(false);
+
+  // Restore guest essay draft on mount so refresh doesn't wipe the text or
+  // the selected prompt. Signed-in users' work is persisted server-side.
+  useEffect(() => {
+    if (isSignedIn) {
+      setGuestHydrated(true);
+      return;
+    }
+    const snap = readSnapshot<{
+      promptIdx: number;
+      text: string;
+      ratings: Ratings | null;
+    }>("essay", "guest");
+    if (snap) {
+      if (
+        Number.isInteger(snap.promptIdx) &&
+        snap.promptIdx >= 0 &&
+        snap.promptIdx < ESSAY_PROMPTS.length
+      ) {
+        setPromptIdx(snap.promptIdx);
+      }
+      if (typeof snap.text === "string") setText(snap.text);
+      if (snap.ratings) setRatings(snap.ratings);
+    }
+    setGuestHydrated(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Persist guest draft on any change (after hydration).
+  useEffect(() => {
+    if (isSignedIn || !guestHydrated) return;
+    writeSnapshot("essay", "guest", { promptIdx, text, ratings });
+  }, [isSignedIn, guestHydrated, promptIdx, text, ratings]);
 
   const dialogRef = useRef<HTMLDialogElement | null>(null);
   const ratingDialogRef = useRef<HTMLDialogElement | null>(null);
@@ -457,7 +492,7 @@ export function EssayWriter({
       {isAdmin && (
         <div className="rounded-md border border-dashed border-brand/40 bg-brand-soft/40 p-4 flex flex-wrap items-center justify-between gap-3">
           <div className="text-xs text-muted-foreground">
-            Admin — loads a sample five-paragraph essay so you can test the
+            Admin, loads a sample five-paragraph essay so you can test the
             word-count, save, and AI-rating flows end to end.
           </div>
           <Button type="button" variant="outline" size="sm" onClick={prefillSample}>

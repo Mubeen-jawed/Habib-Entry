@@ -11,6 +11,7 @@ import { Sticker } from "@/components/ui/sticker";
 import { ScribbleUnderline, Sparkle } from "@/components/ui/scribble";
 import { ExamBySchoolToggle } from "@/components/exam-by-school-toggle";
 import { SchoolCard } from "@/components/school-card";
+import { RelatedPrepTopics } from "@/components/related-prep-topics";
 import {
   ArrowRight,
   Building2,
@@ -32,16 +33,16 @@ const SCHOOL_TONES: Record<string, Tone> = {
 };
 
 export const metadata: Metadata = {
-  title: "Habib entry test preparation — free mocks, essay & interview | Imtehan",
+  title: "Imtehan, the free Habib University admissions app, by students",
   description:
-    "Imtehan is the free resource for the Habib University entry test: full-length Accuplacer mock tests, per-section practice for DSSE and AHSS, essay writing practice, and one-on-one mock interviews with current Habib students.",
+    "Imtehan is the free app for future Habib University applicants, built and maintained by current Habib students. Everything the university evaluates, in one place.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
-    title: "Habib entry test preparation — free mocks, essay & interview | Imtehan",
+    title: "Imtehan, the free Habib University admissions app, by students",
     description:
-      "Free Habib University entry test preparation for DSSE and AHSS applicants — Accuplacer mocks, essay practice, and mock interviews.",
+      "The free Habib University admissions app, built by current Habib students.",
   },
 };
 
@@ -97,14 +98,13 @@ export default function LandingPage() {
               </span>
             </h1>
             <p className="mt-8 text-lg md:text-xl text-foreground/70 max-w-2xl mx-auto leading-relaxed animate-fade-in-up">
-              Free Habib entry test preparation for DSSE and AHSS applicants —
-              full-length Accuplacer mock tests, per-section practice, timed
-              essay prompts, and one-on-one mock interviews with current Habib
-              students.
+              Everything you need to get into Habib University, practice,
+              mocks, essay feedback, and mock interviews. Free to start, built
+              by current students.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center animate-fade-in-up">
               <Button asChild size="xl" variant="brand">
-                <Link href="/register">
+                <Link href="/dashboard">
                   Start practicing <ArrowRight className="w-4 h-4" />
                 </Link>
               </Button>
@@ -187,6 +187,14 @@ export default function LandingPage() {
             ))}
           </div>
         </Section>
+
+        {/* Related prep topics, every keyword the site covers, as anchor-text links */}
+        <RelatedPrepTopics
+          eyebrow="Prep topics"
+          eyebrowTone="lavender"
+          title="Habib entrance test prep, topic by topic"
+          description="From Accuplacer math practice to Habib persuasive essay structure, every topic Habib evaluates has its own guide."
+        />
 
         {/* CTA */}
         <Section spacing="lg">

@@ -1,16 +1,22 @@
 import { auth, signOut } from "@/auth";
 import { DashboardSidebar } from "@/components/dashboard-sidebar";
 import { SiteFooter } from "@/components/site-footer";
+import { GuestBanner } from "@/components/guest-banner";
 import { cn } from "@/lib/utils";
 
 export async function AppShell({
   children,
   contentClassName,
+  guestCallbackUrl = "/dashboard",
+  guestMessage,
 }: {
   children: React.ReactNode;
   contentClassName?: string;
+  guestCallbackUrl?: string;
+  guestMessage?: string;
 }) {
   const session = await auth();
+  const isGuest = !session?.user;
 
   async function signOutAction() {
     "use server";
@@ -25,8 +31,12 @@ export async function AppShell({
           email: session?.user?.email ?? null,
         }}
         signOutAction={signOutAction}
+        isGuest={isGuest}
       />
       <main className="flex-1 min-w-0 flex flex-col">
+        {isGuest && (
+          <GuestBanner callbackUrl={guestCallbackUrl} message={guestMessage} />
+        )}
         {/* Mobile-only top padding clears the fixed sidebar-open button (top-3, ~40px tall). */}
         <div className={cn("pt-12 md:pt-0", contentClassName ?? "flex-1")}>
           {children}

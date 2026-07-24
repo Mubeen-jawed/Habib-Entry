@@ -185,6 +185,9 @@ model Attempt {
   // Mock-only: essay prompt shown to user and their written response.
   essayPrompt String?
   essayText   String?
+  // Practice-only: ordered JSON array of question IDs picked for this attempt,
+  // so a user can save & exit mid-attempt and resume with the same set.
+  questionIdsJson String?
 
   user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   mockTest MockTest? @relation(fields: [mockTestId], references: [id], onDelete: SetNull)

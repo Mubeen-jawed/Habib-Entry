@@ -80,7 +80,7 @@ export async function POST(req: NextRequest) {
       parsed = JSON.parse(text) as { ok?: boolean; error?: string };
     } catch {
       // Apps Script returns HTML (a Google login/authorization page) when the
-      // deployment isn't reachable anonymously — either the URL is a /dev URL
+      // deployment isn't reachable anonymously, either the URL is a /dev URL
       // instead of /exec, or "Who has access" isn't set to "Anyone".
     }
     if (!res.ok || parsed?.ok !== true) {
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
       });
       const hint =
         parsed === null
-          ? " (webhook returned non-JSON — check that INTERVIEW_WEBHOOK_URL is the /exec URL and the deployment is set to \"Anyone\")"
+          ? " (webhook returned non-JSON, check that INTERVIEW_WEBHOOK_URL is the /exec URL and the deployment is set to \"Anyone\")"
           : "";
       return NextResponse.json(
         {

@@ -2,14 +2,15 @@ import { AppShell } from "@/components/app-shell";
 import { BackButton } from "@/components/back-button";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { RelatedPrepTopics, RELATED_SLUGS } from "@/components/related-prep-topics";
 import { auth } from "@/auth";
 import { GraduationCap } from "lucide-react";
 import { ScholarshipList } from "./ScholarshipList";
 
 export const metadata = {
-  title: "Habib scholarship test — grades, merit & need-based aid | Imtehan",
+  title: "Habib scholarship test, grades, merit & need-based aid | Imtehan",
   description:
-    "How the Habib scholarship test works — merit and need-based aid, how your entrance test score interacts with your academic transcript, and eligibility by school.",
+    "How the Habib scholarship test works, merit and need-based aid, how your entrance test score interacts with your academic transcript, and eligibility by school.",
   alternates: { canonical: "/grades" },
 };
 
@@ -46,6 +47,13 @@ export default async function GradesPage() {
         <SiteHeader />
         <main className="flex-1">
           <GradesContent />
+          <RelatedPrepTopics
+            slugs={[...RELATED_SLUGS.grades]}
+            eyebrow="Prep resources"
+            eyebrowTone="butter"
+            title="Habib scholarship test and entry prep"
+            description="How your Habib entry test score and transcript combine for merit- and need-based scholarships."
+          />
         </main>
         <SiteFooter />
       </>

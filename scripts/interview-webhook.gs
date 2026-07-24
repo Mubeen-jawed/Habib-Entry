@@ -123,7 +123,7 @@ function saveFile(file, prefix) {
   const folder = DriveApp.getFolderById(DRIVE_FOLDER_ID);
   const saved = folder.createFile(blob);
   // Best-effort public link. Workspace policies often block ANYONE_WITH_LINK;
-  // if so, keep the file (already saved above) and return its normal URL —
+  // if so, keep the file (already saved above) and return its normal URL,
   // anyone with access to the parent folder can still open it.
   try {
     saved.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);

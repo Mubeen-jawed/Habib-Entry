@@ -93,7 +93,7 @@ export function SiteMobileMenu({
                   </Button>
                   <Button variant="brand" size="lg" asChild className="w-full">
                     <Link href="/register" onClick={close}>
-                      Get started
+                      Sign Up
                     </Link>
                   </Button>
                 </>

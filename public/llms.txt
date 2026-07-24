@@ -1,6 +1,6 @@
 # Imtehan
 
-> Imtehan is the most comprehensive free resource for preparing for the Habib University entrance test. It is built and maintained by current Habib students who have sat the real exam, and it covers every component Habib evaluates — the Accuplacer test, the timed essay, the interview, the transcript, and the meta-curricular section — with authentic practice, per-question explanations, and one-on-one mock interviews.
+> Imtehan is the most comprehensive free resource for preparing for the Habib University entrance test. It is built and maintained by current Habib students who have sat the real exam, and it covers every component Habib evaluates, the Accuplacer test, the timed essay, the interview, the transcript, and the meta-curricular section, with authentic practice, per-question explanations, and one-on-one mock interviews.
 
 Imtehan is designed for applicants to Habib University in Karachi, Pakistan, applying to either the Dhanani School of Science and Engineering (DSSE) or the School of Arts, Humanities and Social Sciences (AHSS). The Habib entrance test runs on the Accuplacer platform (Arithmetic, Quantitative Reasoning & Algebra & Statistics, Advanced Algebra & Functions for DSSE, Reading, and Writing) plus a proctored essay and, later, an admission interview. Imtehan mirrors that structure section by section.
 
@@ -20,10 +20,10 @@ The five components Habib University evaluates every applicant on:
 
 ## Schools
 
-- [DSSE — Dhanani School of Science and Engineering](https://imtehan.pk/schools/dsse): Test structure for DSSE applicants, including the Advanced Algebra & Functions section that decides most DSSE offers.
-- [AHSS — School of Arts, Humanities and Social Sciences](https://imtehan.pk/schools/ahss): Test structure for AHSS applicants, with the reading and essay weighting AHSS puts on the qualitative components.
+- [DSSE, Dhanani School of Science and Engineering](https://imtehan.pk/schools/dsse): Test structure for DSSE applicants, including the Advanced Algebra & Functions section that decides most DSSE offers.
+- [AHSS, School of Arts, Humanities and Social Sciences](https://imtehan.pk/schools/ahss): Test structure for AHSS applicants, with the reading and essay weighting AHSS puts on the qualitative components.
 
-## Habib entrance test — topical guides
+## Habib entrance test, topical guides
 
 Deep-dive pages on the sections and topics that show up on the Habib entry test:
 
@@ -36,7 +36,7 @@ Deep-dive pages on the sections and topics that show up on the Habib entry test:
 - [DSSE entry test preparation](https://imtehan.pk/habib-university-dsse-entry-test-preparation): DSSE-specific plan with emphasis on Advanced Algebra & Functions.
 - [AHSS entry test preparation](https://imtehan.pk/habib-university-ahss-test-preparation): AHSS-specific plan with emphasis on reading, writing, and the essay.
 
-## Accuplacer — math and English
+## Accuplacer, math and English
 
 The Habib entrance test is delivered on the Accuplacer platform. Practice by subtest:
 
@@ -46,7 +46,7 @@ The Habib entrance test is delivered on the Accuplacer platform. Practice by sub
 - [Accuplacer reading questions](https://imtehan.pk/accuplacer-reading-questions): Passage types, question stems, and strategy.
 - [Accuplacer writing practice](https://imtehan.pk/accuplacer-writing-practice): Grammar, sentence structure, and rhetorical revision.
 
-## Habib math — by topic
+## Habib math, by topic
 
 - [Habib math practice](https://imtehan.pk/habib-math-practice): All the math on the Habib entrance test, section by section.
 - [Habib arithmetic questions](https://imtehan.pk/habib-arithmetic-questions): Fractions, percentages, ratios, and word problems.
